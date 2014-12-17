@@ -1,0 +1,238 @@
+object frmSettings: TfrmSettings
+  Left = 887
+  Height = 325
+  Top = 480
+  Width = 400
+  BorderIcons = [biSystemMenu]
+  Caption = 'frmSettings'
+  ClientHeight = 325
+  ClientWidth = 400
+  Font.Height = 13
+  Font.Name = 'Monospace'
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  LCLVersion = '1.3'
+  object Slide: TLabel
+    Left = 8
+    Height = 15
+    Top = 72
+    Width = 40
+    Caption = 'Slide'
+    Font.Height = -13
+    Font.Name = 'Monospace'
+    ParentColor = False
+    ParentFont = False
+  end
+  object GridLable: TLabel
+    Left = 8
+    Height = 15
+    Top = 152
+    Width = 72
+    Caption = 'GridLable'
+    Font.Height = -13
+    Font.Name = 'Monospace'
+    ParentColor = False
+    ParentFont = False
+  end
+  object GridFont: TLabel
+    Left = 144
+    Height = 18
+    Top = 152
+    Width = 7
+    AutoSize = False
+    Caption = 'GridFont'
+    Font.Height = -13
+    Font.Name = 'Monospace'
+    ParentColor = False
+    ParentFont = False
+    Visible = False
+  end
+  object SlideFont: TLabel
+    Left = 144
+    Height = 18
+    Top = 72
+    Width = 7
+    AutoSize = False
+    Caption = 'SlideFont'
+    Font.Height = -13
+    Font.Name = 'Monospace'
+    Font.Quality = fqAntialiased
+    ParentColor = False
+    ParentFont = False
+    Visible = False
+  end
+  object btnSlideFont: TButton
+    Tag = 1
+    Left = 256
+    Height = 25
+    Top = 96
+    Width = 75
+    Caption = 'Set Font'
+    Font.Height = -13
+    Font.Name = 'Monospace'
+    OnClick = btnSlideFontClick
+    ParentFont = False
+    TabOrder = 0
+  end
+  object Button2: TButton
+    Left = 256
+    Height = 25
+    Top = 179
+    Width = 75
+    Caption = 'Set Font'
+    Font.Height = -13
+    Font.Name = 'Monospace'
+    OnClick = btnSlideFontClick
+    ParentFont = False
+    TabOrder = 1
+  end
+  object btnEditable: TButton
+    Tag = 1
+    Left = 136
+    Height = 27
+    Top = 256
+    Width = 124
+    Caption = 'make editable'
+    Font.Height = -13
+    Font.Name = 'Monospace'
+    OnClick = btnEditableClick
+    ParentFont = False
+    TabOrder = 2
+  end
+  object ComboBox1: TComboBox
+    Tag = 1
+    Left = 8
+    Height = 25
+    Top = 96
+    Width = 172
+    Font.Height = -13
+    Font.Name = 'Monospace'
+    ItemHeight = 0
+    OnChange = ComboBox1Change
+    ParentFont = False
+    TabOrder = 3
+    Text = 'ComboBox1'
+  end
+  object ComboBox2: TComboBox
+    Tag = 2
+    Left = 8
+    Height = 25
+    Top = 177
+    Width = 172
+    Font.Height = -13
+    Font.Name = 'Monospace'
+    ItemHeight = 0
+    OnChange = ComboBox1Change
+    ParentFont = False
+    TabOrder = 4
+    Text = 'ComboBox2'
+  end
+  object SpinEdit1: TSpinEdit
+    Tag = 1
+    Left = 192
+    Height = 23
+    Top = 98
+    Width = 50
+    Font.Height = -13
+    Font.Name = 'Monospace'
+    MaxValue = 1000
+    OnChange = SpinEdit1Change
+    ParentFont = False
+    TabOrder = 5
+  end
+  object SpinEdit2: TSpinEdit
+    Tag = 2
+    Left = 192
+    Height = 23
+    Top = 176
+    Width = 50
+    Font.Height = -13
+    Font.Name = 'Monospace'
+    OnChange = SpinEdit1Change
+    ParentFont = False
+    TabOrder = 6
+  end
+  object SpinEdit3: TFloatSpinEdit
+    Left = 344
+    Height = 23
+    Top = 98
+    Width = 50
+    Font.Height = -13
+    Font.Name = 'Monospace'
+    Increment = 0.1
+    MaxValue = 100
+    MinValue = 0
+    OnClick = SpinEdit2Change
+    ParentFont = False
+    TabOrder = 7
+    Value = 0
+  end
+  object btSave: TButton
+    Left = 16
+    Height = 25
+    Top = 256
+    Width = 75
+    Caption = 'Save'
+    Font.Height = -13
+    Font.Name = 'Monospace'
+    OnClick = btSaveClick
+    ParentFont = False
+    TabOrder = 8
+  end
+  object btnColor: TButton
+    Left = 237
+    Height = 35
+    Top = 21
+    Width = 94
+    Caption = 'Text Color'
+    OnClick = btnColorClick
+    TabOrder = 9
+  end
+  object btnScreens: TButton
+    Left = 72
+    Height = 25
+    Top = 31
+    Width = 118
+    Caption = 'Detect Screens'
+    OnClick = btnScreensClick
+    TabOrder = 10
+  end
+  object FontDialog1: TFontDialog
+    Width = 449
+    Height = 343
+    Font.Height = 13
+    Font.Name = 'Sans'
+    MinFontSize = 0
+    MaxFontSize = 0
+    left = 8
+  end
+  object ColorDialog1: TColorDialog
+    Width = 523
+    Height = 282
+    Color = clBlack
+    CustomColors.Strings = (
+      'ColorA=000000'
+      'ColorB=000080'
+      'ColorC=008000'
+      'ColorD=008080'
+      'ColorE=800000'
+      'ColorF=800080'
+      'ColorG=808000'
+      'ColorH=808080'
+      'ColorI=C0C0C0'
+      'ColorJ=0000FF'
+      'ColorK=00FF00'
+      'ColorL=00FFFF'
+      'ColorM=FF0000'
+      'ColorN=FF00FF'
+      'ColorO=FFFF00'
+      'ColorP=FFFFFF'
+      'ColorQ=C0DCC0'
+      'ColorR=F0CAA6'
+      'ColorS=F0FBFF'
+      'ColorT=A4A0A0'
+    )
+    left = 348
+    top = 296
+  end
+end

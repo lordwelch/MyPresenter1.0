@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Settings>
+  <Slide_font Bold="0" Size="-23" Italic="0" Underline="0">Monospace</Slide_font>
+  <Grid_font Bold="0" Size="-10" Italic="0" Underline="0">Monospace</Grid_font>
+  <Grid_options>goEditing</Grid_options>
+  <Text_outline>0.00</Text_outline>
+</Settings>
