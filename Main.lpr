@@ -5,7 +5,7 @@ program Main;
 uses
   cmem, Interfaces, // this includes the LCL widgetset
   Forms, bgrabitmappack, main_code, Data, VersionSupport, uabout, settings,
-  Projector;
+  Projector, slideeditor;
 
 {$R *.res}
 
@@ -16,6 +16,7 @@ begin
   Application.CreateForm(TfrmAbout, frmAbout);
   Application.CreateForm(TfrmSettings, frmSettings);
   Application.CreateForm(TfrmProjector, frmProjector);
+  Application.CreateForm(TfrmSlideEditor, frmSlideEditor);
   Application.Run;
 end.
 

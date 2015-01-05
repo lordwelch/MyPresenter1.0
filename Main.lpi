@@ -13,6 +13,7 @@
         <DpiAware Value="True"/>
       </XPManifest>
       <Icon Value="0"/>
+      <ActiveWindowIndexAtStart Value="0"/>
     </General>
     <i18n>
       <EnableI18N LFM="False"/>
@@ -53,6 +54,9 @@
               </Win32>
             </Options>
           </Linking>
+          <Other>
+            <CompilerPath Value="$(CompPath)"/>
+          </Other>
         </CompilerOptions>
       </Item2>
       <Item3 Name="Debug-win">
@@ -92,6 +96,9 @@
               </Win32>
             </Options>
           </Linking>
+          <Other>
+            <CompilerPath Value="$(CompPath)"/>
+          </Other>
         </CompilerOptions>
       </Item3>
       <Item4 Name="Release-win">
@@ -123,6 +130,9 @@
               </Win32>
             </Options>
           </Linking>
+          <Other>
+            <CompilerPath Value="$(CompPath)"/>
+          </Other>
         </CompilerOptions>
       </Item4>
     </BuildModes>
@@ -151,11 +161,16 @@
         <PackageName Value="LCL"/>
       </Item5>
     </RequiredPackages>
-    <Units Count="14">
+    <Units Count="21">
       <Unit0>
         <Filename Value="Main.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UsageCount Value="31"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="59" Y="19"/>
+        <UsageCount Value="35"/>
+        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="main_code.pas"/>
@@ -164,25 +179,28 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="main_code"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="161"/>
-        <CursorPos X="8" Y="149"/>
-        <UsageCount Value="31"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="61"/>
+        <CursorPos X="22" Y="215"/>
+        <UsageCount Value="35"/>
+        <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="data.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="Data"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="88"/>
-        <CursorPos X="6" Y="108"/>
-        <UsageCount Value="31"/>
+        <EditorIndex Value="5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="338"/>
+        <CursorPos X="13" Y="303"/>
+        <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="versionsupport.pas"/>
         <IsPartOfProject Value="True"/>
-        <UsageCount Value="31"/>
+        <UsageCount Value="35"/>
       </Unit3>
       <Unit4>
         <Filename Value="uabout.pas"/>
@@ -190,7 +208,7 @@
         <ComponentName Value="frmAbout"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UsageCount Value="31"/>
+        <UsageCount Value="35"/>
       </Unit4>
       <Unit5>
         <Filename Value="settings.pas"/>
@@ -199,10 +217,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="settings"/>
-        <EditorIndex Value="-1"/>
         <TopLine Value="79"/>
         <CursorPos X="7" Y="124"/>
-        <UsageCount Value="31"/>
+        <UsageCount Value="35"/>
       </Unit5>
       <Unit6>
         <Filename Value="projector.pas"/>
@@ -211,64 +228,226 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Projector"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="30"/>
-        <CursorPos X="55" Y="12"/>
-        <UsageCount Value="31"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="15" Y="26"/>
+        <UsageCount Value="35"/>
+        <Loaded Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="../../lazarus/lcl/forms.pp"/>
-        <EditorIndex Value="-1"/>
         <TopLine Value="700"/>
         <CursorPos X="15" Y="717"/>
         <UsageCount Value="9"/>
       </Unit7>
       <Unit8>
         <Filename Value="../../lazarus/lcl/include/customform.inc"/>
-        <EditorIndex Value="-1"/>
         <TopLine Value="2433"/>
         <CursorPos X="6" Y="2373"/>
         <UsageCount Value="9"/>
       </Unit8>
       <Unit9>
         <Filename Value="../../Downloads/bgra-controls-3.2-20140421/bcbutton.pas"/>
-        <EditorIndex Value="-1"/>
         <TopLine Value="82"/>
         <CursorPos X="33" Y="97"/>
         <UsageCount Value="9"/>
       </Unit9>
       <Unit10>
         <Filename Value="../../Downloads/bgra-controls-3.2-20140421/bcbasectrls.pas"/>
-        <EditorIndex Value="-1"/>
         <TopLine Value="66"/>
         <CursorPos X="35" Y="81"/>
         <UsageCount Value="9"/>
       </Unit10>
       <Unit11>
         <Filename Value="../../lazarus/lcl/controls.pp"/>
-        <EditorIndex Value="-1"/>
         <TopLine Value="1008"/>
         <CursorPos X="3" Y="1023"/>
         <UsageCount Value="9"/>
       </Unit11>
       <Unit12>
         <Filename Value="../../lazarus/lcl/graphics.pp"/>
-        <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
         <TopLine Value="85"/>
         <CursorPos X="25" Y="100"/>
         <UsageCount Value="9"/>
       </Unit12>
       <Unit13>
         <Filename Value="../../fpc/share/src/fpc-2.6.4/fpc/rtl/objpas/classes/classesh.inc"/>
-        <EditorIndex Value="-1"/>
         <WindowIndex Value="1"/>
         <TopLine Value="67"/>
         <CursorPos X="3" Y="94"/>
         <UsageCount Value="9"/>
       </Unit13>
+      <Unit14>
+        <Filename Value="G:/timmy/Desktop/customlpks/mydrawgrid.pas"/>
+        <UnitName Value="MyDrawGrid"/>
+        <TopLine Value="202"/>
+        <CursorPos X="20" Y="217"/>
+        <UsageCount Value="10"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="G:/timmy/Desktop/customlpks/mydrawgrid.pas"/>
+        <UnitName Value="MyDrawGrid"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="173"/>
+        <CursorPos X="9" Y="188"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="../../../../lazarus/lcl/grids.pas"/>
+        <UnitName Value="Grids"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1060"/>
+        <CursorPos X="43" Y="1073"/>
+        <UsageCount Value="10"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="../../../../lazarus/lcl/controls.pp"/>
+        <UnitName Value="Controls"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1619"/>
+        <CursorPos X="14" Y="1633"/>
+        <UsageCount Value="10"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="../../../../lazarus/lcl/dialogs.pp"/>
+        <UnitName Value="Dialogs"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="16"/>
+        <CursorPos X="24" Y="55"/>
+        <UsageCount Value="10"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="slideeditor.pas"/>
+        <ComponentName Value="Form2"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="slideeditor"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="9"/>
+        <CursorPos X="1" Y="39"/>
+        <UsageCount Value="21"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="slideeditor.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmSlideEditor"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="slideeditor"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="11"/>
+        <CursorPos X="18" Y="38"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit20>
     </Units>
-    <JumpHistory HistoryIndex="-1"/>
+    <JumpHistory Count="25" HistoryIndex="24">
+      <Position1>
+        <Filename Value="main_code.pas"/>
+        <Caret Line="150" Column="8" TopLine="150"/>
+      </Position1>
+      <Position2>
+        <Filename Value="main_code.pas"/>
+        <Caret Line="213" Column="10" TopLine="191"/>
+      </Position2>
+      <Position3>
+        <Filename Value="main_code.pas"/>
+        <Caret Line="77" Column="49" TopLine="104"/>
+      </Position3>
+      <Position4>
+        <Filename Value="slideeditor.pas"/>
+        <Caret Line="19" Column="4" TopLine="1"/>
+      </Position4>
+      <Position5>
+        <Filename Value="slideeditor.pas"/>
+        <Caret Line="28" Column="18" TopLine="1"/>
+      </Position5>
+      <Position6>
+        <Filename Value="slideeditor.pas"/>
+        <Caret Line="25" Column="6" TopLine="4"/>
+      </Position6>
+      <Position7>
+        <Filename Value="slideeditor.pas"/>
+        <Caret Line="39" Column="4" TopLine="12"/>
+      </Position7>
+      <Position8>
+        <Filename Value="slideeditor.pas"/>
+        <Caret Line="25" Column="17" TopLine="9"/>
+      </Position8>
+      <Position9>
+        <Filename Value="Main.lpr"/>
+        <Caret Line="19" Column="50" TopLine="1"/>
+      </Position9>
+      <Position10>
+        <Filename Value="slideeditor.pas"/>
+        <Caret Line="20" Column="35" TopLine="1"/>
+      </Position10>
+      <Position11>
+        <Filename Value="slideeditor.pas"/>
+        <Caret Line="1" Column="17" TopLine="1"/>
+      </Position11>
+      <Position12>
+        <Filename Value="slideeditor.pas"/>
+        <Caret Line="34" Column="26" TopLine="11"/>
+      </Position12>
+      <Position13>
+        <Filename Value="slideeditor.pas"/>
+        <Caret Line="38" Column="4" TopLine="11"/>
+      </Position13>
+      <Position14>
+        <Filename Value="G:/timmy/Desktop/customlpks/mydrawgrid.pas"/>
+        <Caret Line="226" Column="19" TopLine="207"/>
+      </Position14>
+      <Position15>
+        <Filename Value="G:/timmy/Desktop/customlpks/mydrawgrid.pas"/>
+        <Caret Line="224" Column="23" TopLine="209"/>
+      </Position15>
+      <Position16>
+        <Filename Value="G:/timmy/Desktop/customlpks/mydrawgrid.pas"/>
+        <Caret Line="29" Column="20" TopLine="21"/>
+      </Position16>
+      <Position17>
+        <Filename Value="G:/timmy/Desktop/customlpks/mydrawgrid.pas"/>
+        <Caret Line="221" Column="30" TopLine="198"/>
+      </Position17>
+      <Position18>
+        <Filename Value="G:/timmy/Desktop/customlpks/mydrawgrid.pas"/>
+        <Caret Line="28" Column="14" TopLine="13"/>
+      </Position18>
+      <Position19>
+        <Filename Value="G:/timmy/Desktop/customlpks/mydrawgrid.pas"/>
+        <Caret Line="41" Column="63" TopLine="16"/>
+      </Position19>
+      <Position20>
+        <Filename Value="G:/timmy/Desktop/customlpks/mydrawgrid.pas"/>
+        <Caret Line="188" Column="16" TopLine="174"/>
+      </Position20>
+      <Position21>
+        <Filename Value="G:/timmy/Desktop/customlpks/mydrawgrid.pas"/>
+        <Caret Line="221" Column="22" TopLine="205"/>
+      </Position21>
+      <Position22>
+        <Filename Value="G:/timmy/Desktop/customlpks/mydrawgrid.pas"/>
+        <Caret Line="41" Column="64" TopLine="27"/>
+      </Position22>
+      <Position23>
+        <Filename Value="G:/timmy/Desktop/customlpks/mydrawgrid.pas"/>
+        <Caret Line="221" Column="25" TopLine="206"/>
+      </Position23>
+      <Position24>
+        <Filename Value="G:/timmy/Desktop/customlpks/mydrawgrid.pas"/>
+        <Caret Line="28" Column="16" TopLine="13"/>
+      </Position24>
+      <Position25>
+        <Filename Value="G:/timmy/Desktop/customlpks/mydrawgrid.pas"/>
+        <Caret Line="188" Column="17" TopLine="176"/>
+      </Position25>
+    </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
@@ -304,6 +483,9 @@
         </Win32>
       </Options>
     </Linking>
+    <Other>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="4">
@@ -321,4 +503,5 @@
       </Item4>
     </Exceptions>
   </Debugging>
+  <EditorMacros Count="0"/>
 </CONFIG>

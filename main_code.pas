@@ -7,7 +7,7 @@ interface
 uses
   cmem, Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   LCLType, StdCtrls, ExtCtrls, ActnList, StdActns, BGRAImageList, Data,
-  MyDrawGrid, BCButton, Projector, Grids, settings;
+  MyDrawGrid, BCButton, Projector, Grids, settings, slideeditor;
 
 type
 
@@ -212,8 +212,7 @@ end;
 
 procedure TForm1.Button1Click(Sender: TObject);
 begin
-  CurrentSlide+=1;
-  frmProjector.BGRAGraphicControl1.Invalidate;
+  frmSlideEditor.Show;
 end;
 
 procedure TForm1.TACloseExecute(Sender: TObject);
