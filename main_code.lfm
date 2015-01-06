@@ -1,11 +1,11 @@
 object Form1: TForm1
-  Left = 705
+  Left = 854
   Height = 753
-  Top = 202
+  Top = 389
   Width = 943
   AllowDropFiles = True
   Caption = 'MyPresenter 1.0'
-  ClientHeight = 733
+  ClientHeight = 728
   ClientWidth = 943
   Menu = MainMenu1
   OnCreate = FormCreate
@@ -20,7 +20,7 @@ object Form1: TForm1
     AutoAdvance = aaDown
     AutoEdit = False
     AutoFillColumns = True
-    ColCount = 2
+    ColCount = 3
     DefaultRowHeight = 50
     ExtendedSelect = False
     TabOrder = 1
@@ -30,7 +30,8 @@ object Form1: TForm1
     OnSetEditText = GridSetEditText
     ColWidths = (
       64
-      396
+      198
+      198
     )
   end
   object BCButton1: TBCButton
@@ -527,4 +528,4 @@ object Form1: TForm1
       ShortCut = 24691
     end
   end
-end
+end

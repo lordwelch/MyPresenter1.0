@@ -51,12 +51,9 @@ end;
 procedure TfrmProjector.FormPaint(Sender: TObject);
 var
   SlideBitmap: TBGRABitmap;
-  bitmap1: TBitmap;
   //x, y: Integer;
 begin
-  bitmap1:=TBitmap.Create;
-  GridImageList.GetBitmap(CurrentSlide, bitmap1);
-  SlideBitmap:=TBGRABitmap.Create(bitmap1);
+  SlideBitmap:=GridImageList[CurrentSlide];
   AColor:=BGRAWhite;
   //y:= (Monitor.Height - AHeight[CurrentSlide]) div 2;
   //x:= (Monitor.Width - AWidth[CurrentSlide])div 2;
@@ -65,7 +62,6 @@ begin
   BGRAGraphicControl1.Bitmap.TextRect(frmProjector.BoundsRect, 0, 0, Form1.Grid.Cells[1,(CurrentSlide+1)], TextStyle, AColor);
   //SlideBitmap.Draw(BGRAGraphicControl1.Canvas, 0, 0);
   SlideBitmap.Free;
-  bitmap1.Free;
 end;
 
 end.

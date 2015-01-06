@@ -6,7 +6,7 @@ interface
 
 uses
   cmem, Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  LCLType, StdCtrls, ExtCtrls, ActnList, StdActns, BGRAImageList, Data,
+  LCLType, StdCtrls, ExtCtrls, ActnList, StdActns, Data,
   MyDrawGrid, BCButton, Projector, Grids, settings, slideeditor;
 
 type
@@ -94,12 +94,12 @@ implementation
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   LoadSupportedImages();
-  GridImageList := TBGRAImageList.Create(Grid);
+  {GridImageList := TBGRAImageList.Create(Grid);
   with GridImageList do
   begin
     Height:=Monitor.Height;
     Width:=Monitor.Width;
-  end;
+  end;  }
   CurrentSlide := 0;
   NextSlide := 1;
   GetScreens();
@@ -171,7 +171,7 @@ end;
 procedure TForm1.MenuItem8Click(Sender: TObject);
 begin
   ImagePath.Clear;
-  GridImageList.Clear;
+  FreeAndNil(GridImageList);
   Grid.Clear;
   Memo1.Clear;
   with grid do
@@ -226,4 +226,4 @@ begin
 end;
 
 end.
-
+

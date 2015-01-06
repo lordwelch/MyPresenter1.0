@@ -6,7 +6,7 @@ interface
 
 uses
   cmem, Classes, SysUtils, Grids, laz2_DOM, laz2_XMLWrite, laz2_XMLRead, BGRABitmap,
-  BGRAImageList, BGRABitmapTypes, Graphics, Forms, Dialogs;
+  BGRABitmapTypes, Graphics, Forms, Dialogs;
 
 var
   CurrentSlide, NextSlide, goEditingIndex: Integer;
@@ -15,7 +15,7 @@ var
   TextStyle: TTextStyle;
   ImagePath, SGridOptions, SupportedImages: TStringList; //file path for images
   GridOptions: TGridOptions;
-  GridImageList: TBGRAImageList;
+  GridImageList: array of TBGRABitmap;
   Background: TBGRABitmap;
   AColor: TBGRAPixel;
   MonitorPro: TMonitor;
@@ -259,7 +259,7 @@ end;
 
 procedure LoadImages();
 var
-  i, width, height, LenW, LenH: Integer;
+  i, width, height: Integer;
   LoadBGRA, PutBGRA: TBGRABitmap;
   //ratio: String;
   //strX, strY: String;
@@ -268,6 +268,7 @@ begin
   //LenH:=Length(AHeight);
   //SetLength(AWidth, (ImagePath.Count + LenW));
   //SetLength(AHeight, (ImagePath.Count + LenH));
+  SetLength(GridImageList, (Length(GridImageList)+ImagePath.Count));
   for i := 0 to (ImagePath.Count - 1) do
     begin
       //Form1.Memo1.Append('debug: ratio');
@@ -304,7 +305,8 @@ begin
       AColor:= BGRABlack;
       PutBGRA:=TBGRABitmap.Create(MonitorPro.Width, MonitorPro.Height, AColor);
       PutBGRA.PutImage(((MonitorPro.Width - width)div 2), ((MonitorPro.Height - height) div 2), LoadBGRA.Resample(width, height), dmSet);
-      GridImageList.add((PutBGRA).Bitmap, nil);
+      GridImageList[i]:=PutBGRA;
+      //.add((PutBGRA).Bitmap, nil);
       Form1.Memo1.Append(IntToStr(i));
 
       //AHeight[i+LenH]:=height;
@@ -365,4 +367,4 @@ begin
 end;
 
 end.
-
+

@@ -1,19 +1,51 @@
 object frmSlideEditor: TfrmSlideEditor
-  Left = 375
-  Height = 240
-  Top = 170
-  Width = 320
+  Left = 574
+  Height = 368
+  Top = 774
+  Width = 513
+  BorderIcons = []
   Caption = 'frmSlideEditor'
-  ClientHeight = 240
-  ClientWidth = 320
+  ClientHeight = 368
+  ClientWidth = 513
+  OnClose = FormClose
   OnShow = FormShow
   LCLVersion = '1.3'
-  object MyDrawGrid1: TMyDrawGrid
-    Left = 65
-    Height = 100
-    Top = 70
-    Width = 200
-    ExtendedSelect = False
+  object ComboBox1: TComboBox
+    Left = 38
+    Height = 25
+    Top = 60
+    Width = 100
+    ItemHeight = 0
+    OnChange = ComboBox1Change
     TabOrder = 0
+    Text = 'ComboBox1'
   end
-end
+  object BGRAGraphicControl1: TBGRAGraphicControl
+    Left = 200
+    Height = 159
+    Top = 16
+    Width = 173
+    Color = clNone
+    ColorOpacity = 0
+    Alignment = taCenter
+  end
+  object ComboBox2: TComboBox
+    Left = 38
+    Height = 25
+    Top = 144
+    Width = 100
+    ItemHeight = 0
+    OnChange = ComboBox2Change
+    TabOrder = 1
+    Text = 'ComboBox2'
+  end
+  object BGRAGraphicControl2: TBGRAGraphicControl
+    Left = 200
+    Height = 159
+    Top = 184
+    Width = 173
+    Color = clNone
+    ColorOpacity = 0
+    Alignment = taCenter
+  end
+end
