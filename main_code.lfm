@@ -1,5 +1,5 @@
 object Form1: TForm1
-  Left = 854
+  Left = 860
   Height = 753
   Top = 389
   Width = 943
@@ -8,6 +8,7 @@ object Form1: TForm1
   ClientHeight = 728
   ClientWidth = 943
   Menu = MainMenu1
+  OnClose = FormClose
   OnCreate = FormCreate
   OnDropFiles = FormDropFiles
   Position = poScreenCenter

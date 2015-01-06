@@ -14,12 +14,11 @@ type
 
   TfrmSlideEditor = class(TForm)
     BGRAGraphicControl1: TBGRAGraphicControl;
-    BGRAGraphicControl2: TBGRAGraphicControl;
+    selectimage: TBGRAGraphicControl;
     ComboBox1: TComboBox;
     ComboBox2: TComboBox;
     procedure ComboBox1Change(Sender: TObject);
     procedure ComboBox2Change(Sender: TObject);
-    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
   private
     { private declarations }
@@ -56,22 +55,19 @@ begin
 end;
 
 procedure TfrmSlideEditor.ComboBox2Change(Sender: TObject);
-var test1: TBGRABitmap;
+//var test1: TBGRABitmap;
 begin
+  try
   //test1:=TBGRABitmap.Create;
   Form1.Memo1.Append('load');
-  test1:=GridImageList[StrToInt(ComboBox2.Text)];
+  //test1.PutImage(0, 0, , dmSet);;
   Form1.Memo1.Append('put');
-  BGRAGraphicControl2.Bitmap.PutImage(0, 0, test1.Resample(BGRAGraphicControl2.Width, BGRAGraphicControl2.Height), dmSet);
+  selectimage.Bitmap.PutImage(0, 0, GridImageList[StrToInt(ComboBox2.Text)].Resample(selectimage.Width, selectimage.Height), dmSet);
   Form1.Memo1.Append('paint');
-  BGRAGraphicControl2.Invalidate;
-  test1.Free;
-end;
-
-procedure TfrmSlideEditor.FormClose(Sender: TObject;
-  var CloseAction: TCloseAction);
-begin
-  FreeAndNil(GridImageList);
+  selectimage.Invalidate;
+  finally
+    //test1.Free;
+  end;
 end;
 
 //initialization

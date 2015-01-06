@@ -1,5 +1,5 @@
 object frmSlideEditor: TfrmSlideEditor
-  Left = 574
+  Left = 646
   Height = 368
   Top = 774
   Width = 513
@@ -7,7 +7,6 @@ object frmSlideEditor: TfrmSlideEditor
   Caption = 'frmSlideEditor'
   ClientHeight = 368
   ClientWidth = 513
-  OnClose = FormClose
   OnShow = FormShow
   LCLVersion = '1.3'
   object ComboBox1: TComboBox
@@ -31,15 +30,16 @@ object frmSlideEditor: TfrmSlideEditor
   end
   object ComboBox2: TComboBox
     Left = 38
-    Height = 25
+    Height = 27
     Top = 144
     Width = 100
     ItemHeight = 0
     OnChange = ComboBox2Change
+    Sorted = True
+    Style = csDropDownList
     TabOrder = 1
-    Text = 'ComboBox2'
   end
-  object BGRAGraphicControl2: TBGRAGraphicControl
+  object selectimage: TBGRAGraphicControl
     Left = 200
     Height = 159
     Top = 184

@@ -57,6 +57,7 @@ type
     OpenDialog1: TOpenDialog;
     procedure BCButton2Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure TACloseExecute(Sender: TObject);
     procedure EditableExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -170,13 +171,13 @@ end;
 
 procedure TForm1.MenuItem8Click(Sender: TObject);
 begin
+  FreeImage();
   ImagePath.Clear;
-  FreeAndNil(GridImageList);
   Grid.Clear;
   Memo1.Clear;
   with grid do
   begin
-    ColCount:=2;
+    ColCount:=3;
     FixedCols:=1;
     RowCount:=5;
     FixedRows:=1;
@@ -188,9 +189,12 @@ procedure TForm1.NextSlideExecute(Sender: TObject);
 begin
   if TAction(Sender).Tag = 1 then
     begin
-    if CurrentSlide < (ImagePath.Count - 1) then
+    if CurrentSlide < (Length(GridImageList) - 1) then
       begin
-      CurrentSlide+=1;
+      if (CurrentSlide >= (Length(GridImageList) - 1)) then
+        CurrentSlide:=(Length(GridImageList)-1)
+      else
+        CurrentSlide+=1;
       Memo1.Append('next')
       end
     end
@@ -200,9 +204,9 @@ begin
       CurrentSlide-=1;
       Memo1.Append('previous');
       end;
-
+  Memo1.Append(IntToStr(CurrentSlide));
        //setslidetext(textSlidesgrid.Cells[x, y]);
-  frmProjector.BGRAGraphicControl1.Invalidate;
+  frmProjector.Invalidate;
 end;
 
 procedure TForm1.BCButton2Click(Sender: TObject);
@@ -213,6 +217,11 @@ end;
 procedure TForm1.Button1Click(Sender: TObject);
 begin
   frmSlideEditor.Show;
+end;
+
+procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  FreeImage();
 end;
 
 procedure TForm1.TACloseExecute(Sender: TObject);

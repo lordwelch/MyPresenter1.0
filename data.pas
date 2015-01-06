@@ -8,6 +8,10 @@ uses
   cmem, Classes, SysUtils, Grids, laz2_DOM, laz2_XMLWrite, laz2_XMLRead, BGRABitmap,
   BGRABitmapTypes, Graphics, Forms, Dialogs;
 
+type
+  TBGRABitmapArray = array of TBGRABitmap;
+
+
 var
   CurrentSlide, NextSlide, goEditingIndex: Integer;
   //AHeight, AWidth: Array of Integer;
@@ -15,7 +19,7 @@ var
   TextStyle: TTextStyle;
   ImagePath, SGridOptions, SupportedImages: TStringList; //file path for images
   GridOptions: TGridOptions;
-  GridImageList: array of TBGRABitmap;
+  GridImageList: TBGRABitmapArray;
   Background: TBGRABitmap;
   AColor: TBGRAPixel;
   MonitorPro: TMonitor;
@@ -29,6 +33,7 @@ var
   procedure GetScreens();
   procedure LoadSupportedImages();
   procedure LoadImages();
+  procedure FreeImage();
   function SortFiles(List: TStrings):TStrings; overload;
   function SortFiles(List: array of string):TStrings; overload;
 
@@ -259,7 +264,7 @@ end;
 
 procedure LoadImages();
 var
-  i, width, height: Integer;
+  i, width, height, gridint: Integer;
   LoadBGRA, PutBGRA: TBGRABitmap;
   //ratio: String;
   //strX, strY: String;
@@ -267,10 +272,12 @@ begin
   //LenW:=Length(AWidth);
   //LenH:=Length(AHeight);
   //SetLength(AWidth, (ImagePath.Count + LenW));
-  //SetLength(AHeight, (ImagePath.Count + LenH));
-  SetLength(GridImageList, (Length(GridImageList)+ImagePath.Count));
+  //SetLength(AHeight, (ImagePath.Count + LenH))
+  gridint:=(Length(GridImageList));
+  SetLength(GridImageList, gridint+ImagePath.Count);
   for i := 0 to (ImagePath.Count - 1) do
     begin
+
       //Form1.Memo1.Append('debug: ratio');
      { strX:='';
       strY:=''; }
@@ -302,10 +309,11 @@ begin
           height:=MonitorPro.Height;
           width:=MonitorPro.Width
         end;
+      GridImageList[i+gridint]:=TBGRABitmap.Create(MonitorPro.Width, MonitorPro.Height);
       AColor:= BGRABlack;
       PutBGRA:=TBGRABitmap.Create(MonitorPro.Width, MonitorPro.Height, AColor);
       PutBGRA.PutImage(((MonitorPro.Width - width)div 2), ((MonitorPro.Height - height) div 2), LoadBGRA.Resample(width, height), dmSet);
-      GridImageList[i]:=PutBGRA;
+      GridImageList[(i+gridint)].PutImage(0, 0, PutBGRA, dmSet);
       //.add((PutBGRA).Bitmap, nil);
       Form1.Memo1.Append(IntToStr(i));
 
@@ -323,6 +331,14 @@ begin
   height:=0;
   width:=0;
   i:=0;
+end;
+
+procedure FreeImage;
+var i: Integer;
+begin
+  for i:=0 to Length(GridImageList)-1 do
+    GridImageList[i].Free;
+  SetLength(GridImageList, 0);
 end;
 
 function SortFiles(List: TStrings): TStrings;
