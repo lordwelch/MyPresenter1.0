@@ -13,6 +13,7 @@
         <DpiAware Value="True"/>
       </XPManifest>
       <Icon Value="0"/>
+      <ActiveWindowIndexAtStart Value="0"/>
     </General>
     <i18n>
       <EnableI18N LFM="False"/>
@@ -53,6 +54,9 @@
               </Win32>
             </Options>
           </Linking>
+          <Other>
+            <CompilerPath Value="$(CompPath)"/>
+          </Other>
         </CompilerOptions>
       </Item2>
       <Item3 Name="Debug-win">
@@ -92,6 +96,9 @@
               </Win32>
             </Options>
           </Linking>
+          <Other>
+            <CompilerPath Value="$(CompPath)"/>
+          </Other>
         </CompilerOptions>
       </Item3>
       <Item4 Name="Release-win">
@@ -123,6 +130,9 @@
               </Win32>
             </Options>
           </Linking>
+          <Other>
+            <CompilerPath Value="$(CompPath)"/>
+          </Other>
         </CompilerOptions>
       </Item4>
     </BuildModes>
@@ -151,13 +161,12 @@
         <PackageName Value="LCL"/>
       </Item5>
     </RequiredPackages>
-    <Units Count="27">
+    <Units Count="30">
       <Unit0>
         <Filename Value="Main.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
         <CursorPos X="59" Y="19"/>
-        <UsageCount Value="48"/>
+        <UsageCount Value="49"/>
       </Unit0>
       <Unit1>
         <Filename Value="main_code.pas"/>
@@ -166,23 +175,27 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="main_code"/>
-        <CursorPos X="54" Y="8"/>
-        <UsageCount Value="48"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="41"/>
+        <CursorPos X="12" Y="55"/>
+        <UsageCount Value="49"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="data.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="277"/>
-        <CursorPos X="57" Y="313"/>
-        <UsageCount Value="48"/>
+        <UnitName Value="Data"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="4"/>
+        <CursorPos X="16" Y="36"/>
+        <UsageCount Value="49"/>
       </Unit2>
       <Unit3>
         <Filename Value="versionsupport.pas"/>
         <IsPartOfProject Value="True"/>
-        <UsageCount Value="48"/>
+        <UsageCount Value="49"/>
       </Unit3>
       <Unit4>
         <Filename Value="uabout.pas"/>
@@ -190,7 +203,7 @@
         <ComponentName Value="frmAbout"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UsageCount Value="48"/>
+        <UsageCount Value="49"/>
       </Unit4>
       <Unit5>
         <Filename Value="settings.pas"/>
@@ -198,10 +211,9 @@
         <ComponentName Value="frmSettings"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
         <TopLine Value="72"/>
         <CursorPos X="3" Y="122"/>
-        <UsageCount Value="48"/>
+        <UsageCount Value="49"/>
       </Unit5>
       <Unit6>
         <Filename Value="projector.pas"/>
@@ -209,10 +221,11 @@
         <ComponentName Value="frmProjector"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="40"/>
-        <CursorPos X="11" Y="58"/>
-        <UsageCount Value="48"/>
+        <UnitName Value="Projector"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="41"/>
+        <CursorPos X="52" Y="58"/>
+        <UsageCount Value="49"/>
       </Unit6>
       <Unit7>
         <Filename Value="../../lazarus/lcl/forms.pp"/>
@@ -246,7 +259,6 @@
       </Unit11>
       <Unit12>
         <Filename Value="../../lazarus/lcl/graphics.pp"/>
-        <EditorIndex Value="-1"/>
         <TopLine Value="2533"/>
         <CursorPos X="16" Y="2550"/>
         <UsageCount Value="10"/>
@@ -288,72 +300,90 @@
         <ComponentName Value="frmSlideEditor"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
         <TopLine Value="44"/>
         <CursorPos X="7" Y="51"/>
-        <UsageCount Value="33"/>
+        <UsageCount Value="34"/>
       </Unit18>
       <Unit19>
         <Filename Value="../customlpks/mydrawgrid.pas"/>
         <UnitName Value="MyDrawGrid"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
         <TopLine Value="189"/>
         <CursorPos X="64" Y="208"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit19>
       <Unit20>
         <Filename Value="../../Downloads/bgra-controls-3.2-20140421/bgragraphiccontrol.pas"/>
-        <EditorIndex Value="-1"/>
         <TopLine Value="37"/>
         <CursorPos X="14" Y="51"/>
         <UsageCount Value="10"/>
       </Unit20>
       <Unit21>
         <Filename Value="../../Downloads/bgrabitmap/bgradefaultbitmap.pas"/>
-        <EditorIndex Value="-1"/>
         <TopLine Value="387"/>
         <CursorPos X="76" Y="402"/>
         <UsageCount Value="10"/>
       </Unit21>
       <Unit22>
         <Filename Value="../../Downloads/bgrabitmap/bgrabitmaptypes.pas"/>
-        <EditorIndex Value="-1"/>
         <TopLine Value="58"/>
         <CursorPos X="3" Y="72"/>
         <UsageCount Value="10"/>
       </Unit22>
       <Unit23>
         <Filename Value="../../lazarus/lcl/include/imglist.inc"/>
-        <EditorIndex Value="-1"/>
         <TopLine Value="670"/>
         <CursorPos X="27" Y="685"/>
         <UsageCount Value="10"/>
       </Unit23>
       <Unit24>
         <Filename Value="../../lazarus/lcl/grids.pas"/>
-        <EditorIndex Value="-1"/>
         <TopLine Value="94"/>
         <CursorPos X="44" Y="107"/>
         <UsageCount Value="10"/>
       </Unit24>
       <Unit25>
         <Filename Value="../../lazarus/lcl/include/winapih.inc"/>
-        <EditorIndex Value="-1"/>
         <TopLine Value="332"/>
         <CursorPos X="13" Y="336"/>
         <UsageCount Value="10"/>
       </Unit25>
       <Unit26>
         <Filename Value="../../lazarus/lcl/lclproc.pas"/>
-        <EditorIndex Value="-1"/>
         <TopLine Value="799"/>
         <CursorPos X="3" Y="801"/>
         <UsageCount Value="10"/>
       </Unit26>
+      <Unit27>
+        <Filename Value="../../../../lazarus/lcl/grids.pas"/>
+        <UnitName Value="Grids"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="9022"/>
+        <CursorPos X="12" Y="9037"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit27>
+      <Unit28>
+        <Filename Value="G:/timmy/Desktop/customlpks/mydrawgrid.pas"/>
+        <UnitName Value="MyDrawGrid"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2"/>
+        <CursorPos X="25" Y="17"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit28>
+      <Unit29>
+        <Filename Value="../../../../lazarus/lcl/dynamicarray.pas"/>
+        <UnitName Value="DynamicArray"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="80"/>
+        <CursorPos X="11" Y="90"/>
+        <UsageCount Value="10"/>
+      </Unit29>
     </Units>
-    <JumpHistory Count="9" HistoryIndex="8">
+    <JumpHistory Count="23" HistoryIndex="22">
       <Position1>
         <Filename Value="main_code.pas"/>
         <Caret Line="218" Column="32" TopLine="185"/>
@@ -384,12 +414,68 @@
       </Position7>
       <Position8>
         <Filename Value="main_code.pas"/>
-        <Caret Line="8" Column="54"/>
+        <Caret Line="196" Column="29" TopLine="181"/>
       </Position8>
       <Position9>
-        <Filename Value="../customlpks/mydrawgrid.pas"/>
-        <Caret Line="162" Column="42" TopLine="149"/>
+        <Filename Value="main_code.pas"/>
+        <Caret Line="222" Column="14" TopLine="180"/>
       </Position9>
+      <Position10>
+        <Filename Value="main_code.pas"/>
+        <Caret Line="112" Column="3" TopLine="110"/>
+      </Position10>
+      <Position11>
+        <Filename Value="main_code.pas"/>
+        <Caret Line="168" Column="11" TopLine="163"/>
+      </Position11>
+      <Position12>
+        <Filename Value="main_code.pas"/>
+        <Caret Line="222" Column="3" TopLine="201"/>
+      </Position12>
+      <Position13>
+        <Filename Value="main_code.pas"/>
+        <Caret Line="221" Column="15" TopLine="200"/>
+      </Position13>
+      <Position14>
+        <Filename Value="main_code.pas"/>
+        <Caret Line="174" Column="7" TopLine="171"/>
+      </Position14>
+      <Position15>
+        <Filename Value="main_code.pas"/>
+        <Caret Line="177" Column="9" TopLine="175"/>
+      </Position15>
+      <Position16>
+        <Filename Value="main_code.pas"/>
+        <Caret Line="176" Column="6" TopLine="168"/>
+      </Position16>
+      <Position17>
+        <Filename Value="main_code.pas"/>
+        <Caret Line="55" Column="12" TopLine="41"/>
+      </Position17>
+      <Position18>
+        <Filename Value="G:/timmy/Desktop/customlpks/mydrawgrid.pas"/>
+        <Caret Line="17" Column="25" TopLine="2"/>
+      </Position18>
+      <Position19>
+        <Filename Value="../../../../lazarus/lcl/grids.pas"/>
+        <Caret Line="1521" Column="34" TopLine="1508"/>
+      </Position19>
+      <Position20>
+        <Filename Value="../../../../lazarus/lcl/grids.pas"/>
+        <Caret Line="1202" Column="28" TopLine="1187"/>
+      </Position20>
+      <Position21>
+        <Filename Value="../../../../lazarus/lcl/grids.pas"/>
+        <Caret Line="658" Column="3" TopLine="643"/>
+      </Position21>
+      <Position22>
+        <Filename Value="../../../../lazarus/lcl/grids.pas"/>
+        <Caret Line="9028" Column="55" TopLine="9023"/>
+      </Position22>
+      <Position23>
+        <Filename Value="../../../../lazarus/lcl/grids.pas"/>
+        <Caret Line="9037" Column="20" TopLine="9022"/>
+      </Position23>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -427,6 +513,9 @@
         </Win32>
       </Options>
     </Linking>
+    <Other>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="4">
@@ -444,4 +533,5 @@
       </Item4>
     </Exceptions>
   </Debugging>
-</CONFIG>
+  <EditorMacros Count="0"/>
+</CONFIG>

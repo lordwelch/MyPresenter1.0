@@ -55,17 +55,17 @@ var
 begin
   //BGRAGraphicControl1.Bitmap.;
   SlideBitmap:=TBGRABitmap.Create(MonitorPro.Width, MonitorPro.Height, BGRABlack);
-  SlideBitmap.PutImage(0, 0, GridImageList[CurrentSlide], dmSet);
+  SlideBitmap.PutImage(0, 0, form1.Grid.CellImage[2, CurrentSlide]^, dmSet);
   AColor:=BGRAWhite;
   //y:= (Monitor.Height - AHeight[CurrentSlide]) div 2;
   //x:= (Monitor.Width - AWidth[CurrentSlide])div 2;
 
   BGRAGraphicControl1.Bitmap.PutImage(0,0,SlideBitmap, dmSet);
-  BGRAGraphicControl1.Bitmap.TextRect(frmProjector.BoundsRect, 0, 0, 'test'{Form1.Grid.Cells[1,(CurrentSlide+1)]}, TextStyle, AColor);
+  BGRAGraphicControl1.Bitmap.TextRect(frmProjector.BoundsRect, 0, 0, Form1.Grid.Cells[1,(CurrentSlide)], TextStyle, AColor);
   //SlideBitmap.Draw(BGRAGraphicControl1.Canvas, 0, 0);
   SlideBitmap.Free;
   BGRAGraphicControl1.Invalidate;
 end;
 
 end.
-
+

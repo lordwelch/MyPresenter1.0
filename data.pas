@@ -316,7 +316,8 @@ begin
       GridImageList[(i+gridint)].PutImage(0, 0, PutBGRA, dmSet);
       //.add((PutBGRA).Bitmap, nil);
       Form1.Memo1.Append(IntToStr(i));
-
+      Form1.Grid.InsertColRow(False, Form1.Grid.RowCount);
+      Form1.Grid.CellImage[2, i+gridint]:=@GridImageList[(i+gridint)];
       //AHeight[i+LenH]:=height;
       //AWidth[i+LenW]:=width;
       finally
@@ -383,4 +384,4 @@ begin
 end;
 
 end.
-
+

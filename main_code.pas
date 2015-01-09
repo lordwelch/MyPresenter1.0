@@ -54,6 +54,7 @@ type
     MenuItem9: TMenuItem;
     Grid: TMyDrawGrid;
     OpenDialog1: TOpenDialog;
+    Button2: TButton;
     procedure BCButton2Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -100,7 +101,7 @@ begin
     Height:=Monitor.Height;
     Width:=Monitor.Width;
   end;  }
-  CurrentSlide := 0;
+  CurrentSlide := 1;
   NextSlide := 1;
   GetScreens();
 
@@ -170,17 +171,18 @@ end;
 
 procedure TForm1.MenuItem8Click(Sender: TObject);
 begin
-  FreeImage();
   ImagePath.Clear;
+  grid.Columns.Clear;
   Grid.Clear;
   Memo1.Clear;
   with grid do
   begin
-    ColCount:=3;
+    Columns.Add.SizePriority:=0;
+    Columns.Add;
     FixedCols:=1;
-    RowCount:=5;
     FixedRows:=1;
   end;
+  FreeImage();
   frmProjector.Invalidate;
 end;
 
@@ -188,21 +190,16 @@ procedure TForm1.NextSlideExecute(Sender: TObject);
 begin
   if TAction(Sender).Tag = 1 then
     begin
-    if CurrentSlide < (Length(GridImageList) - 1) then
-      begin
-      if (CurrentSlide >= (Length(GridImageList) - 1)) then
-        CurrentSlide:=(Length(GridImageList)-1)
+    if CurrentSlide < Grid.RowCount-1 then
+      if (CurrentSlide >= (Grid.RowCount - 1)) then
+        CurrentSlide:=(Grid.RowCount-1)
       else
-        CurrentSlide+=1;
-      Memo1.Append('next')
-      end
+        CurrentSlide+=1
     end
   else
-    if CurrentSlide >= 1 then
-      begin
+    if CurrentSlide > 1 then
       CurrentSlide-=1;
-      Memo1.Append('previous');
-      end;
+
   Memo1.Append(IntToStr(CurrentSlide));
        //setslidetext(textSlidesgrid.Cells[x, y]);
   frmProjector.Invalidate;
@@ -234,4 +231,4 @@ begin
 end;
 
 end.
-
+
