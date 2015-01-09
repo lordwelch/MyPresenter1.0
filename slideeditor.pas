@@ -13,10 +13,12 @@ type
   { TfrmSlideEditor }
 
   TfrmSlideEditor = class(TForm)
-    BGRAGraphicControl1: TBGRAGraphicControl;
+    CellImage: TBGRAGraphicControl;
+    Button1: TButton;
     selectimage: TBGRAGraphicControl;
     ComboBox1: TComboBox;
     ComboBox2: TComboBox;
+    procedure Button1Click(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
     procedure ComboBox2Change(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -44,14 +46,25 @@ begin
   for i:=1 to Form1.Grid.RowCount-1 do
     ComboBox1.Items.Add(IntToStr(i));
   i:=0;
-  for i:=0 to Length(GridImageList)-1 do
-    ComboBox2.Items.Add(IntToStr(i));
+  if Length(GridImageList) > 0 then
+    for i:=0 to Length(GridImageList)-1 do
+      ComboBox2.Items.Add(IntToStr(i));
 end;
 
 procedure TfrmSlideEditor.ComboBox1Change(Sender: TObject);
 begin
-  BGRAGraphicControl1.Bitmap.PutImage(0, 0, form1.Grid.CellImage[2, StrToInt(ComboBox1.Text)]^, dmSet);
-  BGRAGraphicControl1.Invalidate;
+  CellImage.Bitmap.PutImage(0, 0, form1.Grid.CellImage[2, StrToInt(ComboBox1.Text)]^.Resample(selectimage.Width, selectimage.Height), dmSet);
+  CellImage.Invalidate;
+end;
+
+procedure TfrmSlideEditor.Button1Click(Sender: TObject);
+var i, x: Integer;
+begin
+  i:=StrToInt(ComboBox1.Text);
+  X:=StrToInt(ComboBox2.Text);
+  Form1.Grid.CellImage[2, i]:=@GridImageList[x];
+  CellImage.Invalidate;
+  selectimage.Invalidate;
 end;
 
 procedure TfrmSlideEditor.ComboBox2Change(Sender: TObject);
