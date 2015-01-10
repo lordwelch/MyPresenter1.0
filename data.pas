@@ -19,7 +19,7 @@ var
   TextStyle: TTextStyle;
   ImagePath, SGridOptions, SupportedImages: TStringList; //file path for images
   GridOptions: TGridOptions;
-  GridImageList: TBGRABitmapArray;
+  GridImageList: array of TBGRABitmapArray;
   Background: TBGRABitmap;
   AColor: TBGRAPixel;
   MonitorPro: TMonitor;
@@ -36,6 +36,7 @@ var
   procedure FreeImage();
   function SortFiles(List: TStrings):TStrings; overload;
   function SortFiles(List: array of string):TStrings; overload;
+  function ResizeImage(bitm: TBGRABitmap; width, height: Integer; Center: Boolean = True): TBGRABitmap;
 
 
 
@@ -264,26 +265,13 @@ end;
 
 procedure LoadImages();
 var
-  i, width, height, gridint: Integer;
+  i, gridint: Integer;
   LoadBGRA, PutBGRA: TBGRABitmap;
-  //ratio: String;
-  //strX, strY: String;
 begin
-  //LenW:=Length(AWidth);
-  //LenH:=Length(AHeight);
-  //SetLength(AWidth, (ImagePath.Count + LenW));
-  //SetLength(AHeight, (ImagePath.Count + LenH))
-  gridint:=(Length(GridImageList));
-  SetLength(GridImageList, gridint+ImagePath.Count);
+  gridint:=(Length(GridImageList[0]));
+  SetLength(GridImageList, 2, gridint+ImagePath.Count);
   for i := 0 to (ImagePath.Count - 1) do
     begin
-
-      //Form1.Memo1.Append('debug: ratio');
-     { strX:='';
-      strY:=''; }
-      height:=0;
-      width:=0;
-      //ratio:='';
 
       try
       LoadBGRA:=TBGRABitmap.Create(ImagePath.Strings[i]);
@@ -291,33 +279,19 @@ begin
       Form1.Memo1.Append(ImagePath.Strings[i]);
 
       Application.ProcessMessages;
-      if (LoadBGRA.Height <> MonitorPro.Height) and ( LoadBGRA.Width <> MonitorPro.Width) then
-        begin
-          width:=MonitorPro.Width;
-          if (round((LoadBGRA.Height / LoadBGRA.Width)*width)) <= MonitorPro.Height then
-            height:= round((LoadBGRA.Height / LoadBGRA.Width)*width)
-          else
-            begin
-              height:=MonitorPro.Height;
-              width:= round((LoadBGRA.Width / LoadBGRA.Height)*height);
-            end;
-          Form1.Memo1.Append('height: '+IntToStr(LoadBGRA.Height) + ' width: ' + IntToStr(LoadBGRA.Width));
-          Form1.Memo1.Append('height: '+IntToStr(height) + ' width: ' + IntToStr(width));
-        end
-          else
-        begin
-          height:=MonitorPro.Height;
-          width:=MonitorPro.Width
-        end;
-      GridImageList[i+gridint]:=TBGRABitmap.Create(MonitorPro.Width, MonitorPro.Height);
+
+      GridImageList[0, i+gridint]:=TBGRABitmap.Create(MonitorPro.Width, MonitorPro.Height);
+      GridImageList[1, i+gridint]:=TBGRABitmap.Create(Form1.Grid.Columns[1].Width, Form1.Grid.RowHeights[1]);
       AColor:= BGRABlack;
-      PutBGRA:=TBGRABitmap.Create(MonitorPro.Width, MonitorPro.Height, AColor);
-      PutBGRA.PutImage(((MonitorPro.Width - width)div 2), ((MonitorPro.Height - height) div 2), LoadBGRA.Resample(width, height), dmSet);
-      GridImageList[(i+gridint)].PutImage(0, 0, PutBGRA, dmSet);
+      PutBGRA:=TBGRABitmap.Create({MonitorPro.Width, MonitorPro.Height, AColor});
+      PutBGRA:={.PutImage(0, 0, }ResizeImage(LoadBGRA, MonitorPro.Width, MonitorPro.Height){, dmSet)};
+      GridImageList[0, (i+gridint)].PutImage(0, 0, PutBGRA, dmSet);
+      GridImageList[1, (i+gridint)]:={.PutImage(0, 0, }ResizeImage(LoadBGRA, Form1.Grid.Columns[1].Width, Form1.Grid.RowHeights[1]){, dmSet)};
       //.add((PutBGRA).Bitmap, nil);
       Form1.Memo1.Append(IntToStr(i));
       Form1.Grid.InsertColRow(False, Form1.Grid.RowCount);
-      Form1.Grid.CellImage[2, i+gridint]:=@GridImageList[(i+gridint)];
+      Form1.Grid.CellImage[1, Form1.Grid.RowCount-1]:=@GridImageList[0, (i+gridint)];
+      Form1.Grid.CellImage[2, Form1.Grid.RowCount-1]:=@GridImageList[1, (i+gridint)];
       //AHeight[i+LenH]:=height;
       //AWidth[i+LenW]:=width;
       finally
@@ -329,17 +303,16 @@ begin
   //Form1.Memo1.Append('height: ' + IntToStr(GridImageList.Height) + 'width: ' + IntToStr(GridImageList.Width));
   //Form1.Memo1.Append(IntToStr(GridImageList.Count));
   Form1.Memo1.Append('done');
-  height:=0;
-  width:=0;
   i:=0;
 end;
 
 procedure FreeImage;
-var i: Integer;
+var i, z: Integer;
 begin
-  for i:=0 to Length(GridImageList)-1 do
-    GridImageList[i].Free;
-  SetLength(GridImageList, 0);
+  for z:=0 to 1 do
+    for i:=0 to Length(GridImageList)-1 do
+      GridImageList[z, i].Free;
+  SetLength(GridImageList, 0, 0);
 end;
 
 function SortFiles(List: TStrings): TStrings;
@@ -381,6 +354,46 @@ begin
      end;
   end;
   SortFiles:= List1;
+end;
+
+function ResizeImage(bitm: TBGRABitmap; width, height: Integer; Center: Boolean): TBGRABitmap;
+var
+  newwidth, newheight: integer;
+  centerbgra: TBGRABitmap;
+begin
+  centerbgra:=TBGRABitmap.Create(width, height, BGRABlack);
+  if (bitm.Height <> Height) and ( bitm.Width <> Width) then
+    begin
+      newwidth:=Width;
+      if (round((bitm.Height / bitm.Width)*newwidth)) <= Height then
+        height:= round((bitm.Height / bitm.Width)*newwidth)
+      else
+        begin
+          newheight:=Height;
+          newwidth:= round((bitm.Width / bitm.Height)*newheight);
+        end;
+      Form1.Memo1.Append('height: '+IntToStr(bitm.Height) + ' width: ' + IntToStr(bitm.Width));
+      Form1.Memo1.Append('height: '+IntToStr(newheight) + ' width: ' + IntToStr(newwidth));
+    end
+    else
+      begin
+        newheight:=Height;
+        newwidth:=Width
+      end;
+  if center = True then
+    begin
+      Form1.Memo1.Append('true');
+      centerbgra.PutImage(width-newwidth, height-newheight, bitm.Resample(newwidth, newheight), dmSet);
+      Result:=centerbgra;
+
+    end
+  else
+    begin
+      Form1.Memo1.Append('false');
+      centerbgra.PutImage(0, 0, bitm.Resample(newwidth, newheight), dmSet);
+      Result:=centerbgra;
+    end;
+  centerbgra.Free;
 end;
 
 end.

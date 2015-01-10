@@ -46,7 +46,7 @@ begin
   for i:=1 to Form1.Grid.RowCount-1 do
     ComboBox1.Items.Add(IntToStr(i));
   i:=0;
-  if Length(GridImageList) > 0 then
+  if Length(GridImageList[0]) > 0 then
     for i:=0 to Length(GridImageList)-1 do
       ComboBox2.Items.Add(IntToStr(i));
 end;
@@ -62,7 +62,8 @@ var i, x: Integer;
 begin
   i:=StrToInt(ComboBox1.Text);
   X:=StrToInt(ComboBox2.Text);
-  Form1.Grid.CellImage[2, i]:=@GridImageList[x];
+  Form1.Grid.CellImage[2, i]:=@GridImageList[1, x];
+  Form1.Grid.CellImage[1, i]:=@GridImageList[0, x];
   CellImage.Invalidate;
   selectimage.Invalidate;
 end;
@@ -75,7 +76,7 @@ begin
   Form1.Memo1.Append('load');
   //test1.PutImage(0, 0, , dmSet);;
   Form1.Memo1.Append('put');
-  selectimage.Bitmap.PutImage(0, 0, GridImageList[StrToInt(ComboBox2.Text)].Resample(selectimage.Width, selectimage.Height), dmSet);
+  selectimage.Bitmap.PutImage(0, 0, GridImageList[0, StrToInt(ComboBox2.Text)].Resample(selectimage.Width, selectimage.Height), dmSet);
   Form1.Memo1.Append('paint');
   selectimage.Invalidate;
   finally
@@ -87,4 +88,4 @@ end;
 //  {$I slideeditor.lrs}
 
 end.
-
+

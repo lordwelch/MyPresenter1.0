@@ -104,7 +104,7 @@ begin
   CurrentSlide := 1;
   NextSlide := 1;
   GetScreens();
-
+  SetLength(GridImageList, 2, 0);
 end;
 
 procedure TForm1.FormDropFiles(Sender: TObject; const FileNames: array of String);
