@@ -36,7 +36,7 @@ var
   procedure FreeImage();
   function SortFiles(List: TStrings):TStrings; overload;
   function SortFiles(List: array of string):TStrings; overload;
-  function ResizeImage(bitm: TBGRABitmap; width, height: Integer; Center: Boolean = True): TBGRABitmap;
+  function ResizeImage(bitm: TBGRABitmap; width, height: Integer; Center: Boolean = True): TBGRACustomBitmap;
 
 
 
@@ -283,10 +283,10 @@ begin
       GridImageList[0, i+gridint]:=TBGRABitmap.Create(MonitorPro.Width, MonitorPro.Height);
       GridImageList[1, i+gridint]:=TBGRABitmap.Create(Form1.Grid.Columns[1].Width, Form1.Grid.RowHeights[1]);
       AColor:= BGRABlack;
-      PutBGRA:=TBGRABitmap.Create({MonitorPro.Width, MonitorPro.Height, AColor});
-      PutBGRA:={.PutImage(0, 0, }ResizeImage(LoadBGRA, MonitorPro.Width, MonitorPro.Height){, dmSet)};
+      PutBGRA:=TBGRABitmap.Create(MonitorPro.Width, MonitorPro.Height, AColor);
+      PutBGRA.PutImage(0, 0, ResizeImage(LoadBGRA, MonitorPro.Width, MonitorPro.Height), dmSet);
       GridImageList[0, (i+gridint)].PutImage(0, 0, PutBGRA, dmSet);
-      GridImageList[1, (i+gridint)]:={.PutImage(0, 0, }ResizeImage(LoadBGRA, Form1.Grid.Columns[1].Width, Form1.Grid.RowHeights[1]){, dmSet)};
+      GridImageList[1, (i+gridint)].PutImage(0, 0, ResizeImage(LoadBGRA, Form1.Grid.Columns[1].Width, Form1.Grid.RowHeights[1]), dmSet);
       //.add((PutBGRA).Bitmap, nil);
       Form1.Memo1.Append(IntToStr(i));
       Form1.Grid.InsertColRow(False, Form1.Grid.RowCount);
@@ -356,10 +356,10 @@ begin
   SortFiles:= List1;
 end;
 
-function ResizeImage(bitm: TBGRABitmap; width, height: Integer; Center: Boolean): TBGRABitmap;
+function ResizeImage(bitm: TBGRABitmap; width, height: Integer; Center: Boolean): TBGRACustomBitmap;
 var
   newwidth, newheight: integer;
-  centerbgra: TBGRABitmap;
+  centerbgra, resbgra: TBGRABitmap;
 begin
   centerbgra:=TBGRABitmap.Create(width, height, BGRABlack);
   if (bitm.Height <> Height) and ( bitm.Width <> Width) then
@@ -384,17 +384,19 @@ begin
     begin
       Form1.Memo1.Append('true');
       centerbgra.PutImage(width-newwidth, height-newheight, bitm.Resample(newwidth, newheight), dmSet);
-      Result:=centerbgra;
+      resbgra:=centerbgra;
+      Result:=resbgra.Duplicate();
 
     end
   else
     begin
       Form1.Memo1.Append('false');
       centerbgra.PutImage(0, 0, bitm.Resample(newwidth, newheight), dmSet);
-      Result:=centerbgra;
+      resbgra:=centerbgra;
+      Result:=resbgra.Duplicate();
     end;
   centerbgra.Free;
 end;
 
 end.
-
+

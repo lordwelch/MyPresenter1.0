@@ -1,11 +1,11 @@
 object Form1: TForm1
-  Left = 486
+  Left = 492
   Height = 753
-  Top = 157
+  Top = 178
   Width = 943
   AllowDropFiles = True
   Caption = 'MyPresenter 1.0'
-  ClientHeight = 733
+  ClientHeight = 728
   ClientWidth = 943
   Menu = MainMenu1
   OnClose = FormClose
@@ -356,7 +356,7 @@ object Form1: TForm1
   end
   object ActionList1: TActionList
     left = 595
-    top = 337
+    top = 336
     object Open: TAction
       Category = 'File'
       Caption = 'Open...'
@@ -389,4 +389,4 @@ object Form1: TForm1
       ShortCut = 24691
     end
   end
-end
+end
