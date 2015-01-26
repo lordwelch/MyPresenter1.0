@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 492
+  Left = 491
   Height = 753
-  Top = 178
+  Top = 388
   Width = 943
   AllowDropFiles = True
   Caption = 'MyPresenter 1.0'
@@ -12,7 +12,7 @@ object Form1: TForm1
   OnCreate = FormCreate
   OnDropFiles = FormDropFiles
   Position = poScreenCenter
-  LCLVersion = '1.3'
+  LCLVersion = '1.4.0.1'
   object Grid: TMyDrawGrid
     Left = 0
     Height = 432

@@ -5,9 +5,9 @@ unit main_code;
 interface
 
 uses
-  cmem, Classes, SysUtils, FileUtil, TreeFilterEdit, Forms, Controls,
-  Graphics, Dialogs, Menus, LCLType, StdCtrls, ExtCtrls, ActnList, StdActns,
-  Data, MyDrawGrid, BCButton, Projector, Grids, ComCtrls, settings, slideeditor;
+  cmem, Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
+  LCLType, StdCtrls, ExtCtrls, ActnList, StdActns, Data, BCButton,
+  Projector, Grids, settings, slideeditor, MyDrawGrid;
 
 type
 
@@ -231,4 +231,4 @@ begin
 end;
 
 end.
-
+

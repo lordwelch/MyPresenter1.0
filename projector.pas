@@ -55,7 +55,7 @@ var
 begin
   //BGRAGraphicControl1.Bitmap.;
   SlideBitmap:=TBGRABitmap.Create(MonitorPro.Width, MonitorPro.Height, BGRABlack);
-  SlideBitmap.PutImage(0, 0, form1.Grid.CellImage[2, CurrentSlide]^, dmSet);
+  SlideBitmap.PutImage(0, 0, form1.Grid.CellImage[1, CurrentSlide]^, dmSet);
   AColor:=BGRAWhite;
   //y:= (Monitor.Height - AHeight[CurrentSlide]) div 2;
   //x:= (Monitor.Width - AWidth[CurrentSlide])div 2;
@@ -68,4 +68,4 @@ begin
 end;
 
 end.
-
+

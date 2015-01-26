@@ -6,10 +6,10 @@ interface
 
 uses
   cmem, Classes, SysUtils, Grids, laz2_DOM, laz2_XMLWrite, laz2_XMLRead, BGRABitmap,
-  BGRABitmapTypes, Graphics, Forms, Dialogs;
+  BGRABitmapTypes, Graphics, Forms, Dialogs, resize;
 
 type
-  TBGRABitmapArray = array of TBGRABitmap;
+  TBGRABitmapArray = array of TBGRACustomBitmap;
 
 
 var
@@ -36,7 +36,7 @@ var
   procedure FreeImage();
   function SortFiles(List: TStrings):TStrings; overload;
   function SortFiles(List: array of string):TStrings; overload;
-  function ResizeImage(bitm: TBGRABitmap; width, height: Integer; Center: Boolean = True): TBGRACustomBitmap;
+
 
 
 
@@ -281,12 +281,12 @@ begin
       Application.ProcessMessages;
 
       GridImageList[0, i+gridint]:=TBGRABitmap.Create(MonitorPro.Width, MonitorPro.Height);
-      GridImageList[1, i+gridint]:=TBGRABitmap.Create(Form1.Grid.Columns[1].Width, Form1.Grid.RowHeights[1]);
+      //GridImageList[1, i+gridint]:=TBGRABitmap.Create(Form1.Grid.Columns[1].Width, Form1.Grid.RowHeights[1]);
       AColor:= BGRABlack;
       PutBGRA:=TBGRABitmap.Create(MonitorPro.Width, MonitorPro.Height, AColor);
       PutBGRA.PutImage(0, 0, ResizeImage(LoadBGRA, MonitorPro.Width, MonitorPro.Height), dmSet);
       GridImageList[0, (i+gridint)].PutImage(0, 0, PutBGRA, dmSet);
-      GridImageList[1, (i+gridint)].PutImage(0, 0, ResizeImage(LoadBGRA, Form1.Grid.Columns[1].Width, Form1.Grid.RowHeights[1]), dmSet);
+      GridImageList[1, (i+gridint)]:=ResizeImage(LoadBGRA, Form1.Grid.Columns[1].Width, Form1.Grid.RowHeights[1], false, false);
       //.add((PutBGRA).Bitmap, nil);
       Form1.Memo1.Append(IntToStr(i));
       Form1.Grid.InsertColRow(False, Form1.Grid.RowCount);
@@ -307,11 +307,12 @@ begin
 end;
 
 procedure FreeImage;
-var i, z: Integer;
+var i: Integer;
 begin
-  for z:=0 to 1 do
-    for i:=0 to Length(GridImageList)-1 do
-      GridImageList[z, i].Free;
+  for i:=0 to Length(GridImageList[0])-1 do
+    GridImageList[0, i].Free;
+  for i:=0 to Length(GridImageList[1])-1 do
+    GridImageList[1, i].Free;
   SetLength(GridImageList, 0, 0);
 end;
 
@@ -354,48 +355,6 @@ begin
      end;
   end;
   SortFiles:= List1;
-end;
-
-function ResizeImage(bitm: TBGRABitmap; width, height: Integer; Center: Boolean): TBGRACustomBitmap;
-var
-  newwidth, newheight: integer;
-  centerbgra, resbgra: TBGRABitmap;
-begin
-  centerbgra:=TBGRABitmap.Create(width, height, BGRABlack);
-  if (bitm.Height <> Height) and ( bitm.Width <> Width) then
-    begin
-      newwidth:=Width;
-      if (round((bitm.Height / bitm.Width)*newwidth)) <= Height then
-        height:= round((bitm.Height / bitm.Width)*newwidth)
-      else
-        begin
-          newheight:=Height;
-          newwidth:= round((bitm.Width / bitm.Height)*newheight);
-        end;
-      Form1.Memo1.Append('height: '+IntToStr(bitm.Height) + ' width: ' + IntToStr(bitm.Width));
-      Form1.Memo1.Append('height: '+IntToStr(newheight) + ' width: ' + IntToStr(newwidth));
-    end
-    else
-      begin
-        newheight:=Height;
-        newwidth:=Width
-      end;
-  if center = True then
-    begin
-      Form1.Memo1.Append('true');
-      centerbgra.PutImage(width-newwidth, height-newheight, bitm.Resample(newwidth, newheight), dmSet);
-      resbgra:=centerbgra;
-      Result:=resbgra.Duplicate();
-
-    end
-  else
-    begin
-      Form1.Memo1.Append('false');
-      centerbgra.PutImage(0, 0, bitm.Resample(newwidth, newheight), dmSet);
-      resbgra:=centerbgra;
-      Result:=resbgra.Duplicate();
-    end;
-  centerbgra.Free;
 end;
 
 end.
