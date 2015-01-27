@@ -4,8 +4,7 @@ program Main;
 
 uses
   cmem, Interfaces, // this includes the LCL widgetset
-  Forms, main_code, Data, VersionSupport, uabout, settings, Projector,
-  slideeditor, resize, bgrabitmappack;
+  Forms, main_code, uabout, settings, Projector, slideeditor;
 
 {$R *.res}
 

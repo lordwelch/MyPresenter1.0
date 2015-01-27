@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
-  StdCtrls, MyDrawGrid, BGRABitmapTypes, BGRABitmap, BGRAGraphicControl;
+  StdCtrls, BGRABitmapTypes, BGRABitmap, BGRAGraphicControl;
 
 type
 
@@ -88,4 +88,4 @@ end;
 //  {$I slideeditor.lrs}
 
 end.
-
+

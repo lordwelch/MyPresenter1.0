@@ -7,13 +7,14 @@ interface
 uses
   cmem, Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   LCLType, StdCtrls, ExtCtrls, ActnList, StdActns, Data, BCButton,
-  Projector, Grids, settings, slideeditor, MyDrawGrid;
+  BGRAImageList, Projector, settings, slideeditor, MyDrawGrid;
 
 type
 
   { TForm1 }
 
   TForm1 = class(TForm)
+    BGRAImageList1: TBGRAImageList;
     TAClose: TAction;
     Editable: TAction;
     Open: TAction;

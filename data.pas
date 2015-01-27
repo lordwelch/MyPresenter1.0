@@ -28,7 +28,7 @@ var
   procedure ShowSett();
   procedure ShowAbt();
   procedure ShowPrjctr();
-  procedure readXML(filename: string);
+  procedure readXML(Filename: string);
   procedure SaveXML();
   procedure GetScreens();
   procedure LoadSupportedImages();
@@ -58,12 +58,14 @@ begin
   frmProjector.Show;
 end;
 
-procedure readXML(filename: string);
+procedure readXML(Filename: string);
 var
   PassNode: TDOMNode;
   Doc: TXMLDocument;
   NodeText: AnsiString;
 begin
+  if not (FileExists(Filename)) then
+     SaveXML();
   try
         // Read in xml file from disk
     ReadXMLFile(Doc, filename);
@@ -334,27 +336,29 @@ begin
       end;
   end;
 
-  SortFiles:= List;
+  Result:= List;
 end;
 
 function SortFiles(List: array of string): TStrings;
   var i: Integer;
-  ext: string;
+  ext, comp: string;
   list1: TStrings;
 begin
   list1:= TStringList.Create;
-  for i := 0 to (Length(List) - 1) do
+ { for i := 0 to (Length(List) - 1) do
   begin
     ext := ExtractFileExt(List[i]);
     Delete(ext, 1, 1);
-    ext:=LowerCase(ext);
-    if SupportedImages.IndexOf('.' + ext) <> -1 then
+    comp:=LowerCase(ext);
+    if SupportedImages.IndexOf('.' + comp) <> -1 then
      begin
      Form1.Memo1.Append(IntToStr(i) + '.' + ext);
      list1.Add(list[i]);
      end;
-  end;
-  SortFiles:= List1;
+  end;}
+  list1.AddStrings(List);
+  SortFiles(list1);
+  Result:= List1;
 end;
 
 end.
