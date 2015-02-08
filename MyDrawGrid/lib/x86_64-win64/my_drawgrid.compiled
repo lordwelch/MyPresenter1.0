@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Compiler Value="/home/timmy/fpc/bin/fpc" Date="1422262482"/>
+  <Params Value=" -Twin64 -MObjFPC -Scghi -O1 -gw2 -godwarfsets -gl -l -vewnhibq -Fu/home/timmy/units -Fu/home/timmy/lazarus/packager/units/x86_64-win64 -Fu/home/timmy/lazarus/components/lazutils/lib/x86_64-win64 -Fu/home/timmy/lazarus/lcl/units/x86_64-win64 -Fu/home/timmy/lazarus/lcl/units/x86_64-win64/win32 -Fu/home/timmy/Downloads/bgrabitmap/lib/x86_64-win64/2.6.4 -Fu/home/timmy/Desktop/MyDrawGrid/ -FU/home/timmy/Desktop/MyDrawGrid/lib/x86_64-win64/ -dLCL -dLCLwin32 my_drawgrid.pas"/>
+</CONFIG>

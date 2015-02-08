@@ -6,7 +6,7 @@ interface
 
 uses
   cmem, Classes, SysUtils, Grids, laz2_DOM, laz2_XMLWrite, laz2_XMLRead, BGRABitmap,
-  BGRABitmapTypes, Graphics, Forms, Dialogs, resize;
+  BGRABitmapTypes, Graphics, Forms, Dialogs, resize, mygrids;
 
 type
   TBGRABitmapArray = array of TBGRACustomBitmap;
@@ -292,8 +292,8 @@ begin
       //.add((PutBGRA).Bitmap, nil);
       Form1.Memo1.Append(IntToStr(i));
       Form1.Grid.InsertColRow(False, Form1.Grid.RowCount);
-      Form1.Grid.CellImage[1, Form1.Grid.RowCount-1]:=@GridImageList[0, (i+gridint)];
-      Form1.Grid.CellImage[2, Form1.Grid.RowCount-1]:=@GridImageList[1, (i+gridint)];
+      Form1.Grid.CellImage[1, Form1.Grid.RowCount-1]:=TBGRABitmap(GridImageList[0, (i+gridint)]);
+      Form1.Grid.CellImage[2, Form1.Grid.RowCount-1]:=TBGRABitmap(GridImageList[1, (i+gridint)]);
       //AHeight[i+LenH]:=height;
       //AWidth[i+LenW]:=width;
       finally

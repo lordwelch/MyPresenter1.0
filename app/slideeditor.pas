@@ -53,7 +53,7 @@ end;
 
 procedure TfrmSlideEditor.ComboBox1Change(Sender: TObject);
 begin
-  CellImage.Bitmap.PutImage(0, 0, form1.Grid.CellImage[2, StrToInt(ComboBox1.Text)]^.Resample(selectimage.Width, selectimage.Height), dmSet);
+  CellImage.Bitmap.PutImage(0, 0, form1.Grid.CellImage[2, StrToInt(ComboBox1.Text)].Resample(selectimage.Width, selectimage.Height), dmSet);
   CellImage.Invalidate;
 end;
 
@@ -62,8 +62,8 @@ var i, x: Integer;
 begin
   i:=StrToInt(ComboBox1.Text);
   X:=StrToInt(ComboBox2.Text);
-  Form1.Grid.CellImage[2, i]:=@GridImageList[1, x];
-  Form1.Grid.CellImage[1, i]:=@GridImageList[0, x];
+  Form1.Grid.CellImage[2, i]:=TBGRABitmap(GridImageList[1, x]);
+  Form1.Grid.CellImage[1, i]:=TBGRABitmap(GridImageList[0, x]);
   CellImage.Invalidate;
   selectimage.Invalidate;
 end;

@@ -7,14 +7,15 @@ interface
 uses
   cmem, Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   LCLType, StdCtrls, ExtCtrls, ActnList, StdActns, Data, BCButton,
-  BGRAImageList, Projector, settings, slideeditor, MyDrawGrid;
+  PasLibVlcPlayerUnit, Projector, settings, slideeditor,
+  MyDrawGrid;
 
 type
 
   { TForm1 }
 
   TForm1 = class(TForm)
-    BGRAImageList1: TBGRAImageList;
+    PasLibVlcPlayer1: TPasLibVlcPlayer;
     TAClose: TAction;
     Editable: TAction;
     Open: TAction;
@@ -123,27 +124,27 @@ end;
 
 procedure TForm1.GridEditor1EditingDone(Sender: TObject);
 begin
-  grid.Cells[Grid.Col, grid.Row]:=GridEditor1.Text;
+  grid.SlideText[Grid.Col, grid.Row]:=GridEditor1.Text;
 end;
 
 procedure TForm1.GridGetEditText(Sender: TObject; ACol, ARow: Integer;
   var Value: string);
 begin
-  Value:=Grid.Cells[ACol, ARow];
+  Value:=Grid.SlideText[ACol, ARow];
 end;
 
 procedure TForm1.GridSelectEditor(Sender: TObject; aCol, aRow: Integer;
   var Editor: TWinControl);
 begin
   GridEditor1.BoundsRect:=grid.CellRect(aCol,aRow);
-  GridEditor1.Text:=grid.Cells[aCol,aRow];
+  GridEditor1.Text:=grid.SlideText[aCol,aRow];
   Editor:=GridEditor1;
 end;
 
 procedure TForm1.GridSetEditText(Sender: TObject; ACol, ARow: Integer;
   const Value: string);
 begin
-  grid.Cells[ACol,ARow]:=Value;
+  grid.Cells[ACol,ARow].Text:=Value;
 end;
 
 procedure TForm1.MenuItem10Click(Sender: TObject);
