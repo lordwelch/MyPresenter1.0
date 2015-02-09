@@ -2,11 +2,9 @@
 <CONFIG>
   <Package Version="4">
     <Name Value="my_drawgrid"/>
-    <Type Value="RunAndDesignTime"/>
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
-        <OtherUnitFiles Value="../../units"/>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Linking>
@@ -14,6 +12,9 @@
           <DebugInfoType Value="dsDwarf2Set"/>
         </Debugging>
       </Linking>
+      <Other>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
     </CompilerOptions>
     <Files Count="3">
       <Item1>
@@ -22,14 +23,15 @@
         <UnitName Value="MyDrawGrid"/>
       </Item1>
       <Item2>
-        <Filename Value="../../units/resize.pas"/>
-        <UnitName Value="resize"/>
-      </Item2>
-      <Item3>
         <Filename Value="mygrids.pas"/>
         <UnitName Value="mygrids"/>
+      </Item2>
+      <Item3>
+        <Filename Value="../units/resize.pas"/>
+        <UnitName Value="resize"/>
       </Item3>
     </Files>
+    <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="4">
       <Item1>
         <PackageName Value="PasLibVlcPlayer"/>
