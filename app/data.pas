@@ -311,10 +311,10 @@ end;
 procedure FreeImage;
 var i: Integer;
 begin
-  for i:=0 to Length(GridImageList[0])-1 do
-    GridImageList[0, i].Free;
+{  for i:=0 to Length(GridImageList[0])-1 do
+    TBGRACustomBitmap(GridImageList[0, i]).destroy;
   for i:=0 to Length(GridImageList[1])-1 do
-    GridImageList[1, i].Free;
+    TBGRACustomBitmap(GridImageList[1, i]).destroy;   }
   SetLength(GridImageList, 0, 0);
 end;
 

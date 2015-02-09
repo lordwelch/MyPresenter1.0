@@ -24,7 +24,7 @@ type
     function GetTextStyle():TTextStyle;
     procedure SetImage(ACol, ARow: Integer; AValue: TBGRABitmap);
     procedure SetCells(ACol, ARow: Integer; const AValue: TSlide);
-    function GetCells(ACol, ARow: Integer): TSlide;  overload;
+    function GetCell(ACol, ARow: Integer): TSlide; //override; overload;
     procedure SetTextStyle(ATextStyle:TTextStyle);
   protected
     { Protected declarations }
@@ -40,7 +40,7 @@ type
     procedure InvalidateCell(aCol, aRow: Integer); overload;
     constructor Create(AOwner: TComponent); override;
     property TextStyle: TTextStyle read GetTextStyle write SetTextStyle;
-    property Cells[ACol, ARow: Integer]: TSlide read GetCells write SetCells;
+    property Cells[ACol, ARow: Integer]: TSlide read GetCell write SetCells;
     property SlideText[ACol, ARow: Integer]: string read GetSlideText write SetSlideText;
     property CellImage[ACol, ARow: Integer]: TBGRABitmap read GetImage write SetImage;
   published
@@ -212,7 +212,7 @@ begin
     PBitmap:=nil; }
 end;
 
-function TMyDrawGrid.GetCells(ACol, ARow: Integer): TSlide;
+function TMyDrawGrid.GetCell(ACol, ARow: Integer): TSlide;
 var
    C: PCellProps;
 begin
@@ -265,7 +265,7 @@ begin
   begin
     with S do
     begin
-    S:=GetCells(ACol, ARow);
+    S:=GetCell(ACol, ARow);
     Image.Free;
     Image:=AValue;
     SetCells(ACol, ARow, S);
@@ -348,8 +348,4 @@ begin
 end;
 
 { TMyDrawGrid }
-
-
-
-end.
 end.

@@ -7,7 +7,7 @@ unit my_drawgrid;
 interface
 
 uses
-  MyDrawGrid, mygrids, resize, LazarusPackageIntf;
+  MyDrawGrid, mygrids, LazarusPackageIntf;
 
 implementation
 

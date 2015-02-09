@@ -19,7 +19,7 @@
     <VersionInfo>
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
-      <BuildNr Value="17"/>
+      <BuildNr Value="18"/>
       <Attributes pvaDebug="True"/>
       <StringTable ProductVersion=""/>
     </VersionInfo>
@@ -33,7 +33,6 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="../../units"/>
             <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -64,7 +63,6 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="../../units"/>
             <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <Parsing>
@@ -104,7 +102,6 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="../../units"/>
             <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -158,13 +155,13 @@
         <PackageName Value="LCL"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="100">
+    <Units Count="108">
       <Unit0>
         <Filename Value="Main.lpr"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="50" Y="7"/>
-        <UsageCount Value="162"/>
+        <UsageCount Value="165"/>
       </Unit0>
       <Unit1>
         <Filename Value="main_code.pas"/>
@@ -172,26 +169,28 @@
         <ComponentName Value="Form1"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="43"/>
-        <CursorPos X="16" Y="57"/>
-        <UsageCount Value="162"/>
+        <UnitName Value="main_code"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="53"/>
+        <CursorPos Y="222"/>
+        <UsageCount Value="165"/>
+        <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="data.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="Data"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="299"/>
-        <CursorPos Y="315"/>
-        <UsageCount Value="162"/>
+        <TopLine Value="281"/>
+        <CursorPos X="56" Y="317"/>
+        <UsageCount Value="165"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="versionsupport.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="162"/>
+        <UsageCount Value="165"/>
       </Unit3>
       <Unit4>
         <Filename Value="uabout.pas"/>
@@ -200,7 +199,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="162"/>
+        <UsageCount Value="165"/>
       </Unit4>
       <Unit5>
         <Filename Value="settings.pas"/>
@@ -211,7 +210,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="92"/>
         <CursorPos X="3" Y="122"/>
-        <UsageCount Value="162"/>
+        <UsageCount Value="165"/>
       </Unit5>
       <Unit6>
         <Filename Value="projector.pas"/>
@@ -220,11 +219,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Projector"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="14"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="59" Y="26"/>
-        <UsageCount Value="162"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="165"/>
       </Unit6>
       <Unit7>
         <Filename Value="../../lazarus/lcl/controls.pp"/>
@@ -280,7 +277,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="42"/>
         <CursorPos X="3" Y="67"/>
-        <UsageCount Value="147"/>
+        <UsageCount Value="150"/>
       </Unit14>
       <Unit15>
         <Filename Value="../customlpks/mydrawgrid.pas"/>
@@ -318,10 +315,8 @@
       </Unit19>
       <Unit20>
         <Filename Value="../../lazarus/lcl/grids.pas"/>
-        <UnitName Value="Grids"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
-        <WindowIndex Value="1"/>
+        <WindowIndex Value="-1"/>
         <TopLine Value="10079"/>
         <CursorPos X="21" Y="10181"/>
         <UsageCount Value="21"/>
@@ -438,24 +433,21 @@
       <Unit37>
         <Filename Value="../MyDrawGrid/mydrawgrid.pas"/>
         <UnitName Value="MyDrawGrid"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="209"/>
-        <CursorPos X="50" Y="223"/>
-        <UsageCount Value="59"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="20"/>
+        <CursorPos X="19" Y="41"/>
+        <UsageCount Value="60"/>
         <Loaded Value="True"/>
       </Unit37>
       <Unit38>
         <Filename Value="resize.pas"/>
+        <UnitName Value="resize"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="32"/>
-        <CursorPos X="25" Y="41"/>
         <UsageCount Value="42"/>
       </Unit38>
       <Unit39>
         <Filename Value="../MyDrawGrid/resize.pas"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="24"/>
-        <CursorPos X="15" Y="12"/>
         <UsageCount Value="15"/>
       </Unit39>
       <Unit40>
@@ -655,11 +647,10 @@
       </Unit68>
       <Unit69>
         <Filename Value="../../units/resize.pas"/>
-        <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="22"/>
         <CursorPos Y="22"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit69>
       <Unit70>
         <Filename Value="../../Downloads/bgrabitmap/bgrabitmap.pas"/>
@@ -816,10 +807,10 @@
       <Unit92>
         <Filename Value="../MyDrawGrid/mygrids.pas"/>
         <UnitName Value="mygrids"/>
-        <EditorIndex Value="3"/>
-        <TopLine Value="12"/>
-        <CursorPos X="44" Y="27"/>
-        <UsageCount Value="42"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="112"/>
+        <CursorPos Y="132"/>
+        <UsageCount Value="43"/>
         <Loaded Value="True"/>
       </Unit92>
       <Unit93>
@@ -872,127 +863,190 @@
         <CursorPos X="86" Y="66"/>
         <UsageCount Value="10"/>
       </Unit99>
+      <Unit100>
+        <Filename Value="../units/resize.pas"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="20"/>
+      </Unit100>
+      <Unit101>
+        <Filename Value="../Imaging/Source/ImagingComponents.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="323"/>
+        <CursorPos X="27" Y="339"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit101>
+      <Unit102>
+        <Filename Value="../../../freepascal/packages/fpgtk/src/editor/gtkdef.pp"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+      </Unit102>
+      <Unit103>
+        <Filename Value="../Imaging/Source/ImagingExport.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="290"/>
+        <CursorPos X="78" Y="306"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit103>
+      <Unit104>
+        <Filename Value="../Imaging/Source/Projects/vampyreimagingpackage.lpk"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="20"/>
+        <DefaultSyntaxHighlighter Value="XML"/>
+      </Unit104>
+      <Unit105>
+        <Filename Value="../Imaging/Source/Imaging.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="76"/>
+        <CursorPos X="7" Y="101"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit105>
+      <Unit106>
+        <Filename Value="../../../Downloads/bgrabitmap/bgradefaultbitmap.pas"/>
+        <UnitName Value="BGRADefaultBitmap"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="22"/>
+        <CursorPos X="44" Y="27"/>
+        <UsageCount Value="10"/>
+      </Unit106>
+      <Unit107>
+        <Filename Value="../../../lazarus/lcl/grids.pas"/>
+        <UnitName Value="Grids"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="9214"/>
+        <CursorPos X="24" Y="9231"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit107>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../MyDrawGrid/mydrawgrid.pas"/>
-        <Caret Line="296" Column="14" TopLine="253"/>
+        <Filename Value="../MyDrawGrid/mygrids.pas"/>
+        <Caret Line="58" TopLine="45"/>
       </Position1>
       <Position2>
-        <Filename Value="../MyDrawGrid/mydrawgrid.pas"/>
-        <Caret Line="278" Column="19" TopLine="234"/>
+        <Filename Value="../MyDrawGrid/mygrids.pas"/>
+        <Caret Line="59" TopLine="45"/>
       </Position2>
       <Position3>
-        <Filename Value="../MyDrawGrid/mydrawgrid.pas"/>
-        <Caret Line="272" Column="11" TopLine="221"/>
+        <Filename Value="../MyDrawGrid/mygrids.pas"/>
+        <Caret Line="60" TopLine="45"/>
       </Position3>
       <Position4>
-        <Filename Value="../MyDrawGrid/mydrawgrid.pas"/>
-        <Caret Line="253" Column="21" TopLine="214"/>
+        <Filename Value="../MyDrawGrid/mygrids.pas"/>
+        <Caret Line="62" TopLine="45"/>
       </Position4>
       <Position5>
         <Filename Value="../MyDrawGrid/mygrids.pas"/>
-        <Caret Line="29" Column="16"/>
+        <Caret Line="63" TopLine="45"/>
       </Position5>
       <Position6>
         <Filename Value="../MyDrawGrid/mygrids.pas"/>
-        <Caret Line="28" Column="16"/>
+        <Caret Line="64" TopLine="45"/>
       </Position6>
       <Position7>
         <Filename Value="../MyDrawGrid/mygrids.pas"/>
-        <Caret Line="27" Column="43"/>
+        <Caret Line="65" TopLine="45"/>
       </Position7>
       <Position8>
         <Filename Value="../MyDrawGrid/mygrids.pas"/>
-        <Caret Line="29" Column="49" TopLine="19"/>
+        <Caret Line="66" TopLine="45"/>
       </Position8>
       <Position9>
         <Filename Value="../MyDrawGrid/mygrids.pas"/>
-        <Caret Line="24" Column="23" TopLine="11"/>
+        <Caret Line="68" TopLine="45"/>
       </Position9>
       <Position10>
-        <Filename Value="../MyDrawGrid/mygrids.pas"/>
-        <Caret Line="49" Column="32" TopLine="38"/>
+        <Filename Value="../MyDrawGrid/mydrawgrid.pas"/>
+        <Caret Line="278" Column="25" TopLine="257"/>
       </Position10>
       <Position11>
         <Filename Value="../MyDrawGrid/mydrawgrid.pas"/>
-        <Caret Line="253" Column="27" TopLine="229"/>
+        <Caret Line="325" TopLine="310"/>
       </Position11>
       <Position12>
         <Filename Value="../MyDrawGrid/mydrawgrid.pas"/>
-        <Caret Line="225" Column="30" TopLine="218"/>
+        <Caret Line="27" Column="54" TopLine="12"/>
       </Position12>
       <Position13>
-        <Filename Value="../MyDrawGrid/mydrawgrid.pas"/>
-        <Caret Line="33" Column="14" TopLine="19"/>
+        <Filename Value="../MyDrawGrid/mygrids.pas"/>
+        <Caret Line="132" Column="11" TopLine="112"/>
       </Position13>
       <Position14>
         <Filename Value="../MyDrawGrid/mydrawgrid.pas"/>
-        <Caret Line="45" Column="63" TopLine="21"/>
+        <Caret Line="277" TopLine="263"/>
       </Position14>
       <Position15>
-        <Filename Value="../MyDrawGrid/mydrawgrid.pas"/>
-        <Caret Line="225" Column="22" TopLine="209"/>
+        <Filename Value="data.pas"/>
+        <Caret Line="296" Column="16" TopLine="278"/>
       </Position15>
       <Position16>
         <Filename Value="../MyDrawGrid/mydrawgrid.pas"/>
-        <Caret Line="45" Column="63" TopLine="31"/>
+        <Caret Line="42" Column="18" TopLine="23"/>
       </Position16>
       <Position17>
         <Filename Value="../MyDrawGrid/mydrawgrid.pas"/>
-        <Caret Line="225" Column="22" TopLine="209"/>
+        <Caret Line="17" Column="31"/>
       </Position17>
       <Position18>
-        <Filename Value="../MyDrawGrid/mydrawgrid.pas"/>
-        <Caret Line="231" TopLine="209"/>
+        <Filename Value="../../../lazarus/lcl/grids.pas"/>
+        <Caret Line="1218" Column="32" TopLine="1203"/>
       </Position18>
       <Position19>
         <Filename Value="../MyDrawGrid/mydrawgrid.pas"/>
-        <Caret Line="229" TopLine="209"/>
+        <Caret Line="41" Column="19" TopLine="20"/>
       </Position19>
       <Position20>
-        <Filename Value="../MyDrawGrid/mydrawgrid.pas"/>
-        <Caret Line="230" TopLine="209"/>
+        <Filename Value="../../../lazarus/lcl/grids.pas"/>
+        <Caret Line="9996" Column="16" TopLine="9992"/>
       </Position20>
       <Position21>
-        <Filename Value="../MyDrawGrid/mydrawgrid.pas"/>
-        <Caret Line="231" TopLine="209"/>
+        <Filename Value="../../../lazarus/lcl/grids.pas"/>
+        <Caret Line="1235" Column="18" TopLine="1224"/>
       </Position21>
       <Position22>
-        <Filename Value="../MyDrawGrid/mydrawgrid.pas"/>
-        <Caret Line="229" Column="2" TopLine="209"/>
+        <Filename Value="../../../lazarus/lcl/grids.pas"/>
+        <Caret Line="9228" Column="41" TopLine="9214"/>
       </Position22>
       <Position23>
-        <Filename Value="../MyDrawGrid/mydrawgrid.pas"/>
-        <Caret Line="230" TopLine="209"/>
+        <Filename Value="data.pas"/>
+        <Caret Line="315" Column="15" TopLine="299"/>
       </Position23>
       <Position24>
         <Filename Value="../MyDrawGrid/mydrawgrid.pas"/>
-        <Caret Line="231" TopLine="209"/>
+        <Caret Line="41" Column="19" TopLine="20"/>
       </Position24>
       <Position25>
-        <Filename Value="../MyDrawGrid/mydrawgrid.pas"/>
-        <Caret Line="229" TopLine="209"/>
+        <Filename Value="data.pas"/>
+        <Caret Line="311" Column="23" TopLine="300"/>
       </Position25>
       <Position26>
-        <Filename Value="../MyDrawGrid/mydrawgrid.pas"/>
-        <Caret Line="230" TopLine="209"/>
+        <Filename Value="data.pas"/>
+        <Caret Line="317" Column="27" TopLine="300"/>
       </Position26>
       <Position27>
-        <Filename Value="../MyDrawGrid/mydrawgrid.pas"/>
-        <Caret Line="231" TopLine="209"/>
+        <Filename Value="data.pas"/>
+        <Caret Line="312" Column="45"/>
       </Position27>
       <Position28>
-        <Filename Value="../MyDrawGrid/mydrawgrid.pas"/>
-        <Caret Line="229" TopLine="209"/>
+        <Filename Value="data.pas"/>
+        <Caret Line="317" Column="51" TopLine="302"/>
       </Position28>
       <Position29>
-        <Filename Value="../MyDrawGrid/mydrawgrid.pas"/>
-        <Caret Line="230" TopLine="209"/>
+        <Filename Value="data.pas"/>
+        <Caret Line="315" TopLine="302"/>
       </Position29>
       <Position30>
-        <Filename Value="projector.pas"/>
-        <Caret Line="60" Column="3" TopLine="42"/>
+        <Filename Value="data.pas"/>
+        <Caret Line="317" Column="56" TopLine="302"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -1003,7 +1057,6 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="../../units"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
@@ -1020,8 +1073,9 @@
     </CodeGeneration>
     <Linking>
       <Debugging>
-        <DebugInfoType Value="dsDwarf2Set"/>
+        <DebugInfoType Value="dsDwarf2"/>
         <UseHeaptrc Value="True"/>
+        <UseExternalDbgSyms Value="True"/>
       </Debugging>
       <Options>
         <Win32>

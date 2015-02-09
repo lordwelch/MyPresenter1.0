@@ -4,7 +4,8 @@ program Main;
 
 uses
   cmem, Interfaces, // this includes the LCL widgetset
-  Forms, main_code, uabout, settings, Projector, slideeditor, PasLibVlcPlayer;
+  Forms, main_code, uabout, settings, Projector, slideeditor,
+  PasLibVlcPlayer;
 
 {$R *.res}
 
