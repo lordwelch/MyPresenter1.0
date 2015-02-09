@@ -5,20 +5,9 @@ object frmProjector: TfrmProjector
   Width = 320
   BorderStyle = bsNone
   Caption = 'frmProjector'
-  ClientHeight = 241
-  ClientWidth = 320
   DefaultMonitor = dmPrimary
   OnCreate = FormCreate
   OnPaint = FormPaint
   ShowInTaskBar = stNever
   LCLVersion = '1.4.0.1'
-  object VlcPlayer: TPasLibVlcPlayer
-    Left = 0
-    Top = 0
-    BevelOuter = bvNone
-    FullRepaint = False
-    ParentColor = False
-    TabOrder = 0
-    SnapShotFmt = 'png'
-  end
 end

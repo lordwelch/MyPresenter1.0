@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Root>
   <Settings>
-    <Slide_font Size="10" Bold="0" Italic="0" Underline="0" Color="00000000">Monospace</Slide_font>
-    <Grid_font Size="10" Bold="0" Italic="0" Underline="0">Monospace</Grid_font>
-    <Text_outline>0.00</Text_outline>
+    <Slide_font Size="39" Bold="0" Italic="0" Underline="0" Color="FF00DAFF">A.C.M.E. Secret Agent</Slide_font>
+    <Grid_font Size="10" Bold="0" Italic="0" Underline="0">A.C.M.E. Secret Agent</Grid_font>
+    <Text_outline>1.00</Text_outline>
   </Settings>
 </Root>

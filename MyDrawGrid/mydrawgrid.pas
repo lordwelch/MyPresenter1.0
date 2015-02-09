@@ -179,7 +179,7 @@ var
   //iwidth: Integer = 0;
   Cheight: Integer = 0;
   Cwidth: Integer = 0;
-  PBitmap: PBGRABitmap = nil;
+  //PBitmap: PBGRABitmap = nil;
   bitmap: TBitmap;
 begin
   bitmap:= TBitmap.Create();
@@ -194,8 +194,8 @@ begin
   if (ACol=2) and (ARow<>0) then
     begin
       //PBitmap:=CellImage[ACol, ARow];
-      if PBitmap <> nil then
-        begin
+      //if PBitmap <> nil then
+      //  begin
           Cwidth:=ColWidths[ACol];
           Cheight:=RowHeights[ARow];
           if (Cwidth <> 0) or (Cheight<>0) then
@@ -205,7 +205,7 @@ begin
           //DebugLn('Width : ptrdraw: '+IntToStr(PBitmap^.Width));
           //DebugLn('Height: ptrdraw: '+IntToStr(PBitmap^.Height));
           canvas.Draw(aRect.Left,aRect.Top, bitmap);
-        end;
+       // end;
     end;
   bitmap.Free;
   {if PBitmap<>nil then
@@ -250,7 +250,7 @@ begin
     begin
       S:=TSlide.create(txt);
       SetCells(ACol, ARow, S);
-      S.Free;
+      //S.Free;
     end;
 end;
 
@@ -276,7 +276,7 @@ begin
   begin
   S:=TSlide.create(aValue);
   SetCells(ACol, ARow, S);
-  S.Free;
+  //S.Free;
   end;
 end;
 

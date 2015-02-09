@@ -13,7 +13,6 @@ type
   { TfrmProjector }
 
   TfrmProjector = class(TForm)
-    VlcPlayer: TPasLibVlcPlayer;
     procedure FormCreate(Sender: TObject);
     procedure FormPaint(Sender: TObject);
   private
@@ -55,14 +54,15 @@ var
   //x, y: Integer;
 begin
   //BGRAGraphicControl1.Bitmap.;
-  teststr:='test';
-  SlideBitmap:=TBGRABitmap.Create(MonitorPro.Width, MonitorPro.Height, BGRABlack);
-//  SlideBitmap.PutImage(0, 0, form1.Grid.CellImage[1, CurrentSlide], dmSet);
-  AColor:=BGRAWhite;
+  teststr:=Form1.Grid.SlideText[1,(CurrentSlide)];
+  SlideBitmap:=TBGRABitmap.Create(MonitorPro.Width, MonitorPro.Height, BGRAWhite);
+  //SlideBitmap.PutImage(0, 0, form1.Grid.CellImage[1, CurrentSlide], dmSet);
+  //AColor:=BGRAWhite;
   //y:= (Monitor.Height - AHeight[CurrentSlide]) div 2;
   //x:= (Monitor.Width - AWidth[CurrentSlide])div 2;
 
-  SlideBitmap.TextRect(frmProjector.BoundsRect, 0, 0, teststr{Form1.Grid.SlideText[1,(CurrentSlide)]}, TextStyle, AColor);
+  SlideBitmap.TextRect(frmProjector.BoundsRect, 0, 0, teststr, TextStyle, AColor);
+  SlideBitmap.TextOut(50, 50, teststr, AColor);
   SlideBitmap.Draw(Canvas, 0, 0);
   SlideBitmap.Free;
 
