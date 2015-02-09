@@ -6,7 +6,7 @@ interface
 
 uses
   cmem, Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  Data, BGRABitmap, BGRABitmapTypes, PasLibVlcPlayerUnit;
+  Data, settings, BGRABitmap, BGRABitmapTypes, BGRATextFX, PasLibVlcPlayerUnit;
 
 type
 
@@ -23,6 +23,7 @@ type
 
 var
   frmProjector: TfrmProjector;
+  renderer: TBGRATextEffectFontRenderer;
 
 implementation
   uses main_code;
@@ -53,17 +54,28 @@ var
   teststr: String;
   //x, y: Integer;
 begin
+  with renderer do
+  begin
+  renderer:=TBGRATextEffectFontRenderer.Create;
+  OutlineWidth:=TextOutline;
+  renderer.FontName:=FrmSettings.SlideFont.Font;
+
+  end;
+
+
+
+
   //BGRAGraphicControl1.Bitmap.;
   teststr:=Form1.Grid.SlideText[1,(CurrentSlide)];
-  SlideBitmap:=TBGRABitmap.Create(MonitorPro.Width, MonitorPro.Height, BGRAWhite);
-  //SlideBitmap.PutImage(0, 0, form1.Grid.CellImage[1, CurrentSlide], dmSet);
+  SlideBitmap:=TBGRABitmap.Create(MonitorPro.Width, MonitorPro.Height, BGRABlack);
+  SlideBitmap.PutImage(0, 0, form1.Grid.CellImage[1, CurrentSlide], dmSet);
   //AColor:=BGRAWhite;
   //y:= (Monitor.Height - AHeight[CurrentSlide]) div 2;
   //x:= (Monitor.Width - AWidth[CurrentSlide])div 2;
 
-  SlideBitmap.TextRect(frmProjector.BoundsRect, 0, 0, teststr, TextStyle, AColor);
-  SlideBitmap.TextOut(50, 50, teststr, AColor);
-  SlideBitmap.Draw(Canvas, 0, 0);
+  SlideBitmap.TextRect(ClientRect, 0, 0, teststr, TextStyle, AColor);
+  //SlideBitmap.TextOut(50, 50, teststr, AColor);
+  SlideBitmap.Draw(Canvas, 0, 0, True);
   SlideBitmap.Free;
 
 end;

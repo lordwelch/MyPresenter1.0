@@ -160,7 +160,7 @@ end;
 
         //set lables
     Slide.Caption:='Current slide font: '+SlideFont.Font.Name;
-    //slidefont:=SlideFont.Font;
+    slidefont:=SlideFont.Font;
 
     GridLable.Caption:='Grid font:          '+GridFont.Font.Name;
     Form1.Grid.Font := GridFont.Font;
@@ -193,4 +193,4 @@ begin
 end;
 
 end.
-
+

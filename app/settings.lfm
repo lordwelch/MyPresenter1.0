@@ -11,7 +11,7 @@ object frmSettings: TfrmSettings
   Font.Name = 'Monospace'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '1.3'
+  LCLVersion = '1.4.0.1'
   object Slide: TLabel
     Left = 8
     Height = 15
@@ -102,7 +102,7 @@ object frmSettings: TfrmSettings
   object ComboBox1: TComboBox
     Tag = 1
     Left = 8
-    Height = 25
+    Height = 27
     Top = 96
     Width = 172
     Font.Height = -13
@@ -116,7 +116,7 @@ object frmSettings: TfrmSettings
   object ComboBox2: TComboBox
     Tag = 2
     Left = 8
-    Height = 25
+    Height = 27
     Top = 177
     Width = 172
     Font.Height = -13
@@ -130,7 +130,7 @@ object frmSettings: TfrmSettings
   object SpinEdit1: TSpinEdit
     Tag = 1
     Left = 192
-    Height = 23
+    Height = 27
     Top = 98
     Width = 50
     Font.Height = -13
@@ -143,7 +143,7 @@ object frmSettings: TfrmSettings
   object SpinEdit2: TSpinEdit
     Tag = 2
     Left = 192
-    Height = 23
+    Height = 27
     Top = 176
     Width = 50
     Font.Height = -13
@@ -154,7 +154,7 @@ object frmSettings: TfrmSettings
   end
   object SpinEdit3: TFloatSpinEdit
     Left = 344
-    Height = 23
+    Height = 27
     Top = 98
     Width = 50
     Font.Height = -13
@@ -235,4 +235,4 @@ object frmSettings: TfrmSettings
     left = 348
     top = 296
   end
-end
+end
