@@ -16,7 +16,7 @@ unit PasLibVlcClassUnit;
 interface
 
 uses
-  {$IFDEF UNIX}Unix,{$ENDIF}
+  {$IFDEF UNIX}Unix, LMessages,{$ENDIF}
   {$IFDEF MSWINDOWS}Windows,{$ENDIF}
   {$IFDEF FPC}
   LCLType, LCLIntf, LazarusPackageIntf, LResources, Forms, Dialogs,
@@ -830,4 +830,4 @@ end;
 
 {$ENDIF}
 
-end.
+end.
