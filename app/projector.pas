@@ -6,7 +6,7 @@ interface
 
 uses
   cmem, Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  Data, settings, BGRABitmap, BGRABitmapTypes, BGRATextFX, PasLibVlcPlayerUnit;
+  Data, settings, BGRABitmap, BGRABitmapTypes, BGRATextFX,  BGRAGradients, PasLibVlcPlayerUnit;
 
 type
 
@@ -23,7 +23,7 @@ type
 
 var
   frmProjector: TfrmProjector;
-  renderer: TBGRATextEffectFontRenderer;
+
 
 implementation
   uses main_code;
@@ -42,9 +42,10 @@ begin
   Alignment:=taCenter;
   Layout:=tlCenter;
   end;
+  OutColor:=BGRAWhite;
   frmProjector.BoundsRect:=MonitorPro.BoundsRect;
   {$ifdef WINDOWS}
-  WindowState:=wsMaximized;
+  WindowState:=wsFullScreen;
   {$EndIf}
 end;
 
@@ -52,29 +53,44 @@ procedure TfrmProjector.FormPaint(Sender: TObject);
 var
   SlideBitmap: TBGRABitmap;
   teststr: String;
+  renderer1: TBGRATextEffectFontRenderer;
+  shader: TPhongShading;
   //x, y: Integer;
 begin
-  with renderer do
-  begin
-  renderer:=TBGRATextEffectFontRenderer.Create;
-  OutlineWidth:=TextOutline;
-  renderer.FontName:=FrmSettings.SlideFont.Font;
+  SlideBitmap:=TBGRABitmap.Create(MonitorPro.Width, MonitorPro.Height, BGRABlack);
+  shader:=TPhongShading.Create;
+  renderer1:=TBGRATextEffectFontRenderer.Create(shader, True);
 
-  end;
-
-
-
-
+  SlideBitmap.FontRenderer:=renderer1;
+  renderer1.ShadowVisible := True;
+  renderer1.OutlineVisible:=True;
+  renderer1.OutlineColor:=OutColor;
+  renderer1.OutlineWidth:=TextOutline;
+  renderer1.FontEmHeight:=FrmSettings.SlideFont.Font.Size;
   //BGRAGraphicControl1.Bitmap.;
   teststr:=Form1.Grid.SlideText[1,(CurrentSlide)];
-  SlideBitmap:=TBGRABitmap.Create(MonitorPro.Width, MonitorPro.Height, BGRABlack);
+
+  SlideBitmap.FontName := FrmSettings.SlideFont.Font.Name;
+  SlideBitmap.FontFullHeight := FrmSettings.SlideFont.Font.Size;
+  SlideBitmap.FontAntialias := True;
+  SlideBitmap.FontQuality := fqFineAntialiasing;
   SlideBitmap.PutImage(0, 0, form1.Grid.CellImage[1, CurrentSlide], dmSet);
   //AColor:=BGRAWhite;
   //y:= (Monitor.Height - AHeight[CurrentSlide]) div 2;
   //x:= (Monitor.Width - AWidth[CurrentSlide])div 2;
 
+  //with renderer1 do
+  //begin
+
+
+  //renderer1.FontName:=FrmSettings.SlideFont.Font.Name;
+
+
+
+  //end;
+
   SlideBitmap.TextRect(ClientRect, 0, 0, teststr, TextStyle, AColor);
-  //SlideBitmap.TextOut(50, 50, teststr, AColor);
+  SlideBitmap.TextOut(50, 50, teststr, AColor);
   SlideBitmap.Draw(Canvas, 0, 0, True);
   SlideBitmap.Free;
 

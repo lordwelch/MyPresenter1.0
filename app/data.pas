@@ -21,7 +21,7 @@ var
   GridOptions: TGridOptions;
   GridImageList: array of TBGRABitmapArray;
   Background: TBGRABitmap;
-  AColor: TBGRAPixel;
+  AColor, OutColor: TBGRAPixel;
   MonitorPro: TMonitor;
   Monitornum: Integer;
 
