@@ -114,7 +114,7 @@ begin
   memo1.Append('drop');
   ImagePath.AddStrings(SortFiles(FileNames));
   Memo1.Append('debug: LoadImages()');
-  LoadImages();
+  LoadImages(TStringList(SortFiles(FileNames)));
 end;
 
 procedure TForm1.GridEditingDone(Sender: TObject);
@@ -167,7 +167,7 @@ begin
   if OpenDialog1.Execute then
     begin
       ImagePath.AddStrings(SortFiles(OpenDialog1.Files));
-      LoadImages();
+      LoadImages(TStringList(SortFiles(OpenDialog1.Files)));
     end;
 end;
 

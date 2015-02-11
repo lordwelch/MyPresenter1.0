@@ -32,7 +32,7 @@ var
   procedure SaveXML();
   procedure GetScreens();
   procedure LoadSupportedImages();
-  procedure LoadImages();
+  procedure LoadImages(str: TStringList);
   procedure FreeImage();
   function SortFiles(List: TStrings):TStrings; overload;
   function SortFiles(List: array of string):TStrings; overload;
@@ -265,20 +265,20 @@ begin
   form1.OpenDialog1.Filter:='Supported Images|*.jpg;*.jpeg;*.png;*.gif;*.pcx;*.bmp;*.ico;*.cur;*.pdn;*.lzp;*.ora;*.psd;*.tga;*.tif;*.tiff;*.xwd;*.xpm';
 end;
 
-procedure LoadImages();
+procedure LoadImages(str: TStringList);
 var
   i, gridint: Integer;
   LoadBGRA, PutBGRA: TBGRABitmap;
 begin
   gridint:=(Length(GridImageList[0]));
-  SetLength(GridImageList, 2, gridint+ImagePath.Count);
-  for i := 0 to (ImagePath.Count - 1) do
+  SetLength(GridImageList, 2, gridint+str.Count);
+  for i := 0 to (str.Count - 1) do
     begin
 
       try
-      LoadBGRA:=TBGRABitmap.Create(ImagePath.Strings[i]);
+      LoadBGRA:=TBGRABitmap.Create(str.Strings[i]);
       Application.ProcessMessages;
-      Form1.Memo1.Append(ImagePath.Strings[i]);
+      Form1.Memo1.Append(str.Strings[i]);
 
       Application.ProcessMessages;
 
