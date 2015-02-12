@@ -271,7 +271,7 @@ var
   LoadBGRA, PutBGRA: TBGRABitmap;
 begin
   gridint:=(Length(GridImageList[0]));
-  SetLength(GridImageList, 2, gridint+str.Count);
+  SetLength(GridImageList, 3, gridint+str.Count);
   for i := 0 to (str.Count - 1) do
     begin
 
@@ -281,19 +281,19 @@ begin
       Form1.Memo1.Append(str.Strings[i]);
 
       Application.ProcessMessages;
-
-      GridImageList[0, i+gridint]:=TBGRABitmap.Create(MonitorPro.Width, MonitorPro.Height);
+      GridImageList[0, i+gridint]:=LoadBGRA.Duplicate(True);
+      GridImageList[1, i+gridint]:=TBGRABitmap.Create(MonitorPro.Width, MonitorPro.Height);
       //GridImageList[1, i+gridint]:=TBGRABitmap.Create(Form1.Grid.Columns[1].Width, Form1.Grid.RowHeights[1]);
       AColor:= BGRABlack;
       PutBGRA:=TBGRABitmap.Create(MonitorPro.Width, MonitorPro.Height, AColor);
       PutBGRA.PutImage(0, 0, ResizeImage(LoadBGRA, MonitorPro.Width, MonitorPro.Height), dmSet);
-      GridImageList[0, (i+gridint)].PutImage(0, 0, PutBGRA, dmSet);
-      GridImageList[1, (i+gridint)]:=ResizeImage(LoadBGRA, Form1.Grid.Columns[1].Width, Form1.Grid.RowHeights[1], false, false);
+      GridImageList[1, (i+gridint)].PutImage(0, 0, PutBGRA, dmSet);
+      GridImageList[2, (i+gridint)]:=ResizeImage(LoadBGRA, Form1.Grid.Columns[1].Width, Form1.Grid.RowHeights[1], false, false);
       //.add((PutBGRA).Bitmap, nil);
       Form1.Memo1.Append(IntToStr(i));
       Form1.Grid.InsertColRow(False, Form1.Grid.RowCount);
-      Form1.Grid.CellImage[1, Form1.Grid.RowCount-1]:=TBGRABitmap(GridImageList[0, (i+gridint)]);
-      Form1.Grid.CellImage[2, Form1.Grid.RowCount-1]:=TBGRABitmap(GridImageList[1, (i+gridint)]);
+      Form1.Grid.CellImage[1, Form1.Grid.RowCount-1]:=TBGRABitmap(GridImageList[1, (i+gridint)]);
+      Form1.Grid.CellImage[2, Form1.Grid.RowCount-1]:=TBGRABitmap(GridImageList[2, (i+gridint)]);
       //AHeight[i+LenH]:=height;
       //AWidth[i+LenW]:=width;
       finally
@@ -309,7 +309,7 @@ begin
 end;
 
 procedure FreeImage;
-var i: Integer;
+//var i: Integer;
 begin
 {  for i:=0 to Length(GridImageList[0])-1 do
     TBGRACustomBitmap(GridImageList[0, i]).destroy;

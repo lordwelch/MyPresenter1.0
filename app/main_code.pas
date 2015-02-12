@@ -8,7 +8,7 @@ uses
   cmem, Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   LCLType, StdCtrls, ExtCtrls, ActnList, StdActns, Data, BCButton,
   PasLibVlcPlayerUnit, Projector, settings, slideeditor,
-  MyDrawGrid;
+  MyDrawGrid, Grids;
 
 type
 
@@ -172,17 +172,23 @@ begin
 end;
 
 procedure TForm1.MenuItem8Click(Sender: TObject);
+var
+  a,c:TGridColumn;
 begin
   ImagePath.Clear;
-  grid.Columns.Clear;
-  Grid.Clear;
   Memo1.Clear;
   with grid do
   begin
-    Columns.Add.SizePriority:=0;
-    Columns.Add;
+    AutoFillColumns := False;
+    Columns.Clear;
+    Clear;
+    C:=Columns.Add;
+    C.SizePriority:=0;
+    C.Width := 198;
+    a:=Columns.Add;
     FixedCols:=1;
     FixedRows:=1;
+    AutoFillColumns := True;
   end;
   FreeImage();
   frmProjector.Invalidate;
