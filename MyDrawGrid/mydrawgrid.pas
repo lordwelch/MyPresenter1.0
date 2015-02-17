@@ -22,16 +22,21 @@ type
     FRow,FCol: Integer;
     BlankBitmap: TBGRABitmap;
     function GetTextStyle():TTextStyle;
-    procedure SetImage(ACol, ARow: Integer; AValue: TBGRABitmap);
+    procedure SetSlideImage(ACol, ARow: Integer; AValue: image1);
+    function GetSlideImage(ACol, ARow: Integer): image1;
     procedure SetCells(ACol, ARow: Integer; const AValue: TSlide);
     function GetCell(ACol, ARow: Integer): TSlide; //override; overload;
+    function GetSlideText(ACol, ARow: Integer): string;
+    procedure SetSlideText(ACol, ARow: Integer; aValue: string);
+    procedure SetSlideNote(ACol, ARow: Integer; aValue: string);
+    function GetSlideNote(ACol, ARow: Integer): string;
     procedure SetTextStyle(ATextStyle:TTextStyle);
   protected
     { Protected declarations }
-    function GetSlideText(ACol, ARow: Integer): string;
 
-    function GetImage(ACol, ARow: Integer): TBGRABitmap;
-    procedure SetSlideText(ACol, ARow: Integer; aValue: string);
+
+
+
     procedure DrawCell(aCol,aRow: Integer; aRect: TRect; aState:TGridDrawState); override;
     procedure paint; override;
 
@@ -42,7 +47,8 @@ type
     property TextStyle: TTextStyle read GetTextStyle write SetTextStyle;
     property Cells[ACol, ARow: Integer]: TSlide read GetCell write SetCells;
     property SlideText[ACol, ARow: Integer]: string read GetSlideText write SetSlideText;
-    property CellImage[ACol, ARow: Integer]: TBGRABitmap read GetImage write SetImage;
+    property SlideImage[ACol, ARow: Integer]: image1 read GetSlideImage write SetSlideImage;
+    property SlideNote[ACol, ARow: Integer]: string read GetSlideNote write SetSlideNote;
   published
     { Published declarations }
     property Align;
@@ -175,11 +181,8 @@ end;
 procedure TMyDrawGrid.DrawCell(aCol, aRow: Integer; aRect: TRect;
   aState: TGridDrawState);
 var
-  //iheight: Integer = 0;
-  //iwidth: Integer = 0;
   Cheight: Integer = 0;
   Cwidth: Integer = 0;
-  //PBitmap: PBGRABitmap = nil;
   bitmap: TBitmap;
 begin
   bitmap:= TBitmap.Create();
@@ -193,23 +196,18 @@ begin
        canvas.TextRect(aRect, 0, 0, SlideText[ACol, ARow], textstyle);
   if (ACol=2) and (ARow<>0) then
     begin
-      //PBitmap:=CellImage[ACol, ARow];
-      //if PBitmap <> nil then
-      //  begin
+
           Cwidth:=ColWidths[ACol];
           Cheight:=RowHeights[ARow];
           if (Cwidth <> 0) or (Cheight<>0) then
-            bitmap:=ResizeImage(CellImage[ACol, ARow], Cwidth, Cheight, True, True).Bitmap;
+            bitmap:=ResizeImage(SlideImage[ACol, ARow].Img, Cwidth, Cheight, True, True).Bitmap;
           //DebugLn('Width : draw: ARow: '+IntToStr(ARow)+',  '+IntToStr(bitmap.Width));
           //DebugLn('Height: draw: '+IntToStr(bitmap.Height));
           //DebugLn('Width : ptrdraw: '+IntToStr(PBitmap^.Width));
           //DebugLn('Height: ptrdraw: '+IntToStr(PBitmap^.Height));
           canvas.Draw(aRect.Left,aRect.Top, bitmap);
-       // end;
     end;
   bitmap.Free;
-  {if PBitmap<>nil then
-    PBitmap:=nil; }
 end;
 
 function TMyDrawGrid.GetCell(ACol, ARow: Integer): TSlide;
@@ -222,13 +220,21 @@ begin
   else Result:=TSlide.create(BGRABlack);
 end;
 
-function TMyDrawGrid.GetImage(ACol, ARow: Integer): TBGRABitmap;
+function TMyDrawGrid.GetSlideImage(ACol, ARow: Integer): image1;
 var
    C: PCellProps;
+   img: image1;
 begin
-   Result:=BlankBitmap;
+  img.Img:=BlankBitmap;
+  img.ImgPath:='black.png';
+   Result:=img;
   C:=FGrid.Celda[ACol,ARow];
-  if C<>nil then Result:=TSlide(C^.Data).Image;
+  if C<>nil then
+    begin
+      img.ImgPath := TSlide(C^.Data).ImgPath;
+      img.Img:=TSlide(C^.Data).Image;
+      Result:=img
+    end;
 end;
 
 procedure TMyDrawGrid.SetSlideText(ACol, ARow: Integer; aValue: string);
@@ -254,7 +260,7 @@ begin
     end;
 end;
 
-procedure TMyDrawGrid.SetImage(ACol, ARow: Integer; AValue: TBGRABitmap);
+procedure TMyDrawGrid.SetSlideNote(ACol, ARow: Integer; aValue: string);
 var
   C: PCellProps;
   S: TSlide;
@@ -266,15 +272,52 @@ begin
     with S do
     begin
     S:=GetCell(ACol, ARow);
-    Image.Free;
-    Image:=AValue;
+    Note:=aValue;
     SetCells(ACol, ARow, S);
     end;
     S.Free;
   end
   else
   begin
-  S:=TSlide.create(aValue);
+  S:=TSlide.create(' ', aValue);
+  SetCells(ACol, ARow, S);
+  //S.Free;
+  end;
+end;
+
+function TMyDrawGrid.GetSlideNote(ACol, ARow: Integer): string;
+var
+   C: PCellProps;
+begin
+   Result:=' ';
+  C:=FGrid.Celda[ACol,ARow];
+  if C<>nil then Result:=TSlide(C^.Data).Note;
+end;
+
+procedure TMyDrawGrid.SetSlideImage(ACol, ARow: Integer; AValue: image1);
+var
+  C: PCellProps;
+  S: TSlide;
+  img: image1;
+  //strslide, strnote, strvid: string;
+begin
+  img:=AValue;
+  C:= FGrid.Celda[aCol,aRow];
+  if C<>nil then
+  begin
+    with S do
+    begin
+    S:=GetCell(ACol, ARow);
+    Image.Free;
+    Image:=img.Img;
+    ImgPath := img.ImgPath;
+    SetCells(ACol, ARow, S);
+    end;
+    //S.Free;
+  end
+  else
+  begin
+  S:=TSlide.create(img.Img, img.ImgPath);
   SetCells(ACol, ARow, S);
   //S.Free;
   end;

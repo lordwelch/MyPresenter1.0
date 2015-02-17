@@ -1,19 +1,21 @@
 object frmSlideEditor: TfrmSlideEditor
-  Left = 710
-  Height = 368
-  Top = 347
-  Width = 513
+  Left = 449
+  Height = 768
+  Top = 95
+  Width = 966
   BorderIcons = []
   Caption = 'frmSlideEditor'
-  ClientHeight = 368
-  ClientWidth = 513
+  ClientHeight = 768
+  ClientWidth = 966
+  KeyPreview = True
+  OnClose = FormClose
   OnShow = FormShow
   Position = poScreenCenter
   LCLVersion = '1.4.0.1'
   object ComboBox1: TComboBox
-    Left = 38
+    Left = 32
     Height = 27
-    Top = 60
+    Top = 16
     Width = 100
     ItemHeight = 0
     OnChange = ComboBox1Change
@@ -33,9 +35,9 @@ object frmSlideEditor: TfrmSlideEditor
     OnPaint = CellImagePaint
   end
   object ComboBox2: TComboBox
-    Left = 38
+    Left = 416
     Height = 27
-    Top = 144
+    Top = 16
     Width = 100
     ItemHeight = 0
     OnChange = ComboBox2Change
@@ -45,21 +47,71 @@ object frmSlideEditor: TfrmSlideEditor
     TabStop = False
   end
   object selectimage: TBGRAGraphicControl
-    Left = 200
+    Left = 584
     Height = 159
-    Top = 184
+    Top = 16
     Width = 173
     Color = clNone
     ColorOpacity = 0
     Alignment = taCenter
+    OnPaint = selectimagePaint
   end
   object Button1: TButton
-    Left = 53
+    Left = 840
     Height = 25
-    Top = 304
+    Top = 728
     Width = 75
     Caption = 'Set Image'
     OnClick = Button1Click
     TabOrder = 2
+  end
+  object Memo1: TMemo
+    Left = 200
+    Height = 432
+    Top = 240
+    Width = 333
+    Lines.Strings = (
+      'Memo1'
+    )
+    OnEditingDone = Memo1EditingDone
+    OnKeyPress = Memo1KeyPress
+    TabOrder = 3
+    WantTabs = True
+  end
+  object Memo2: TMemo
+    Left = 582
+    Height = 432
+    Top = 240
+    Width = 333
+    Enabled = False
+    Lines.Strings = (
+      'Memo1'
+    )
+    OnKeyPress = Memo1KeyPress
+    TabOrder = 4
+    WantTabs = True
+  end
+  object ListBox1: TListBox
+    Left = 32
+    Height = 80
+    Top = 48
+    Width = 100
+    ItemHeight = 0
+    OnSelectionChange = ListBox1SelectionChange
+    ScrollWidth = 98
+    TabOrder = 5
+    TopIndex = -1
+  end
+  object ListBox2: TListBox
+    Left = 416
+    Height = 80
+    Top = 48
+    Width = 100
+    ExtendedSelect = False
+    ItemHeight = 0
+    OnSelectionChange = ListBox2SelectionChange
+    ScrollWidth = 98
+    TabOrder = 6
+    TopIndex = -1
   end
 end

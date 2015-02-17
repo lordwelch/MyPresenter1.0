@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Root>
-  <Settings>
-    <Slide_font Size="65" Bold="0" Italic="0" Underline="0" Color="000000FF">DejaVu Serif</Slide_font>
-    <Grid_font Size="11" Bold="0" Italic="0" Underline="0">Serto Jerusalem</Grid_font>
-    <Grid_options>goEditing</Grid_options>
-    <Text_outline>0.00</Text_outline>
-  </Settings>
-</Root>

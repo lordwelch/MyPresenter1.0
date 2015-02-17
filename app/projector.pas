@@ -38,15 +38,15 @@ begin
   begin
   SingleLine:=false;
   ShowPrefix:=true;
-  Wordbreak:=false;
+  Wordbreak:=true;
   Alignment:=taCenter;
   Layout:=tlCenter;
   end;
   OutColor:=BGRAWhite;
   frmProjector.BoundsRect:=MonitorPro.BoundsRect;
-  {$ifdef WINDOWS}
+  //{$ifdef WINDOWS}
   WindowState:=wsFullScreen;
-  {$EndIf}
+  //{$EndIf}
 end;
 
 procedure TfrmProjector.FormPaint(Sender: TObject);
@@ -54,12 +54,12 @@ var
   SlideBitmap: TBGRABitmap;
   teststr: String;
   renderer1: TBGRATextEffectFontRenderer;
-  shader: TPhongShading;
+ // shader: TPhongShading;
   //x, y: Integer;
 begin
   SlideBitmap:=TBGRABitmap.Create(MonitorPro.Width, MonitorPro.Height, BGRABlack);
-  shader:=TPhongShading.Create;
-  renderer1:=TBGRATextEffectFontRenderer.Create(shader, True);
+ // shader:=TPhongShading.Create;
+  renderer1:=TBGRATextEffectFontRenderer.Create({shader, True});
 
   SlideBitmap.FontRenderer:=renderer1;
   renderer1.ShadowVisible := True;
@@ -74,7 +74,7 @@ begin
   SlideBitmap.FontFullHeight := FrmSettings.SlideFont.Font.Size;
   SlideBitmap.FontAntialias := True;
   SlideBitmap.FontQuality := fqFineAntialiasing;
-  SlideBitmap.PutImage(0, 0, form1.Grid.CellImage[1, CurrentSlide], dmSet);
+  SlideBitmap.PutImage(0, 0, form1.Grid.SlideImage[1, CurrentSlide].Img, dmSet);
   //AColor:=BGRAWhite;
   //y:= (Monitor.Height - AHeight[CurrentSlide]) div 2;
   //x:= (Monitor.Width - AWidth[CurrentSlide])div 2;
@@ -90,7 +90,7 @@ begin
   //end;
 
   SlideBitmap.TextRect(ClientRect, 0, 0, teststr, TextStyle, AColor);
-  SlideBitmap.TextOut(50, 50, teststr, AColor);
+  //SlideBitmap.TextOut(50, 50, teststr, AColor);
   SlideBitmap.Draw(Canvas, 0, 0, True);
   SlideBitmap.Free;
 

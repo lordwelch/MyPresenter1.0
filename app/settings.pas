@@ -103,7 +103,7 @@ end;
 
 procedure TFrmSettings.btSaveClick(Sender: TObject);
 begin
-  SaveXML();
+  SaveXMLConfig('Settings.xml');
 end;
 
 procedure TFrmSettings.btnColorClick(Sender: TObject);
@@ -138,7 +138,7 @@ end;
    goEditingIndex:=2;
    GridOptions:=Form1.Grid.Options;
    SGridOptions := TStringList.Create;
-   readXML('TestXML_v2.xml');
+   readXMLConfig('Settings.xml');
         //create string list for image filenames and GridOptions
    ImagePath := TStringList.Create;
 

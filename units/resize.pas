@@ -7,12 +7,12 @@ interface
 uses
   Classes, SysUtils, LCLProc, BGRABitmap, BGRABitmapTypes;
 
-  function ResizeImage(bitm: TBGRACustomBitmap; width, height: Integer; bars: Boolean = True; Center: Boolean = True): TBGRACustomBitmap;
+  function ResizeImage(bitm: TBGRABitmap; width, height: Integer; bars: Boolean = True; Center: Boolean = True): TBGRABitmap;
 
 implementation
 
-function ResizeImage(bitm: TBGRACustomBitmap; width, height: Integer;
-  bars: Boolean; Center: Boolean): TBGRACustomBitmap;
+function ResizeImage(bitm: TBGRABitmap; width, height: Integer;
+  bars: Boolean; Center: Boolean): TBGRABitmap;
 var
   newwidth, newheight: integer;
   centerbgra, resbgra: TBGRABitmap;
@@ -62,7 +62,7 @@ begin
       resbgra:=centerbgra;
       //DebugLn('Height: '+IntToStr(resbgra.Height));
       //DebugLn('Width : '+IntToStr(resbgra.Width));
-      Result:=resbgra.Duplicate(True)
+      Result:=TBGRABitmap(resbgra.Duplicate(True))
     end
   else
     begin
@@ -75,7 +75,7 @@ begin
       resbgra:=centerbgra;
       //DebugLn('Height: '+IntToStr(resbgra.Height));
       //DebugLn('Width : '+IntToStr(resbgra.Width));
-      Result:=resbgra.Duplicate()
+      Result:=TBGRABitmap(resbgra.Duplicate())
     end;
   centerbgra.Free;
 end;
