@@ -5,7 +5,7 @@ unit Projector;
 interface
 
 uses
-  cmem, Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
+  {$ifdef unix} cthreads, {$endif}cmem, Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   Data, settings, BGRABitmap, BGRABitmapTypes, BGRATextFX,  BGRAGradients, PasLibVlcPlayerUnit;
 
 type
@@ -68,13 +68,18 @@ begin
   renderer1.OutlineWidth:=TextOutline;
   renderer1.FontEmHeight:=FrmSettings.SlideFont.Font.Size;
   //BGRAGraphicControl1.Bitmap.;
-  teststr:=Form1.Grid.SlideText[1,(CurrentSlide)];
+  //if (Form1.Grid.RowCount-1) > CurrentSlide then
+    teststr:=Form1.Grid.SlideText[1,(CurrentSlide)];
 
   SlideBitmap.FontName := FrmSettings.SlideFont.Font.Name;
   SlideBitmap.FontFullHeight := FrmSettings.SlideFont.Font.Size;
   SlideBitmap.FontAntialias := True;
   SlideBitmap.FontQuality := fqFineAntialiasing;
-  SlideBitmap.PutImage(0, 0, form1.Grid.SlideImage[1, CurrentSlide].Img, dmSet);
+  //if (Form1.Grid.RowCount-1) > CurrentSlide then
+    //begin
+    SlideBitmap.PutImage(0, 0, Form1.Grid.SlideImage[1, CurrentSlide].Img, dmSet);
+    //CurrentSlide := 1;
+    //end;
   //AColor:=BGRAWhite;
   //y:= (Monitor.Height - AHeight[CurrentSlide]) div 2;
   //x:= (Monitor.Width - AWidth[CurrentSlide])div 2;
@@ -95,6 +100,7 @@ begin
   SlideBitmap.Free;
 
 end;
+
 
 end.
 

@@ -73,8 +73,7 @@ object frmSlideEditor: TfrmSlideEditor
     Lines.Strings = (
       'Memo1'
     )
-    OnEditingDone = Memo1EditingDone
-    OnKeyPress = Memo1KeyPress
+    OnChange = Memo1Change
     TabOrder = 3
     WantTabs = True
   end
@@ -87,7 +86,7 @@ object frmSlideEditor: TfrmSlideEditor
     Lines.Strings = (
       'Memo1'
     )
-    OnKeyPress = Memo1KeyPress
+    OnChange = Memo2Change
     TabOrder = 4
     WantTabs = True
   end

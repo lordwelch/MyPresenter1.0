@@ -1,0 +1,30 @@
+object frmLog: TfrmLog
+  Left = 1480
+  Height = 240
+  Top = 278
+  Width = 320
+  Caption = 'Log'
+  ClientHeight = 240
+  ClientWidth = 320
+  OnCreate = FormShow
+  LCLVersion = '1.4.0.1'
+  object Memo1: TMemo
+    Left = 0
+    Height = 190
+    Top = 50
+    Width = 320
+    Align = alClient
+    Enabled = False
+    ReadOnly = True
+    TabOrder = 0
+  end
+  object Panel1: TPanel
+    Left = 0
+    Height = 50
+    Top = 0
+    Width = 320
+    Align = alTop
+    Caption = 'Log Output'
+    TabOrder = 1
+  end
+end

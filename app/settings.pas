@@ -5,7 +5,7 @@ unit settings;
 interface
 
 uses
-  cmem, Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  {$ifdef unix} cthreads, {$endif}cmem, Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
   LazFreeTypeFontCollection, Grids, Spin, BGRABitmap, BGRABitmapTypes, Data;
 
 type

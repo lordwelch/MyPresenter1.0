@@ -5,13 +5,13 @@ unit Data;
 interface
 
 uses
-  cmem, Classes, SysUtils, Grids, laz2_DOM, laz2_XMLWrite, laz2_XMLRead, BGRABitmap,
-  BGRABitmapTypes, Graphics, Forms, Dialogs, resize, mygrids, LCLProc;
+  {$ifdef unix} cthreads, {$endif}cmem, Classes, SysUtils, Grids, laz2_DOM, laz2_XMLWrite, laz2_XMLRead, BGRABitmap,
+  BGRABitmapTypes, Graphics, Forms, Dialogs, resize, mygrids, LCLProc, thread;
 
 type
   TBGRABitmapArray = array of TBGRABitmap;
   slidestrings = record
-  SlideNotes, SlideVideos, SlideText: TStringList;
+  SlideNotes, SlideVideos, SlideText, sttr: TStringList;
   end;
 
 
@@ -20,7 +20,7 @@ var
   //AHeight, AWidth: Array of Integer;
   TextOutline: Real;
   TextStyle: TTextStyle;
-  ImagePath, SGridOptions, SupportedImages: TStringList; //file path for images
+  ImagePath, SGridOptions, SupportedImages, strlog, sttr: TStringList; //file path for images
   GridOptions: TGridOptions;
   DialogOptions: TOpenOptions;
   GridImageList: array of TBGRABitmapArray;
@@ -30,6 +30,7 @@ var
   Monitornum: Integer;
   strings: slidestrings;
   SlideFile: string;
+  tMyThread: myThread;
 
   procedure ShowSett();
   procedure ShowAbt();
@@ -41,14 +42,13 @@ var
   procedure GetScreens();
   procedure LoadSupportedImages();
   procedure LoadImageList(str: TStringList);
-  procedure LoadImage(str: string);
   procedure FreeImage();
   function SortFiles(List: String):String;
 
 
 
 implementation
-  uses settings, Projector, uabout, main_code;
+  uses settings, Projector, uabout, main_code, log;
 
 procedure ShowSett;
 begin
@@ -80,40 +80,40 @@ begin
         // print the Slide_font node
     PassNode := Doc.DocumentElement.FindNode('Slide_font');
       NodeText := PassNode.FirstChild.NodeValue;
-        Form1.Memo1.Append('Slide Font: ' + NodeText);
+        strlog.Append('Slide Font: ' + NodeText);
           FrmSettings.SlideFont.Font.Name := NodeText;
       NodeText := PassNode.Attributes.GetNamedItem('Size').TextContent;
-        Form1.Memo1.Append('Slide Font Size: ' + NodeText);
+        strlog.Append('Slide Font Size: ' + NodeText);
           FrmSettings.SlideFont.Font.Size := StrToInt(NodeText);
       NodeText := PassNode.Attributes.GetNamedItem('Bold').TextContent;
-        Form1.Memo1.Append('Slide Font Bold: ' + NodeText);
+        strlog.Append('Slide Font Bold: ' + NodeText);
           FrmSettings.SlideFont.Font.Bold := StrToBool(NodeText);
       NodeText := PassNode.Attributes.GetNamedItem('Italic').TextContent;
-        Form1.Memo1.Append('Slide Font Italic: ' + NodeText);
+        strlog.Append('Slide Font Italic: ' + NodeText);
           FrmSettings.SlideFont.Font.Italic := StrToBool(NodeText);
       NodeText := PassNode.Attributes.GetNamedItem('Underline').TextContent;
-        Form1.Memo1.Append('Slide Font Underline: ' + NodeText);
+        strlog.Append('Slide Font Underline: ' + NodeText);
           FrmSettings.SlideFont.Font.Underline := StrToBool(NodeText);
       NodeText := PassNode.Attributes.GetNamedItem('Color').TextContent;
-        Form1.Memo1.Append('Slide Font Color: ' + NodeText);
+        strlog.Append('Slide Font Color: ' + NodeText);
           AColor := StrToBGRA(NodeText);
 
         // print the Grid_font node
     PassNode := Doc.DocumentElement.FindNode('Grid_font');
       NodeText := PassNode.FirstChild.NodeValue;
-        Form1.Memo1.Append('Grid Font: ' + NodeText);
+        strlog.Append('Grid Font: ' + NodeText);
          FrmSettings.GridFont.Font.Name := NodeText;
       NodeText := PassNode.Attributes.GetNamedItem('Size').TextContent;
-        Form1.Memo1.Append('Grid Font Size: ' + NodeText);
+        strlog.Append('Grid Font Size: ' + NodeText);
           FrmSettings.GridFont.Font.Size := StrToInt(NodeText);
       NodeText := PassNode.Attributes.GetNamedItem('Bold').TextContent;
-        Form1.Memo1.Append('Grid Font Bold: ' + NodeText);
+        strlog.Append('Grid Font Bold: ' + NodeText);
           FrmSettings.GridFont.Font.Bold := StrToBool(NodeText);
       NodeText := PassNode.Attributes.GetNamedItem('Italic').TextContent;
-        Form1.Memo1.Append('Grid Font Italic: ' + NodeText);
+        strlog.Append('Grid Font Italic: ' + NodeText);
           FrmSettings.GridFont.Font.Italic := StrToBool(NodeText);
       NodeText := PassNode.Attributes.GetNamedItem('Underline').TextContent;
-        Form1.Memo1.Append('Grid Font Underline: ' + NodeText);
+        strlog.Append('Grid Font Underline: ' + NodeText);
           FrmSettings.GridFont.Font.Underline := StrToBool(NodeText);
 
     Form1.Grid.Font := FrmSettings.GridFont.Font;
@@ -122,7 +122,7 @@ begin
         // Retrieve the "Text outline" node
     PassNode := Doc.DocumentElement.FindNode('Text_outline');
       NodeText := PassNode.FirstChild.NodeValue;
-        Form1.Memo1.Append('Outline Width: ' + NodeText);
+        strlog.Append('Outline Width: ' + NodeText);
           FrmSettings.SpinEdit3.Value:=StrToFloat(NodeText);
 
     if not (Doc.DocumentElement.FindNode('Grid_options') = nil) then
@@ -132,16 +132,17 @@ begin
           NodeText := PassNode.FirstChild.NodeValue;
             if NodeText = 'goEditing' then
               begin
-              {  Form1.Memo1.Append('GridOptions: On');
-                Form1.Grid.Options:= GridOptions + [goEditing];
+              { Form1.Grid.Options:= GridOptions + [goEditing];
                 Form1.Grid.AutoEdit:=True;
                 FrmSettings.Button3.Tag:=0;
                 FrmSettings.Button3.Caption := 'make read-only';}
+                strlog.Append('GridOptions: On');
                 FrmSettings.btnEditableClick(FrmSettings.btnEditable);
               end
             else
-              Form1.Memo1.Append('GridOptions: Off');
+              strlog.Append('GridOptions: Off');
      end;
+    //frmLog.Memo1.Lines.AddStrings(strlog);
   finally
         // finally, free the document
     Doc.Free;
@@ -241,7 +242,7 @@ begin
     begin
       ItemNode:=Doc.CreateElement('Slide_'+IntToStr(i));
       TDOMElement(ItemNode).SetAttribute('ImageLocation', ImagePath.Strings[i-1]);
-      WriteLn(ImagePath.Names[i-1]);
+      debugln(ImagePath.Names[i-1]);
       isVideo:=Form1.Grid.Cells[1, i].IsVideo;
       TDOMElement(ItemNode).SetAttribute('isVideo', BoolToStr(IsVideo, '1', '0'));
       if isVideo then
@@ -345,70 +346,7 @@ begin
     Form1.Grid.InsertColRow(False, Form1.Grid.RowCount);
     Form1.Grid.Cells[1, Form1.Grid.RowCount-1]:=NewSlide(NodeNote, NodeText, NodeImage);
     end;
-     {
-      NodeText := PassNode.FirstChild.NodeValue;
 
-          FrmSettings.SlideFont.Font.Name := NodeText;
-      NodeText := PassNode.Attributes.GetNamedItem('Size').TextContent;
-
-          FrmSettings.SlideFont.Font.Size := StrToInt(NodeText);
-      NodeText := PassNode.Attributes.GetNamedItem('Bold').TextContent;
-
-          FrmSettings.SlideFont.Font.Bold := StrToBool(NodeText);
-      NodeText := PassNode.Attributes.GetNamedItem('Italic').TextContent;
-
-          FrmSettings.SlideFont.Font.Italic := StrToBool(NodeText);
-      NodeText := PassNode.Attributes.GetNamedItem('Underline').TextContent;
-
-          FrmSettings.SlideFont.Font.Underline := StrToBool(NodeText);
-      NodeText := PassNode.Attributes.GetNamedItem('Color').TextContent;
-
-          AColor := StrToBGRA(NodeText);
-
-        // print the Grid_font node
-    PassNode := Doc.DocumentElement.FindNode('Grid_font');
-      NodeText := PassNode.FirstChild.NodeValue;
-
-         FrmSettings.GridFont.Font.Name := NodeText;
-      NodeText := PassNode.Attributes.GetNamedItem('Size').TextContent;
-
-          FrmSettings.GridFont.Font.Size := StrToInt(NodeText);
-      NodeText := PassNode.Attributes.GetNamedItem('Bold').TextContent;
-
-          FrmSettings.GridFont.Font.Bold := StrToBool(NodeText);
-      NodeText := PassNode.Attributes.GetNamedItem('Italic').TextContent;
-
-          FrmSettings.GridFont.Font.Italic := StrToBool(NodeText);
-      NodeText := PassNode.Attributes.GetNamedItem('Underline').TextContent;
-
-          FrmSettings.GridFont.Font.Underline := StrToBool(NodeText);
-
-    Form1.Grid.Font := FrmSettings.GridFont.Font;
-
-
-        // Retrieve the "Text outline" node
-    PassNode := Doc.DocumentElement.FindNode('Text_outline');
-      NodeText := PassNode.FirstChild.NodeValue;
-
-          FrmSettings.SpinEdit3.Value:=StrToFloat(NodeText);
-
-    if not (Doc.DocumentElement.FindNode('Grid_options') = nil) then
-      begin
-        PassNode := Doc.DocumentElement.FindNode('Grid_options');
-        if PassNode.HasChildNodes then
-          NodeText := PassNode.FirstChild.NodeValue;
-            if NodeText = 'goEditing' then
-              begin
-              {  Form1.Memo1.Append('GridOptions: On');
-                Form1.Grid.Options:= GridOptions + [goEditing];
-                Form1.Grid.AutoEdit:=True;
-                FrmSettings.Button3.Tag:=0;
-                FrmSettings.Button3.Caption := 'make read-only';}
-                FrmSettings.btnEditableClick(FrmSettings.btnEditable);
-              end
-            else
-              Form1.Memo1.Append('GridOptions: Off');
-     end;}
   finally
         // finally, free the document
     Doc.Free;
@@ -416,22 +354,31 @@ begin
 end;
 
 procedure GetScreens;
-var numMonitors, Monitors: Integer;
+var numMonitors, i, Monitors: Integer;
+  Path: TStringList;
 begin
+  Path := TStringList.Create;
   Screen.UpdateMonitors;
   Screen.UpdateScreen;
   numMonitors := Screen.MonitorCount;
   if numMonitors > 1 then
-    Monitors := StrToInt(InputBox('Monitor selection', 'please select a monitor' + IntToStr(numMonitors), '1'))
+    Monitors := StrToInt(InputBox('Monitor selection', 'please select a monitor ' + IntToStr(numMonitors), '2'))
   else
     begin
     ShowMessage('No second monitor!!! :-(');
     Monitors := 0
     end;
+  Monitors -=1;
   Monitornum:=Monitors;
   MonitorPro := Screen.Monitors[Monitors];
-  Form1.Memo1.Append(IntToStr(MonitorPro.Left));
-
+  //frmlog.memo1.Append(IntToStr(MonitorPro.Left));
+  if ImagePath <> nil then
+  begin
+    if ImagePath.Count > 0 then
+      for i := 0 to ImagePath.Count-1 do
+        Path.Add(ImagePath.Strings[i]);
+  LoadImageList(Path);
+  end;
 end;
 
 procedure LoadSupportedImages;
@@ -466,55 +413,28 @@ begin
     Add( '.xpm' );
   end;
   str1:='Supported Images|*.jpg';
-  WriteLn(SupportedImages.Count);
+  debugln(IntToStr(SupportedImages.Count));
   for i:= 1 to (SupportedImages.Count-1) do
     str1+=';*'+SupportedImages.Strings[i];
   Form1.OpenDialog1.Filter:=str1;
-  WriteLn(Form1.OpenDialog1.Filter);
+  debugln(Form1.OpenDialog1.Filter);
 end;
 
 procedure LoadImageList(str: TStringList);
 var i: Integer;
+  //test: TStringList;
 begin
+  if sttr <> nil then sttr.Free;
+  sttr:=TStringList.Create;
   for i := 0 to (str.Count - 1) do
-    LoadImage(str.Strings[i]);
-  Form1.Memo1.Append(IntToStr(str.Capacity)+' done');
-end;
+    sttr.Append(SortFiles(str.Strings[i]));
+  //test:= TStringList.Create;
+  //for i := 0 to (sttr.Count - 1) do
+    //test.Strings[i]:=sttr.Strings[i];
 
-procedure LoadImage(str: string);
-var
-  gridint: Integer;
-  LoadBGRA: TBGRABitmap;
-  img, img1: image1;
-  sttr: string;
-begin
-  sttr := SortFiles(str);
-  if sttr<>'' then
-    begin
-      try
-        gridint:=Length(GridImageList[0]);
-        ImagePath.Add(str);
-        SetLength(GridImageList, 3, 1+gridint);
-        WriteLn(str);
-        LoadBGRA:=TBGRABitmap.Create(str);
-        Application.ProcessMessages;
-        Form1.Memo1.Append(str);
-         WriteLn(str+'1');
-        GridImageList[0, gridint]:=TBGRABitmap(LoadBGRA.Duplicate(True));
-        GridImageList[1, gridint]:=ResizeImage(LoadBGRA, MonitorPro.Width, MonitorPro.Height);
-        GridImageList[2, gridint]:=ResizeImage(LoadBGRA, Form1.Grid.Columns[1].Width, Form1.Grid.RowHeights[1], false, false);
-        img.Img:=GridImageList[1, gridint];
-        img.ImgPath := str;
-        Form1.Grid.InsertColRow(False, Form1.Grid.RowCount);
-        Form1.Grid.SlideImage[1, Form1.Grid.RowCount-1]:=img;
-        img1.img:=GridImageList[2, gridint];
-        img1.ImgPath:=str;
-        Form1.Grid.SlideImage[2, Form1.Grid.RowCount-1] := img1;
-
-      finally
-      LoadBGRA.Free;
-      end;
-    end;
+    //LoadImage(str.Strings[i]);
+  tMyThread.Start;
+  frmlog.memo1.Append(IntToStr(sttr.Count)+' done');
 end;
 
 procedure FreeImage;
@@ -535,7 +455,7 @@ begin
     ext:=LowerCase(ext);
     if (SupportedImages.IndexOf('.' + ext) <> -1) then
       begin
-        Form1.Memo1.Append('Error: ' + '.' + ext);
+        frmlog.memo1.Append('Error: ' + '.' + ext);
         Result:=''
         //ImagePath.Add(List[i])
       end

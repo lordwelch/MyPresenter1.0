@@ -269,13 +269,8 @@ begin
   C:= FGrid.Celda[aCol,aRow];
   if C<>nil then
   begin
-    with S do
-    begin
-    S:=GetCell(ACol, ARow);
-    Note:=aValue;
-    SetCells(ACol, ARow, S);
-    end;
-    S.Free;
+   TSlide(C^.Data).Note := aValue;
+    //S.Free;
   end
   else
   begin

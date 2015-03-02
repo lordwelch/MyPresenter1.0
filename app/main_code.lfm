@@ -1,15 +1,17 @@
 object Form1: TForm1
-  Left = 470
-  Height = 626
-  Top = 206
+  Left = 671
+  Height = 578
+  Top = 371
   Width = 943
+  ActiveControl = GridEditor1
   AllowDropFiles = True
   Caption = 'MyPresenter1.0'
-  ClientHeight = 605
+  ClientHeight = 557
   ClientWidth = 943
   Menu = MainMenu1
   OnClose = FormClose
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   OnDropFiles = FormDropFiles
   Position = poScreenCenter
   LCLVersion = '1.4.0.1'
@@ -33,6 +35,7 @@ object Form1: TForm1
       end    
       item
         Color = clWindowText
+        ReadOnly = True
         Title.Caption = 'Title'
         Width = 200
       end>
@@ -177,9 +180,9 @@ object Form1: TForm1
     StateNormal.Background.Gradient1.EndColor = 15461355
     StateNormal.Background.Gradient1.EndColorOpacity = 255
     StateNormal.Background.Gradient1.ColorCorrection = True
-    StateNormal.Background.Gradient1.GradientType = gtLinear
-    StateNormal.Background.Gradient1.Point1XPercent = 0
-    StateNormal.Background.Gradient1.Point1YPercent = 0
+    StateNormal.Background.Gradient1.GradientType = gtDiamond
+    StateNormal.Background.Gradient1.Point1XPercent = 1
+    StateNormal.Background.Gradient1.Point1YPercent = 1
     StateNormal.Background.Gradient1.Point2XPercent = 0
     StateNormal.Background.Gradient1.Point2YPercent = 100
     StateNormal.Background.Gradient1.Sinus = False
@@ -189,7 +192,7 @@ object Form1: TForm1
     StateNormal.Background.Gradient2.EndColor = 13619151
     StateNormal.Background.Gradient2.EndColorOpacity = 255
     StateNormal.Background.Gradient2.ColorCorrection = True
-    StateNormal.Background.Gradient2.GradientType = gtLinear
+    StateNormal.Background.Gradient2.GradientType = gtDiamond
     StateNormal.Background.Gradient2.Point1XPercent = 0
     StateNormal.Background.Gradient2.Point1YPercent = 0
     StateNormal.Background.Gradient2.Point2XPercent = 0
@@ -248,22 +251,25 @@ object Form1: TForm1
     WordWrap = False
   end
   object Button1: TButton
-    Left = 496
+    Left = 504
     Height = 25
     Top = 48
     Width = 75
     Caption = 'Edit Slides'
     OnClick = Button1Click
     TabOrder = 0
+    TabStop = False
   end
   object Button2: TButton
     Left = 8
-    Height = 25
+    Height = 27
     Top = 440
-    Width = 75
+    Width = 74
+    AutoSize = True
     Caption = 'New Slide'
     OnClick = Button2Click
     TabOrder = 4
+    TabStop = False
   end
   object PasLibVlcPlayer1: TPasLibVlcPlayer
     Left = 752
@@ -277,32 +283,37 @@ object Form1: TForm1
     SnapShotFmt = 'png'
   end
   object Button3: TButton
-    Left = 407
-    Height = 25
+    Left = 392
+    Height = 27
     Top = 461
-    Width = 75
+    Width = 85
     Action = TASave
+    AutoSize = True
     TabOrder = 6
+    TabStop = False
   end
   object Button4: TButton
-    Left = 612
-    Height = 25
-    Top = 477
-    Width = 75
+    Left = 584
+    Height = 27
+    Top = 461
+    Width = 87
     Action = TAOpenScript
+    AutoSize = True
     TabOrder = 7
+    TabStop = False
   end
   object MainMenu1: TMainMenu
     left = 104
-    top = 528
+    top = 512
     object MenuItem1: TMenuItem
       Caption = 'File'
-      OnClick = MenuItem1Click
       object MenuItem2: TMenuItem
         Caption = 'New'
+        Enabled = False
       end
       object MenuItem3: TMenuItem
         Caption = '-'
+        Enabled = False
       end
       object MenuItem27: TMenuItem
         Action = TAOpenScript
@@ -313,6 +324,7 @@ object Form1: TForm1
       end
       object MenuItem5: TMenuItem
         Caption = 'Open Recent'
+        Enabled = False
       end
       object MenuItem6: TMenuItem
         Action = TASave
@@ -325,39 +337,50 @@ object Form1: TForm1
       end
       object MenuItem9: TMenuItem
         Caption = '-'
+        Enabled = False
       end
       object MenuItem10: TMenuItem
         Caption = 'Exit'
+        Enabled = False
       end
     end
     object MenuItem11: TMenuItem
       Caption = 'Edit'
       object MenuItem12: TMenuItem
         Caption = 'Undo'
+        Enabled = False
       end
       object MenuItem13: TMenuItem
         Caption = 'Redo'
+        Enabled = False
       end
       object MenuItem14: TMenuItem
         Caption = '-'
+        Enabled = False
       end
       object MenuItem15: TMenuItem
         Caption = 'Cut'
+        Enabled = False
       end
       object MenuItem16: TMenuItem
         Caption = 'Copy'
+        Enabled = False
       end
       object MenuItem17: TMenuItem
         Caption = 'Paste'
+        Enabled = False
       end
       object MenuItem18: TMenuItem
         Caption = '-'
+        Enabled = False
       end
       object MenuItem19: TMenuItem
         Caption = 'Find'
+        Enabled = False
       end
       object MenuItem20: TMenuItem
         Caption = 'Find Next'
+        Enabled = False
       end
       object MenuItem26: TMenuItem
         Caption = 'Settings'
@@ -368,12 +391,19 @@ object Form1: TForm1
       Caption = 'Help'
       object MenuItem22: TMenuItem
         Caption = 'Contents'
+        Enabled = False
       end
       object MenuItem23: TMenuItem
         Caption = 'Tutorial'
+        Enabled = False
+      end
+      object MenuItem28: TMenuItem
+        Caption = 'Log'
+        OnClick = MenuItem28Click
       end
       object MenuItem24: TMenuItem
         Caption = '-'
+        Enabled = False
       end
       object MenuItem25: TMenuItem
         Caption = 'About'
@@ -384,11 +414,11 @@ object Form1: TForm1
   object OpenDialog1: TOpenDialog
     Options = [ofReadOnly, ofAllowMultiSelect, ofPathMustExist, ofFileMustExist, ofEnableSizing, ofViewDetail]
     left = 184
-    top = 528
+    top = 512
   end
   object ActionList1: TActionList
     left = 24
-    top = 528
+    top = 512
     object TAOpen: TAction
       Category = 'File'
       Caption = 'Open...'
@@ -427,15 +457,16 @@ object Form1: TForm1
     end
     object TASave: TAction
       Category = 'File'
-      Caption = 'Save'
+      Caption = 'Save Script'
       OnExecute = TASaveExecute
       ShortCut = 16467
     end
     object TAOpenScript: TAction
       Tag = 4
       Category = 'File'
-      Caption = '&Open'
+      Caption = '&Open Script'
       OnExecute = TAOpenScriptExecute
+      ShortCut = 16463
     end
     object TASaveAs: TAction
       Category = 'File'
@@ -446,6 +477,12 @@ object Form1: TForm1
   end
   object SaveDialog1: TSaveDialog
     left = 264
-    top = 528
+    top = 512
+  end
+  object Timer1: TTimer
+    Interval = 100
+    OnTimer = Timer1Timer
+    left = 540
+    top = 519
   end
 end

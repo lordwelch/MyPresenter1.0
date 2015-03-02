@@ -5,16 +5,17 @@ unit main_code;
 interface
 
 uses
-  cmem, Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
+  {$ifdef unix} cthreads, {$endif}cmem, Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   LCLType, LCLProc, StdCtrls, ExtCtrls, ActnList, StdActns, Data, BCButton,
-  PasLibVlcPlayerUnit, Projector, settings, slideeditor,
-  MyDrawGrid, Grids, BGRABitmap;
+  PasLibVlcPlayerUnit, Projector, settings, slideeditor, MyDrawGrid, Grids,
+  BGRABitmap, log;
 
 type
 
   { TForm1 }
 
   TForm1 = class(TForm)
+    MenuItem28: TMenuItem;
     TASaveAs: TAction;
     MenuItem27: TMenuItem;
     SaveDialog1: TSaveDialog;
@@ -65,12 +66,14 @@ type
     Grid: TMyDrawGrid;
     OpenDialog1: TOpenDialog;
     Button2: TButton;
+    Timer1: TTimer;
     procedure BCButton2Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+    procedure FormDestroy(Sender: TObject);
     procedure GridKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure MenuItem1Click(Sender: TObject);
+    procedure MenuItem28Click(Sender: TObject);
     procedure TAExitExecute(Sender: TObject);
     procedure TAOpenExecute(Sender: TObject);
     procedure TACloseExecute(Sender: TObject);
@@ -87,12 +90,11 @@ type
     procedure MenuItem10Click(Sender: TObject);
     procedure MenuItem26Click(Sender: TObject);
     procedure MenuItem25Click(Sender: TObject);
-    procedure MenuItem4Click(Sender: TObject);
-    procedure MenuItem8Click(Sender: TObject);
     procedure NextSlideExecute(Sender: TObject);
     procedure TAOpenScriptExecute(Sender: TObject);
     procedure TASaveAsExecute(Sender: TObject);
     procedure TASaveExecute(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
   private
     { private declarations }
   public
@@ -102,8 +104,11 @@ type
 
 var
   Form1: TForm1;
+  thread1: Boolean;
 
 implementation
+uses
+  thread;
 
 {$R *.lfm}
 
@@ -112,6 +117,9 @@ implementation
 procedure TForm1.FormCreate(Sender: TObject);
 var i: Integer;
 begin
+  thread1 := False;
+  //tMyThread:=myThread.Create(True);
+  strlog := TStringList.Create;
   SlideFile := '';
   LoadSupportedImages();
   {GridImageList := TBGRAImageList.Create(Grid);
@@ -126,17 +134,22 @@ begin
   SetLength(GridImageList, 3, 1);
   for i:=0 to 2 do
     GridImageList[i, 0]:=TBGRABitmap.Create(1, 1, clBlack);
-  Memo1.VertScrollBar.Tracking:=True;
+
+  memo1.VertScrollBar.Tracking:=True;
   TAClose.Execute;
 
 end;
 
 procedure TForm1.FormDropFiles(Sender: TObject; const FileNames: array of String);
 var i: Integer;
+  Filename: TStringList;
 begin
   DebugLn('drop');
+  if Filename <> nil then Filename.Free;
+  Filename := TStringList.Create;
   for i:= 0 to Length(FileNames)-1 do
-    LoadImage(FileNames[i]);
+    Filename.Append(FileNames[i]);
+    LoadImageList(FileName);
 end;
 
 procedure TForm1.GridEditor1EditingDone(Sender: TObject);
@@ -156,11 +169,16 @@ end;
 procedure TForm1.GridSelectEditor(Sender: TObject; aCol, aRow: Integer;
   var Editor: TWinControl);
 begin
-  TANext.Enabled:=False;
-  TAPrevious.Enabled:=False;
-  GridEditor1.BoundsRect:=grid.CellRect(aCol,aRow);
-  GridEditor1.Text:=grid.SlideText[aCol,aRow];
-  Editor:=GridEditor1;
+  if aCol=1then
+    begin
+      TANext.Enabled:=False;
+      TAPrevious.Enabled:=False;
+      GridEditor1.BoundsRect:=grid.CellRect(aCol,aRow);
+      GridEditor1.Text:=grid.SlideText[aCol,aRow];
+      Editor:=GridEditor1
+    end
+  else
+    Editor:=Nil;
 end;
 
 procedure TForm1.GridSetEditText(Sender: TObject; ACol, ARow: Integer;
@@ -184,15 +202,6 @@ begin
   ShowAbt();
 end;
 
-procedure TForm1.MenuItem4Click(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.MenuItem8Click(Sender: TObject);
-begin
-end;
-
 procedure TForm1.NextSlideExecute(Sender: TObject);
 begin
   if TAction(Sender).Tag = 1 then
@@ -207,7 +216,7 @@ begin
     if CurrentSlide > 1 then
       CurrentSlide-=1;
 
-  Memo1.Append(IntToStr(CurrentSlide));
+  frmlog.memo1.Append(IntToStr(CurrentSlide));
        //setslidetext(textSlidesgrid.Cells[x, y]);
   frmProjector.Invalidate;
 end;
@@ -221,22 +230,39 @@ begin
   DialogOptions -= [ofAllowMultiSelect];
   OpenDialog1.Options := DialogOptions;
   if OpenDialog1.Execute then
-    SlideFile := OpenDialog1.FileName;
-  readXMLSlide(SlideFile);
+    begin
+      SlideFile := OpenDialog1.FileName;
+      readXMLSlide(SlideFile);
+    end;
 end;
 
 procedure TForm1.TASaveAsExecute(Sender: TObject);
 begin
   SaveDialog1.DefaultExt := 'mpss';
   if SaveDialog1.Execute then
-    SlideFile:=SaveDialog1.FileName;
-    SaveXMLSlide(SlideFile);
+    begin
+      SlideFile:=SaveDialog1.FileName;
+      SaveXMLSlide(SlideFile);
+    end;
 end;
 
 procedure TForm1.TASaveExecute(Sender: TObject);
 begin
   if SlideFile<>'' then
-    SaveXMLSlide(SlideFile);
+    SaveXMLSlide(SlideFile)
+  else
+    TASaveAsExecute(Sender);
+end;
+
+procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+  if not thread1 then
+    begin
+    debugln('create thread');
+    thread1 := True;
+    if tMyThread <> Nil then tMyThread.Free;
+    tMyThread:=myThread.Create(True);
+    end;
 end;
 
 procedure TForm1.BCButton2Click(Sender: TObject);
@@ -259,7 +285,21 @@ end;
 
 procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
+  thread1 := True;
+  Timer1.Enabled := False;
+  //CloseAction := caFree;
+  tMyThread.freeing := True;
+  //tMyThread.Free;
+  //tMyThread.Terminate;
+  //tMyThread.Start;
   FreeImage();
+  frmlog.memo1.Free;
+  //if tMyThread <> nil then tMyThread.Free;
+end;
+
+procedure TForm1.FormDestroy(Sender: TObject);
+begin
+  tMyThread.Terminate;
 end;
 
 procedure TForm1.GridKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState
@@ -270,9 +310,9 @@ begin
         Form1.SetFocusedControl(Button1);
 end;
 
-procedure TForm1.MenuItem1Click(Sender: TObject);
+procedure TForm1.MenuItem28Click(Sender: TObject);
 begin
-
+  frmLog.Show;
 end;
 
 procedure TForm1.TAExitExecute(Sender: TObject);

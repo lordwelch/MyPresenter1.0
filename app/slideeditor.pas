@@ -5,7 +5,7 @@ unit slideeditor;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
+  {$ifdef unix} cthreads, {$endif}Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   StdCtrls, resize, BGRABitmapTypes, BGRABitmap, BGRAGraphicControl, mygrids;
 
 type
@@ -30,8 +30,8 @@ type
     procedure FormShow(Sender: TObject);
     procedure ListBox1SelectionChange(Sender: TObject; User: boolean);
     procedure ListBox2SelectionChange(Sender: TObject; User: boolean);
-    procedure Memo1EditingDone(Sender: TObject);
-    procedure Memo1KeyPress(Sender: TObject; var Key: char);
+    procedure Memo1Change(Sender: TObject);
+    procedure Memo2Change(Sender: TObject);
     procedure selectimagePaint(Sender: TObject);
   private
     { private declarations }
@@ -52,31 +52,41 @@ uses main_code, Data;
 procedure TfrmSlideEditor.FormShow(Sender: TObject);
 var i: Integer;
 begin
-  Memo1.Lines.Text:=Form1.Grid.SlideText[1, 1];
   //Memo2.Text:=Form1.Grid.SlideNote[1, 1];
   ListBox1.Clear;
   ListBox2.Clear;
   if Form1.Grid.RowCount >1 then
   begin
+  Memo1.Lines.Text:=Form1.Grid.SlideText[1, 1];
+  Memo2.Lines.Text := Form1.Grid.SlideNote[1, 1];
     for i:=1 to Form1.Grid.RowCount-1 do
       ListBox1.Items.Add(IntToStr(i));
-  ListBox1.ItemIndex:=1;
-  end;
+  ListBox1.ItemIndex:=0;
+  Memo2.Enabled := True;
+  Memo1.Enabled := True;
+  end
+  else
+   begin
+     Memo1.Enabled := False;
+     Memo2.Enabled := False;
+   end;
   i:=0;
   if Length(GridImageList) > 0 then
   begin
   if Length(GridImageList[0]) > 0 then
     for i:=0 to Length(GridImageList[0])- 1 do
       ListBox2.Items.Add(IntToStr(i+1));
-  end;
   ListBox2.ItemIndex:=0;
+  end;
+
 end;
 
 procedure TfrmSlideEditor.ListBox1SelectionChange(Sender: TObject; User: boolean
   );
 begin
   CellImage.Invalidate;
-  Memo1.Lines.Text:=Form1.Grid.SlideText[1, ListBox1.ItemIndex];
+  Memo1.Lines.Text := Form1.Grid.SlideText[1, ListBox1.ItemIndex+1];
+  Memo2.Lines.Text := Form1.Grid.SlideNote[1, ListBox1.ItemIndex+1];
 end;
 
 procedure TfrmSlideEditor.ListBox2SelectionChange(Sender: TObject; User: boolean
@@ -85,19 +95,20 @@ begin
   selectimage.Invalidate;
 end;
 
-procedure TfrmSlideEditor.Memo1EditingDone(Sender: TObject);
+procedure TfrmSlideEditor.Memo1Change(Sender: TObject);
 begin
-  Form1.Grid.SlideText[1, ListBox1.ItemIndex]:=Memo1.Lines.Text;
+  Form1.Grid.SlideText[1, ListBox1.ItemIndex+1]:=Memo1.Lines.Text;
 end;
 
-procedure TfrmSlideEditor.Memo1KeyPress(Sender: TObject; var Key: char);
+procedure TfrmSlideEditor.Memo2Change(Sender: TObject);
 begin
-  //TMemo(Sender).Text:=TMemo(Sender).Text+Key;
+  Form1.Grid.SlideNote[1, ListBox1.ItemIndex+1]:=Memo2.Lines.Text;
 end;
 
 procedure TfrmSlideEditor.selectimagePaint(Sender: TObject);
 begin
-  selectimage.Bitmap.PutImage(0, 0, ResizeImage(GridImageList[0, ListBox2.ItemIndex],selectimage.Width, selectimage.Height), dmSet);
+  if ListBox2.ItemIndex>-1 then
+    selectimage.Bitmap.PutImage(0, 0, ResizeImage(GridImageList[0, ListBox2.ItemIndex],selectimage.Width, selectimage.Height), dmSet);
 end;
 
 procedure TfrmSlideEditor.ComboBox1Change(Sender: TObject);
@@ -109,11 +120,13 @@ procedure TfrmSlideEditor.Button1Click(Sender: TObject);
 var i, x: Integer;
   img, img1: image1;
 begin
+  i := ComboBox1.ItemIndex;
+  x := ComboBox2.ItemIndex;
   img.Img:=GridImageList[2, x];
-  img.ImgPath := ImagePath.Names[i];
+  img.ImgPath := ImagePath.Names[x];
   img1.ImgPath := ImagePath.Names[i];
-  img1.Img := GridImageList[1, x];
-  i:=ListBox1.ItemIndex;
+  img1.Img := GridImageList[1, i];
+  i:=ListBox1.ItemIndex+1;
   X:=ListBox2.ItemIndex;
   Form1.Grid.SlideImage[2, i]:=img;
 
@@ -122,12 +135,15 @@ begin
   Form1.Grid.SlideText[1, i]:=Form1.Grid.SlideText[1, x];
   CellImage.Invalidate;
   selectimage.Invalidate;
-  Memo1.Lines.Text:=Form1.Grid.SlideText[1, ListBox1.ItemIndex];
+  Memo1.Lines.Text:=Form1.Grid.SlideText[1, ListBox1.ItemIndex+1];
 end;
 
 procedure TfrmSlideEditor.CellImagePaint(Sender: TObject);
 begin
-  CellImage.Bitmap.PutImage(0, 0, ResizeImage(form1.Grid.SlideImage[1, ListBox1.ItemIndex].Img,selectimage.Width,selectimage.Height) , dmSet);
+  if ListBox1.ItemIndex>-1 then
+  begin
+  CellImage.Bitmap.PutImage(0, 0, ResizeImage(form1.Grid.SlideImage[1, ListBox1.ItemIndex+1].Img,selectimage.Width,selectimage.Height) , dmSet);
+  end;
 end;
 
 procedure TfrmSlideEditor.ComboBox2Change(Sender: TObject);
@@ -143,8 +159,8 @@ begin
   Form1.TAPrevious.Enabled:=True;
 end;
 
-//initialization
-//  {$I slideeditor.lrs}
+initialization
+  {$I slideeditor.lrs}
 
 end.
 
