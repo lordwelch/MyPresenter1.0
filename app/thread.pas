@@ -45,14 +45,14 @@ end; }
 procedure myThread.GetStrings;
 var i: Integer;
 begin
-  debugln('GetStrings');
+  //debugln('GetStrings');
   for i := 0 to sttr.Count-1 do
     List.Append(sttr.Strings[i]);
 end;
 
 procedure myThread.GetGridInt;
 begin
-  debugln('GetGridInt');
+  //debugln('GetGridInt');
   gridint:=Length(GridImageList[0]);
   SetLength(GridImageList, 3, 1+gridint);
   x := Form1.Grid.Columns[1].Width;
@@ -63,7 +63,7 @@ end;
 
 procedure myThread.SetImage;
 begin
-  debugln('SetImage');
+  //debugln('SetImage');
   GridImageList[0, gridint]:=TBGRABitmap(LoadBGRA.Duplicate(True));
   GridImageList[1, gridint]:=img.Img;
   GridImageList[2, gridint]:=img1.Img;
@@ -87,10 +87,10 @@ var
   //List: TStringList;
 
 begin
-  //debugln(freeing);
+  ////debugln(freeing);
   if not freeing then
   begin
-  //debugln(freeing);
+  ////debugln(freeing);
   if List <> nil then List.Free;
   List:= TStringList.Create;
   Synchronize(@GetStrings);
@@ -103,7 +103,7 @@ begin
     begin
       try
         Synchronize(@GetGridInt);
-
+        //WriteLn('test');
         LoadBGRA:=TBGRABitmap.Create(str1);
         //frmlog.memo1.Append(str1);
         list1 := ResizeImage(LoadBGRA, xwidth, yheight);
@@ -122,18 +122,19 @@ begin
       LoadBGRA.Free;
       list1.Free;
       list2.Free;
-      Synchronize(@done);
+
       end;
     end;
     end;
   end;
-  //debugln(freeing);
+  Synchronize(@done);
+  ////debugln(freeing);
 end;
 
 procedure myThread.DoTerminate;
 begin
-  //debugln(freeing);
-  debugln('Terminate');
+  ////debugln(freeing);
+  //debugln('Terminate');
   inherited DoTerminate;
 
 end;
