@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="9"/>
+    <General>
+      <Flags>
+        <AlwaysBuild Value="True"/>
+      </Flags>
+      <MainUnit Value="0"/>
+      <Title Value="Main"/>
+      <UseXPManifest Value="True"/>
+      <XPManifest>
+        <DpiAware Value="True"/>
+      </XPManifest>
+      <ActiveWindowIndexAtStart Value="0"/>
+    </General>
+    <i18n>
+      <EnableI18N LFM="False"/>
+    </i18n>
+    <VersionInfo>
+      <UseVersionInfo Value="True"/>
+      <AutoIncrementBuild Value="True"/>
+      <BuildNr Value="3"/>
+      <Attributes pvaDebug="True"/>
+      <StringTable ProductVersion=""/>
+    </VersionInfo>
+    <BuildModes Count="4" Active="Debug">
+      <Item1 Name="Debug" Default="True"/>
+      <Item2 Name="Release">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="Main"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+            <Optimizations>
+              <OptimizationLevel Value="3"/>
+            </Optimizations>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+            </Debugging>
+            <LinkSmart Value="True"/>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <CompilerPath Value="$(CompPath)"/>
+          </Other>
+        </CompilerOptions>
+      </Item2>
+      <Item3 Name="Debug-win">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="Main"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <Parsing>
+            <SyntaxOptions>
+              <IncludeAssertionCode Value="True"/>
+            </SyntaxOptions>
+          </Parsing>
+          <CodeGeneration>
+            <Checks>
+              <IOChecks Value="True"/>
+              <RangeChecks Value="True"/>
+              <OverflowChecks Value="True"/>
+              <StackChecks Value="True"/>
+            </Checks>
+            <TargetCPU Value="x86_64"/>
+            <TargetOS Value="win64"/>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <DebugInfoType Value="dsDwarf2Set"/>
+              <UseHeaptrc Value="True"/>
+              <UseExternalDbgSyms Value="True"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <CompilerPath Value="$(CompPath)"/>
+          </Other>
+        </CompilerOptions>
+      </Item3>
+      <Item4 Name="Release-win">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="Main"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+            <TargetCPU Value="x86_64"/>
+            <TargetOS Value="win64"/>
+            <Optimizations>
+              <OptimizationLevel Value="3"/>
+            </Optimizations>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+            </Debugging>
+            <LinkSmart Value="True"/>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <CompilerPath Value="$(CompPath)"/>
+          </Other>
+        </CompilerOptions>
+      </Item4>
+    </BuildModes>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+      </local>
+    </RunParams>
+    <RequiredPackages Count="5">
+      <Item1>
+        <PackageName Value="BGRABitmapPack"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="FCL"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="bgracontrols"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="my_drawgrid"/>
+      </Item4>
+      <Item5>
+        <PackageName Value="LCL"/>
+      </Item5>
+    </RequiredPackages>
+    <Units Count="35">
+      <Unit0>
+        <Filename Value="Main.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <CursorPos X="59" Y="19"/>
+        <UsageCount Value="55"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="main_code.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form1"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="main_code"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="82"/>
+        <CursorPos X="32" Y="107"/>
+        <UsageCount Value="55"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="data.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Data"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="272"/>
+        <CursorPos X="68" Y="288"/>
+        <UsageCount Value="55"/>
+        <Loaded Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="versionsupport.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UsageCount Value="55"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="uabout.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmAbout"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UsageCount Value="55"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="settings.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmSettings"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <TopLine Value="72"/>
+        <CursorPos X="3" Y="122"/>
+        <UsageCount Value="55"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="projector.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmProjector"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="Projector"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="40"/>
+        <CursorPos X="52" Y="58"/>
+        <UsageCount Value="55"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="../../lazarus/lcl/forms.pp"/>
+        <TopLine Value="700"/>
+        <CursorPos X="15" Y="717"/>
+        <UsageCount Value="8"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="../../lazarus/lcl/include/customform.inc"/>
+        <TopLine Value="2433"/>
+        <CursorPos X="6" Y="2373"/>
+        <UsageCount Value="8"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="../../Downloads/bgra-controls-3.2-20140421/bcbutton.pas"/>
+        <TopLine Value="82"/>
+        <CursorPos X="33" Y="97"/>
+        <UsageCount Value="8"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="../../Downloads/bgra-controls-3.2-20140421/bcbasectrls.pas"/>
+        <TopLine Value="66"/>
+        <CursorPos X="35" Y="81"/>
+        <UsageCount Value="8"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="../../lazarus/lcl/controls.pp"/>
+        <TopLine Value="1008"/>
+        <CursorPos X="3" Y="1023"/>
+        <UsageCount Value="8"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="../../lazarus/lcl/graphics.pp"/>
+        <TopLine Value="2533"/>
+        <CursorPos X="16" Y="2550"/>
+        <UsageCount Value="9"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="../../fpc/share/src/fpc-2.6.4/fpc/rtl/objpas/classes/classesh.inc"/>
+        <WindowIndex Value="1"/>
+        <TopLine Value="67"/>
+        <CursorPos X="3" Y="94"/>
+        <UsageCount Value="8"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="G:/timmy/Desktop/customlpks/mydrawgrid.pas"/>
+        <TopLine Value="202"/>
+        <CursorPos X="20" Y="217"/>
+        <UsageCount Value="9"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="/lazarus/lcl/grids.pas"/>
+        <TopLine Value="1060"/>
+        <CursorPos X="43" Y="1073"/>
+        <UsageCount Value="9"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="/lazarus/lcl/controls.pp"/>
+        <TopLine Value="1619"/>
+        <CursorPos X="14" Y="1633"/>
+        <UsageCount Value="9"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="/lazarus/lcl/dialogs.pp"/>
+        <TopLine Value="16"/>
+        <CursorPos X="24" Y="55"/>
+        <UsageCount Value="9"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="slideeditor.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmSlideEditor"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="slideeditor"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="40"/>
+        <CursorPos X="57" Y="56"/>
+        <UsageCount Value="40"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="../customlpks/mydrawgrid.pas"/>
+        <UnitName Value="MyDrawGrid"/>
+        <TopLine Value="189"/>
+        <CursorPos X="64" Y="208"/>
+        <UsageCount Value="10"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="../../Downloads/bgra-controls-3.2-20140421/bgragraphiccontrol.pas"/>
+        <TopLine Value="37"/>
+        <CursorPos X="14" Y="51"/>
+        <UsageCount Value="9"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="../../Downloads/bgrabitmap/bgradefaultbitmap.pas"/>
+        <TopLine Value="387"/>
+        <CursorPos X="76" Y="402"/>
+        <UsageCount Value="9"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="../../Downloads/bgrabitmap/bgrabitmaptypes.pas"/>
+        <TopLine Value="58"/>
+        <CursorPos X="3" Y="72"/>
+        <UsageCount Value="9"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="../../lazarus/lcl/include/imglist.inc"/>
+        <TopLine Value="670"/>
+        <CursorPos X="27" Y="685"/>
+        <UsageCount Value="9"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="../../lazarus/lcl/grids.pas"/>
+        <TopLine Value="94"/>
+        <CursorPos X="44" Y="107"/>
+        <UsageCount Value="9"/>
+      </Unit24>
+      <Unit25>
+        <Filename Value="../../lazarus/lcl/include/winapih.inc"/>
+        <TopLine Value="332"/>
+        <CursorPos X="13" Y="336"/>
+        <UsageCount Value="9"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="../../lazarus/lcl/lclproc.pas"/>
+        <TopLine Value="799"/>
+        <CursorPos X="3" Y="801"/>
+        <UsageCount Value="9"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="../../../../lazarus/lcl/grids.pas"/>
+        <UnitName Value="Grids"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="8911"/>
+        <CursorPos X="12" Y="9037"/>
+        <UsageCount Value="9"/>
+      </Unit27>
+      <Unit28>
+        <Filename Value="../../../../lazarus/lcl/dynamicarray.pas"/>
+        <UnitName Value="DynamicArray"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="80"/>
+        <CursorPos X="11" Y="90"/>
+        <UsageCount Value="9"/>
+      </Unit28>
+      <Unit29>
+        <Filename Value="G:/timmy/Desktop/customlpks/mydrawgrid.pas"/>
+        <UnitName Value="MyDrawGrid"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="180"/>
+        <CursorPos X="49" Y="200"/>
+        <UsageCount Value="12"/>
+      </Unit29>
+      <Unit30>
+        <Filename Value="G:/timmy/Downloads/bgrabitmap/bgradefaultbitmap.pas"/>
+        <UnitName Value="BGRADefaultBitmap"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="701"/>
+        <CursorPos X="29" Y="716"/>
+        <UsageCount Value="11"/>
+      </Unit30>
+      <Unit31>
+        <Filename Value="G:/timmy/Downloads/bgrabitmap/bgrabitmaptypes.pas"/>
+        <UnitName Value="BGRABitmapTypes"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="367"/>
+        <CursorPos X="24" Y="383"/>
+        <UsageCount Value="10"/>
+      </Unit31>
+      <Unit32>
+        <Filename Value="G:/timmy/Downloads/bgrabitmap/bgrabitmap.pas"/>
+        <UnitName Value="BGRABitmap"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="54"/>
+        <CursorPos X="23" Y="69"/>
+        <UsageCount Value="11"/>
+      </Unit32>
+      <Unit33>
+        <Filename Value="G:/timmy/Downloads/bgrabitmap/bgrawinbitmap.pas"/>
+        <UnitName Value="BGRAWinBitmap"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="170"/>
+        <CursorPos X="31" Y="36"/>
+        <UsageCount Value="11"/>
+      </Unit33>
+      <Unit34>
+        <Filename Value="G:/timmy/Downloads/bgrabitmap/bgraresample.pas"/>
+        <UnitName Value="BGRAResample"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="850"/>
+        <CursorPos X="23" Y="878"/>
+        <UsageCount Value="10"/>
+      </Unit34>
+    </Units>
+    <JumpHistory Count="21" HistoryIndex="20">
+      <Position1>
+        <Filename Value="data.pas"/>
+        <Caret Line="374" Column="17" TopLine="363"/>
+      </Position1>
+      <Position2>
+        <Filename Value="data.pas"/>
+        <Caret Line="395" Column="28" TopLine="369"/>
+      </Position2>
+      <Position3>
+        <Filename Value="data.pas"/>
+        <Caret Line="287" Column="104" TopLine="270"/>
+      </Position3>
+      <Position4>
+        <Filename Value="data.pas"/>
+        <Caret Line="39" Column="17" TopLine="23"/>
+      </Position4>
+      <Position5>
+        <Filename Value="data.pas"/>
+        <Caret Line="361" Column="13" TopLine="356"/>
+      </Position5>
+      <Position6>
+        <Filename Value="data.pas"/>
+        <Caret Line="289" Column="127" TopLine="271"/>
+      </Position6>
+      <Position7>
+        <Filename Value="data.pas"/>
+        <Caret Line="306" Column="1" TopLine="291"/>
+      </Position7>
+      <Position8>
+        <Filename Value="data.pas"/>
+        <Caret Line="368" Column="40" TopLine="353"/>
+      </Position8>
+      <Position9>
+        <Filename Value="data.pas"/>
+        <Caret Line="387" Column="22" TopLine="364"/>
+      </Position9>
+      <Position10>
+        <Filename Value="data.pas"/>
+        <Caret Line="390" Column="9" TopLine="365"/>
+      </Position10>
+      <Position11>
+        <Filename Value="data.pas"/>
+        <Caret Line="359" Column="83" TopLine="343"/>
+      </Position11>
+      <Position12>
+        <Filename Value="data.pas"/>
+        <Caret Line="390" Column="9" TopLine="362"/>
+      </Position12>
+      <Position13>
+        <Filename Value="data.pas"/>
+        <Caret Line="359" Column="91" TopLine="343"/>
+      </Position13>
+      <Position14>
+        <Filename Value="data.pas"/>
+        <Caret Line="359" Column="91" TopLine="352"/>
+      </Position14>
+      <Position15>
+        <Filename Value="data.pas"/>
+        <Caret Line="390" Column="22" TopLine="365"/>
+      </Position15>
+      <Position16>
+        <Filename Value="data.pas"/>
+        <Caret Line="393" Column="30" TopLine="365"/>
+      </Position16>
+      <Position17>
+        <Filename Value="data.pas"/>
+        <Caret Line="287" Column="40" TopLine="274"/>
+      </Position17>
+      <Position18>
+        <Filename Value="data.pas"/>
+        <Caret Line="386" Column="69" TopLine="359"/>
+      </Position18>
+      <Position19>
+        <Filename Value="data.pas"/>
+        <Caret Line="286" Column="80" TopLine="272"/>
+      </Position19>
+      <Position20>
+        <Filename Value="data.pas"/>
+        <Caret Line="287" Column="1" TopLine="272"/>
+      </Position20>
+      <Position21>
+        <Filename Value="data.pas"/>
+        <Caret Line="289" Column="142" TopLine="272"/>
+      </Position21>
+    </JumpHistory>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <Target>
+      <Filename Value="Main"/>
+    </Target>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)"/>
+      <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+    </SearchPaths>
+    <Parsing>
+      <SyntaxOptions>
+        <IncludeAssertionCode Value="True"/>
+      </SyntaxOptions>
+    </Parsing>
+    <CodeGeneration>
+      <Checks>
+        <IOChecks Value="True"/>
+        <RangeChecks Value="True"/>
+        <OverflowChecks Value="True"/>
+        <StackChecks Value="True"/>
+      </Checks>
+      <VerifyObjMethodCallValidity Value="True"/>
+    </CodeGeneration>
+    <Linking>
+      <Debugging>
+        <DebugInfoType Value="dsDwarf2Set"/>
+        <UseHeaptrc Value="True"/>
+        <UseExternalDbgSyms Value="True"/>
+      </Debugging>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
+    </Linking>
+    <Other>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+  </CompilerOptions>
+  <Debugging>
+    <Exceptions Count="4">
+      <Item1>
+        <Name Value="EAbort"/>
+      </Item1>
+      <Item2>
+        <Name Value="ECodetoolError"/>
+      </Item2>
+      <Item3>
+        <Name Value="EFOpenError"/>
+      </Item3>
+      <Item4>
+        <Name Value="Exception"/>
+      </Item4>
+    </Exceptions>
+  </Debugging>
+  <EditorMacros Count="0"/>
+</CONFIG>

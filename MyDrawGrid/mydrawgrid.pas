@@ -20,6 +20,7 @@ type
     FTextStyle: TTextStyle;
     FModified: boolean;
     FRow,FCol: Integer;
+    testslide: TSlide;
     BlankBitmap: TBGRABitmap;
     function GetTextStyle():TTextStyle;
     procedure SetSlideImage(ACol, ARow: Integer; AValue: image1);
@@ -33,17 +34,13 @@ type
     procedure SetTextStyle(ATextStyle:TTextStyle);
   protected
     { Protected declarations }
-
-
-
-
     procedure DrawCell(aCol,aRow: Integer; aRect: TRect; aState:TGridDrawState); override;
-    procedure paint; override;
 
   public
     { Public declarations }
     procedure InvalidateCell(aCol, aRow: Integer); overload;
     constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
     property TextStyle: TTextStyle read GetTextStyle write SetTextStyle;
     property Cells[ACol, ARow: Integer]: TSlide read GetCell write SetCells;
     property SlideText[ACol, ARow: Integer]: string read GetSlideText write SetSlideText;
@@ -169,6 +166,7 @@ end;
 constructor TMyDrawGrid.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
+  testslide:= tslide.create(BlankBitmap, 'black.png');
   BlankBitmap:=TBGRABitmap.Create(1, 1, clBlack);
   with FTextStyle do
   begin
@@ -178,14 +176,24 @@ begin
   end;
 end;
 
+destructor TMyDrawGrid.Destroy;
+begin
+  BlankBitmap.Free;
+  testslide.Free;
+  inherited Destroy;
+end;
+
 procedure TMyDrawGrid.DrawCell(aCol, aRow: Integer; aRect: TRect;
   aState: TGridDrawState);
 var
   Cheight: Integer = 0;
   Cwidth: Integer = 0;
   bitmap: TBitmap;
+  Test: TBGRABitmap;
 begin
-  bitmap:= TBitmap.Create();
+  bitmap:=Nil;
+  Test:=Nil;
+
   PrepareCanvas(ACol, ARow, aState);
   DrawFillRect(Canvas, aRect);
   DrawCellGrid(ACol,ARow,aRect,aState);
@@ -200,14 +208,20 @@ begin
           Cwidth:=ColWidths[ACol];
           Cheight:=RowHeights[ARow];
           if (Cwidth <> 0) or (Cheight<>0) then
-            bitmap:=ResizeImage(SlideImage[ACol, ARow].Img, Cwidth, Cheight, True, True).Bitmap;
+           begin
+            //bitmap:= TBitmap.Create();
+            Test:=ResizeImage(SlideImage[ACol, ARow].Img, Cwidth, Cheight, True, True);
+            bitmap:=Test.Bitmap;
+           end;
           //DebugLn('Width : draw: ARow: '+IntToStr(ARow)+',  '+IntToStr(bitmap.Width));
           //DebugLn('Height: draw: '+IntToStr(bitmap.Height));
           //DebugLn('Width : ptrdraw: '+IntToStr(PBitmap^.Width));
           //DebugLn('Height: ptrdraw: '+IntToStr(PBitmap^.Height));
           canvas.Draw(aRect.Left,aRect.Top, bitmap);
     end;
-  bitmap.Free;
+  if Test <> Nil then FreeThenNil(Test);
+  if bitmap <> Nil then bitmap := Nil;
+  //FreeThenNil(Test);
 end;
 
 function TMyDrawGrid.GetCell(ACol, ARow: Integer): TSlide;
@@ -217,7 +231,7 @@ begin
 
   C:=FGrid.Celda[ACol,ARow];
   if C<>nil then Result:=TSlide(C^ .Data)
-  else Result:=TSlide.create(BGRABlack);
+  else Result:=testslide;
 end;
 
 function TMyDrawGrid.GetSlideImage(ACol, ARow: Integer): image1;
@@ -231,6 +245,7 @@ begin
   C:=FGrid.Celda[ACol,ARow];
   if C<>nil then
     begin
+      FreeThenNil(img.Img);
       img.ImgPath := TSlide(C^.Data).ImgPath;
       img.Img:=TSlide(C^.Data).Image;
       Result:=img
@@ -335,11 +350,6 @@ begin
   C:=FGrid.Celda[ACol,ARow];
   if C<>nil then Result:=C^.Text
   else Result:='';
-end;
-
-procedure TMyDrawGrid.paint;
-begin
-  inherited;
 end;
 
 procedure TMyDrawGrid.InvalidateCell(aCol, aRow: Integer);

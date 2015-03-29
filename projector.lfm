@@ -1,0 +1,27 @@
+object frmProjector: TfrmProjector
+  Left = 836
+  Height = 240
+  Top = 610
+  Width = 320
+  BorderStyle = bsNone
+  Caption = 'frmProjector'
+  ClientHeight = 240
+  ClientWidth = 320
+  Color = clBlack
+  DefaultMonitor = dmPrimary
+  OnCreate = FormCreate
+  OnPaint = FormPaint
+  ShowInTaskBar = stNever
+  LCLVersion = '1.3'
+  object BGRAGraphicControl1: TBGRAGraphicControl
+    Left = 0
+    Height = 240
+    Top = 0
+    Width = 320
+    Align = alClient
+    BevelOuter = bvNone
+    Color = clNone
+    ColorOpacity = 0
+    Alignment = taCenter
+  end
+end

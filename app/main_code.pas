@@ -132,6 +132,7 @@ begin
   NextSlide := 1;
   GetScreens();
   SetLength(GridImageList, 3, 1);
+  sttr:=TStringList.Create;
   for i:=0 to 2 do
     GridImageList[i, 0]:=TBGRABitmap.Create(1, 1, clBlack);
 
@@ -239,6 +240,7 @@ end;
 procedure TForm1.TASaveAsExecute(Sender: TObject);
 begin
   SaveDialog1.DefaultExt := 'mpss';
+  WriteLn('test save');
   if SaveDialog1.Execute then
     begin
       SlideFile:=SaveDialog1.FileName;
@@ -260,8 +262,8 @@ begin
     begin
     debugln('create thread');
     thread1 := True;
-    if tMyThread <> Nil then tMyThread.Free;
-    tMyThread:=myThread.Create(True);
+    //if tMyThread = Nil then
+      tMyThread:=myThread.Create(True);
     end;
 end;
 
@@ -285,21 +287,28 @@ end;
 
 procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
-  thread1 := True;
+  //thread1 := True;
   Timer1.Enabled := False;
   //CloseAction := caFree;
-  tMyThread.freeing := True;
+  //tMyThread.freeing := True;
   //tMyThread.Free;
   //tMyThread.Terminate;
   //tMyThread.Start;
   FreeImage();
-  frmlog.memo1.Free;
+  //frmlog.memo1.Free;
   //if tMyThread <> nil then tMyThread.Free;
 end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
+var x,y: Integer;
 begin
-  tMyThread.Terminate;
+  tMyThread.freeing := True;
+  tMyThread.Start;
+  //tMyThread.Terminate;
+  sttr.Free;
+  for x:=0 to Grid.ColCount-1 do
+    for y:=0 to Grid.Row-1 do
+      Grid.Cells[x,y].Free;
 end;
 
 procedure TForm1.GridKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState
@@ -324,7 +333,9 @@ end;
 
 procedure TForm1.TAOpenExecute(Sender: TObject);
 begin
-  if OpenDialog1.Execute then
+  LoadSupportedImages();
+  if tMyThread.Suspended then
+    if OpenDialog1.Execute then
       LoadImageList(TStringList(OpenDialog1.Files));
 end;
 
@@ -349,6 +360,9 @@ begin
     AutoFillColumns := True;
   end;
   FreeImage();
+  SetLength(GridImageList, 3, 1);
+
+  //FreeImage();
   //frmProjector.Invalidate;
 end;
 

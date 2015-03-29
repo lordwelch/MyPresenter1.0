@@ -8,9 +8,22 @@
       <SearchPaths>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
+      <Parsing>
+        <SyntaxOptions>
+          <IncludeAssertionCode Value="True"/>
+        </SyntaxOptions>
+      </Parsing>
+      <CodeGeneration>
+        <Checks>
+          <OverflowChecks Value="True"/>
+          <StackChecks Value="True"/>
+        </Checks>
+      </CodeGeneration>
       <Linking>
         <Debugging>
           <DebugInfoType Value="dsDwarf2Set"/>
+          <UseHeaptrc Value="True"/>
+          <UseExternalDbgSyms Value="True"/>
         </Debugging>
       </Linking>
     </CompilerOptions>

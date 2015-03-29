@@ -17,68 +17,75 @@ var
   newwidth, newheight: integer;
   centerbgra, resbgra: TBGRABitmap;
 begin
-  newwidth:=0;
-  newheight:=0;
-  if (bitm.Height <> Height) or ( bitm.Width <> Width) then
-    begin
-      newwidth:=Width;
-      if (round((bitm.Height / bitm.Width)*newwidth)) <= Height then
-        begin
-        newheight:= round((bitm.Height / bitm.Width)*newwidth);
+  if bitm <> nil then
+  begin
+    resbgra:=Nil;
+    centerbgra:=Nil;
+    newwidth:=0;
+    newheight:=0;
+    if (bitm.Height <> Height) or ( bitm.Width <> Width) then
+      begin
+        newwidth:=Width;
+        if (round((bitm.Height / bitm.Width)*newwidth)) <= Height then
+          begin
+            newheight:= round((bitm.Height / bitm.Width)*newwidth);
+            //DebugLn('resize: Height: '+IntToStr(newheight))
+          end
+        else
+          begin
+            newheight:=Height;
+            //DebugLn('resize: Height: '+IntToStr(newheight));
+            newwidth:= round((bitm.Width / bitm.Height)*newheight)
+          end
+        //DebugLn('height: '+IntToStr(bitm.Height) + ' width: ' + IntToStr(bitm.Width));
+        //DebugLn('height: '+IntToStr(newheight) + ' width: ' + IntToStr(newwidth));
+      end
+    else
+      begin
+        newheight:=Height;
+        newwidth:=Width
         //DebugLn('resize: Height: '+IntToStr(newheight))
-        end
-      else
-        begin
-          newheight:=Height;
-          //DebugLn('resize: Height: '+IntToStr(newheight));
-          newwidth:= round((bitm.Width / bitm.Height)*newheight)
-        end
-      //DebugLn('height: '+IntToStr(bitm.Height) + ' width: ' + IntToStr(bitm.Width));
-      //DebugLn('height: '+IntToStr(newheight) + ' width: ' + IntToStr(newwidth));
-    end
-  else
-    begin
-      newheight:=Height;
-      newwidth:=Width
-      //DebugLn('resize: Height: '+IntToStr(newheight))
-    end;
-  if bars = False then
-    begin
-      centerbgra:=TBGRABitmap.Create(newwidth, newheight, BGRABlack);
-      center:=False;
-    end
-  else
-    centerbgra:=TBGRABitmap.Create(width, height, BGRABlack);
-  if center then
-    begin
-      //DebugLn('true');
-      //DebugLn('Height: '+IntToStr(height));
-      //DebugLn('Width : '+IntToStr(width));
-      //DebugLn('resize: Height: '+IntToStr(newheight));
-      //DebugLn('resize: Width : '+IntToStr(newwidth));
-      //DebugLn('y : '+IntToStr(height-newheight));
-      //DebugLn('x : '+IntToStr(width-newwidth));
-      centerbgra.PutImage((width-newwidth) div 2, (height-newheight) div 2, bitm.Resample(newwidth, newheight), dmSet);
-      resbgra:=centerbgra;
-      //DebugLn('Height: '+IntToStr(resbgra.Height));
-      //DebugLn('Width : '+IntToStr(resbgra.Width));
-      Result:=TBGRABitmap(resbgra.Duplicate(True))
-    end
-  else
-    begin
-      //DebugLn('false');
-      //DebugLn('Height: '+IntToStr(height));
-      //DebugLn('Width : '+IntToStr(width));
-      //DebugLn('resize: Height: '+IntToStr(newheight));
-      //DebugLn('resize: Width : '+IntToStr(newwidth));
-      centerbgra.PutImage(0, 0, bitm.Resample(newwidth, newheight), dmSet);
-      resbgra:=centerbgra;
-      //DebugLn('Height: '+IntToStr(resbgra.Height));
-      //DebugLn('Width : '+IntToStr(resbgra.Width));
-      Result:=TBGRABitmap(resbgra.Duplicate())
-    end;
-  centerbgra.Free;
+      end;
+    if bars = False then
+      begin
+        centerbgra:=TBGRABitmap.Create(newwidth, newheight, BGRABlack);
+        center:=False;
+      end
+    else
+      centerbgra:=TBGRABitmap.Create(width, height, BGRABlack);
+    if center then
+      begin
+        Result:=Nil;
+        //DebugLn('true');
+        //DebugLn('Height: '+IntToStr(height));
+        //DebugLn('Width : '+IntToStr(width));
+        //DebugLn('resize: Height: '+IntToStr(newheight));
+        //DebugLn('resize: Width : '+IntToStr(newwidth));
+        //DebugLn('y : '+IntToStr(height-newheight));
+        //DebugLn('x : '+IntToStr(width-newwidth));
+        centerbgra.PutImage((width-newwidth) div 2, (height-newheight) div 2, bitm.Resample(newwidth, newheight), dmSet);
+        resbgra:=TBGRABitmap(centerbgra.Duplicate(True));
+        //DebugLn('Height: '+IntToStr(resbgra.Height));
+        //DebugLn('Width : '+IntToStr(resbgra.Width));
+        Result:=TBGRABitmap(resbgra.Duplicate(True))
+      end
+    else
+      begin
+        Result:=Nil;
+        //DebugLn('false');
+        //DebugLn('Height: '+IntToStr(height));
+        //DebugLn('Width : '+IntToStr(width));
+        //DebugLn('resize: Height: '+IntToStr(newheight));
+        //DebugLn('resize: Width : '+IntToStr(newwidth));
+        centerbgra.PutImage(0, 0, bitm.Resample(newwidth, newheight), dmSet);
+        resbgra:=TBGRABitmap(centerbgra.Duplicate());
+        //DebugLn('Height: '+IntToStr(resbgra.Height));
+        //DebugLn('Width : '+IntToStr(resbgra.Width));
+        Result:=TBGRABitmap(resbgra.Duplicate())
+      end;
+    FreeThenNil(centerbgra);
+    FreeThenNil(resbgra);
+    //bitm.Free;
+  end;
 end;
-
 end.
-

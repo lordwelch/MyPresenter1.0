@@ -15,6 +15,7 @@ type
   TfrmLog = class(TForm)
     Memo1: TMemo;
     Panel1: TPanel;
+    procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
     { private declarations }
@@ -33,6 +34,12 @@ procedure TfrmLog.FormShow(Sender: TObject);
 begin
   Memo1.VertScrollBar.Tracking:=True;
   Memo1.Lines:=strlog;
+  //strlog.;
+end;
+
+procedure TfrmLog.FormDestroy(Sender: TObject);
+begin
+  strlog.Free;
 end;
 
 initialization

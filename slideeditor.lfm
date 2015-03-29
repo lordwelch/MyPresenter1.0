@@ -1,0 +1,64 @@
+object frmSlideEditor: TfrmSlideEditor
+  Left = 710
+  Height = 368
+  Top = 468
+  Width = 513
+  BorderIcons = []
+  Caption = 'frmSlideEditor'
+  ClientHeight = 368
+  ClientWidth = 513
+  OnShow = FormShow
+  Position = poScreenCenter
+  LCLVersion = '1.3'
+  object ComboBox1: TComboBox
+    Left = 38
+    Height = 25
+    Top = 60
+    Width = 100
+    ItemHeight = 0
+    OnChange = ComboBox1Change
+    Sorted = True
+    Style = csDropDownList
+    TabOrder = 1
+    TabStop = False
+  end
+  object CellImage: TBGRAGraphicControl
+    Left = 200
+    Height = 159
+    Top = 16
+    Width = 173
+    Color = clNone
+    ColorOpacity = 0
+    Alignment = taCenter
+  end
+  object ComboBox2: TComboBox
+    Left = 38
+    Height = 27
+    Top = 144
+    Width = 100
+    ItemHeight = 0
+    OnChange = ComboBox2Change
+    Sorted = True
+    Style = csDropDownList
+    TabOrder = 0
+    TabStop = False
+  end
+  object selectimage: TBGRAGraphicControl
+    Left = 200
+    Height = 159
+    Top = 184
+    Width = 173
+    Color = clNone
+    ColorOpacity = 0
+    Alignment = taCenter
+  end
+  object Button1: TButton
+    Left = 53
+    Height = 25
+    Top = 304
+    Width = 75
+    Caption = 'Set Image'
+    OnClick = Button1Click
+    TabOrder = 2
+  end
+end

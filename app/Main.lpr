@@ -3,7 +3,7 @@ program Main;
 {$mode objfpc}{$H+}
 
 uses
-  {$ifdef unix} cthreads, {$endif}cmem, Interfaces, // this includes the LCL widgetset
+  {$ifdef unix} cthreads, {$endif}cmem, heaptrc, Interfaces, // this includes the LCL widgetset
   Forms, main_code, uabout, settings, Projector, slideeditor,
   PasLibVlcPlayer, log, thread;
 

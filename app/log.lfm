@@ -7,6 +7,7 @@ object frmLog: TfrmLog
   ClientHeight = 240
   ClientWidth = 320
   OnCreate = FormShow
+  OnDestroy = FormDestroy
   LCLVersion = '1.4.0.1'
   object Memo1: TMemo
     Left = 0
@@ -16,6 +17,7 @@ object frmLog: TfrmLog
     Align = alClient
     Enabled = False
     ReadOnly = True
+    ScrollBars = ssAutoVertical
     TabOrder = 0
   end
   object Panel1: TPanel
