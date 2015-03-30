@@ -453,6 +453,7 @@ object Form1: TForm1
       Category = 'File'
       Caption = 'E&xit'
       OnExecute = TAExitExecute
+      ShortCut = 32883
     end
     object TASave: TAction
       Category = 'File'

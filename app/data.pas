@@ -9,7 +9,7 @@ uses
   BGRABitmapTypes, Graphics, Forms, Dialogs, resize, mygrids, LCLProc, thread;
 
 type
-  //TBGRABitmapArray = array of TBGRABitmap;
+  TBGRABitmapArray = array of TBGRABitmap;
   slidestrings = record
   SlideNotes, SlideVideos, SlideText, sttr: TStringList;
   end;
@@ -23,7 +23,7 @@ var
   ImagePath, SGridOptions, SupportedImages, strlog, sttr: TStringList; //file path for images
   GridOptions: TGridOptions;
   DialogOptions: TOpenOptions;
-  GridImageList: array of array of TBGRABitmap{TBGRABitmapArray};
+  GridImageList: array of TBGRABitmapArray;
   Background: TBGRABitmap;
   AColor, OutColor: TBGRAPixel;
   MonitorPro: TMonitor;
@@ -43,7 +43,6 @@ var
   procedure LoadSupportedImages();
   procedure LoadImageList(str: TStringList);
   procedure FreeImage();
-  procedure StartThread();
   function SortFiles(List: String):String;
 
 
@@ -74,7 +73,6 @@ var
 begin
   if not (FileExists(Filename)) then
      SaveXMLConfig(Filename);
-  try
   try
         // Read in xml file from disk
     ReadXMLFile(Doc, filename);
@@ -145,14 +143,7 @@ begin
               strlog.Append('GridOptions: Off');
      end;
     //frmLog.Memo1.Lines.AddStrings(strlog);
-    except
-    on ex: Exception do
-    begin
-      ShowMessage(ex.Message);
-    end;
-  end;
   finally
-    PassNode.Free;
         // finally, free the document
     Doc.Free;
   end;
@@ -164,7 +155,6 @@ var
   RootNode, ItemNode,TextNode: TDOMNode;
   //i: integer;
 begin
-  try
   try
         // Create a document
     Doc := TXMLDocument.Create;
@@ -222,16 +212,7 @@ begin
 
         // Save XML
     WriteXMLFile(Doc,Filename);
-    except
-    on ex: Exception do
-    begin
-      ShowMessage(ex.Message);
-    end;
-  end;
   finally
-    RootNode.Free;
-    ItemNode.Free;
-    TextNode.Free;
     Doc.Free;
   end;
 end;
@@ -243,7 +224,6 @@ var
   x, i: integer;
   isVideo: Boolean;
 begin
-  try
   try
     x:=Form1.Grid.RowCount-1;
         // Create a document
@@ -312,12 +292,6 @@ begin
         // Save XML                           }
     WriteXMLFile(Doc, Filename);
     SlideFile := Filename;
-    except
-    on ex: Exception do
-    begin
-      ShowMessage(ex.Message);
-    end;
-  end;
   finally
     Doc.Free;
   end;
@@ -351,7 +325,6 @@ begin
   if not (FileExists(Filename)) then
      SaveXMLSlide(Filename);
   try
-  try
         // Read in xml file from disk
     ReadXMLFile(Doc, filename);
 
@@ -374,12 +347,6 @@ begin
     Form1.Grid.Cells[1, Form1.Grid.RowCount-1]:=NewSlide(NodeNote, NodeText, NodeImage);
     end;
 
-    except
-    on ex: Exception do
-    begin
-      ShowMessage(ex.Message);
-    end;
-  end;
   finally
         // finally, free the document
     Doc.Free;
@@ -390,22 +357,18 @@ procedure GetScreens;
 var numMonitors, i, Monitors: Integer;
   Path: TStringList;
 begin
-  try
   Path := TStringList.Create;
   Screen.UpdateMonitors;
   Screen.UpdateScreen;
   numMonitors := Screen.MonitorCount;
   if numMonitors > 1 then
-    begin
-    Monitors := StrToInt(InputBox('Monitor selection', 'please select a monitor ' + IntToStr(numMonitors), '2'));
-    Monitors -=1
-    end
+    Monitors := StrToInt(InputBox('Monitor selection', 'please select a monitor ' + IntToStr(numMonitors), '2'))
   else
     begin
     ShowMessage('No second monitor!!! :-(');
     Monitors := 0
     end;
-
+  Monitors -=1;
   Monitornum:=Monitors;
   MonitorPro := Screen.Monitors[Monitors];
   //frmlog.memo1.Append(IntToStr(MonitorPro.Left));
@@ -416,10 +379,6 @@ begin
         Path.Add(ImagePath.Strings[i]);
   LoadImageList(Path);
   end;
-  finally
-    path.Free
-  end;
-
 end;
 
 procedure LoadSupportedImages;
@@ -465,10 +424,8 @@ procedure LoadImageList(str: TStringList);
 var i: Integer;
   //test: TStringList;
 begin
-  try
-  //if sttr <> nil then sttr.Free;
-
-  sttr.Clear;
+  if sttr <> nil then sttr.Free;
+  sttr:=TStringList.Create;
   for i := 0 to (str.Count - 1) do
     sttr.Append(SortFiles(str.Strings[i]));
   //test:= TStringList.Create;
@@ -476,44 +433,18 @@ begin
     //test.Strings[i]:=sttr.Strings[i];
 
     //LoadImage(str.Strings[i]);
-    WriteLn('thread should start');
-    StartThread();
+  tMyThread.Start;
   frmlog.memo1.Append(IntToStr(sttr.Count)+' done');
-  except
-    on ex: Exception do
-    begin
-      ShowMessage(ex.Message);
-    end;
-  end;
 end;
 
 procedure FreeImage;
-var i, x: Integer;
+//var i: Integer;
 begin
-  try
-  for x:=0 to Length(GridImageList)-1 do
-    for i:=0 to Length(GridImageList[1])-1 do
-      TBGRABitmap(GridImageList[x, i]).Free;
-  SetLength(GridImageList, 0, 0);
-  except
-    on ex: Exception do
-    begin
-      ShowMessage(ex.Message);
-    end;
-  end;
-end;
-
-procedure StartThread;
-begin
-  try
-  if tMyThread.Suspended then
-    tMyThread.Start;
-  except
-    on ex: Exception do
-    begin
-      ShowMessage(ex.Message);
-    end;
-  end;
+{  for i:=0 to Length(GridImageList[0])-1 do
+    TBGRACustomBitmap(GridImageList[0, i]).destroy;
+  for i:=0 to Length(GridImageList[1])-1 do
+    TBGRACustomBitmap(GridImageList[1, i]).destroy;   }
+  SetLength(GridImageList, 3, 1);
 end;
 
 function SortFiles(List: String): String;
