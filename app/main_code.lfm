@@ -6,7 +6,7 @@ object Form1: TForm1
   ActiveControl = GridEditor1
   AllowDropFiles = True
   Caption = 'MyPresenter1.0'
-  ClientHeight = 557
+  ClientHeight = 558
   ClientWidth = 943
   Menu = MainMenu1
   OnClose = FormClose
@@ -14,7 +14,7 @@ object Form1: TForm1
   OnDestroy = FormDestroy
   OnDropFiles = FormDropFiles
   Position = poScreenCenter
-  LCLVersion = '1.4.0.1'
+  LCLVersion = '1.2.6.0'
   Visible = True
   object Grid: TMyDrawGrid
     Left = 0
@@ -37,7 +37,7 @@ object Form1: TForm1
         Color = clWindowText
         ReadOnly = True
         Title.Caption = 'Title'
-        Width = 200
+        Width = 198
       end>
     DefaultRowHeight = 50
     ExtendedSelect = False
@@ -55,7 +55,7 @@ object Form1: TForm1
     ColWidths = (
       64
       198
-      200
+      198
     )
   end
   object Memo1: TMemo
@@ -262,9 +262,9 @@ object Form1: TForm1
   end
   object Button2: TButton
     Left = 8
-    Height = 27
+    Height = 25
     Top = 440
-    Width = 74
+    Width = 78
     AutoSize = True
     Caption = 'New Slide'
     OnClick = Button2Click
@@ -284,9 +284,9 @@ object Form1: TForm1
   end
   object Button3: TButton
     Left = 392
-    Height = 27
+    Height = 25
     Top = 461
-    Width = 85
+    Width = 83
     Action = TASave
     AutoSize = True
     TabOrder = 6
@@ -294,9 +294,9 @@ object Form1: TForm1
   end
   object Button4: TButton
     Left = 584
-    Height = 27
+    Height = 25
     Top = 461
-    Width = 87
+    Width = 88
     Action = TAOpenScript
     AutoSize = True
     TabOrder = 7
@@ -485,4 +485,4 @@ object Form1: TForm1
     left = 540
     top = 519
   end
-end
+end

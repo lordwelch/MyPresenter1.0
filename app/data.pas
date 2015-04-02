@@ -5,7 +5,7 @@ unit Data;
 interface
 
 uses
-  {$ifdef unix} cthreads, {$endif}cmem, Classes, SysUtils, Grids, laz2_DOM, laz2_XMLWrite, laz2_XMLRead, BGRABitmap,
+  {$ifdef unix} cthreads, {$endif}cmem, heaptrc, Classes, SysUtils, Grids, laz2_DOM, laz2_XMLWrite, laz2_XMLRead, BGRABitmap,
   BGRABitmapTypes, Graphics, Forms, Dialogs, resize, mygrids, LCLProc, thread;
 
 type
@@ -464,4 +464,4 @@ begin
 end;
 
 end.
-
+

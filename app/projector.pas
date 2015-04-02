@@ -5,7 +5,7 @@ unit Projector;
 interface
 
 uses
-  {$ifdef unix} cthreads, {$endif}cmem, Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
+  {$ifdef unix} cthreads, {$endif}cmem, heaptrc, Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   Data, settings, BGRABitmap, BGRABitmapTypes, BGRATextFX,  BGRAGradients, PasLibVlcPlayerUnit;
 
 type
@@ -103,4 +103,4 @@ end;
 
 
 end.
-
+

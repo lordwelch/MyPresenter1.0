@@ -5,7 +5,7 @@ unit uabout;
 interface
 
 uses
-  {$ifdef unix} cthreads, {$endif}cmem, Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
+  {$ifdef unix} cthreads, {$endif}cmem, heaptrc, Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
   ExtCtrls, StdCtrls, VersionSupport;
 
 type
@@ -46,4 +46,4 @@ begin
 end;
 
 end.
-
+

@@ -5,7 +5,8 @@ unit thread;
 interface
 
 uses
-  {$ifdef unix} cthreads, {$endif}Classes, SysUtils, BGRABitmap, mygrids, resize, LCLProc;
+  {$ifdef unix} cthreads, {$endif} heaptrc, Classes, Graphics,
+  SysUtils, BGRABitmap, mygrids, resize, LCLProc, magicklcl;
 type
 
   { myThread }
@@ -84,6 +85,8 @@ end;
 procedure myThread.Execute;
 var
   i: Integer;
+  bitmap: TBitmap;
+
   //List: TStringList;
 
 begin
@@ -104,6 +107,8 @@ begin
       try
         Synchronize(@GetGridInt);
         //WriteLn('test');
+        bitmap:=TBitmap.Create;
+        //LoadMagickBitmap(str1, bitmap);
         LoadBGRA:=TBGRABitmap.Create(str1);
         //frmlog.memo1.Append(str1);
         list1 := ResizeImage(LoadBGRA, xwidth, yheight);
@@ -119,10 +124,10 @@ begin
 
       Synchronize(@SetImage);
       finally
-      LoadBGRA.Free;
       list1.Free;
       list2.Free;
-
+      LoadBGRA.Free;
+      bitmap.Free;
       end;
     end;
     end;

@@ -5,7 +5,7 @@ unit log;
 interface
 
 uses
-  {$ifdef unix} cthreads, {$endif}Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
+  {$ifdef unix} cthreads, {$endif} heaptrc, Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   StdCtrls, ExtCtrls, Data;
 
 type

@@ -5,7 +5,7 @@ unit main_code;
 interface
 
 uses
-  {$ifdef unix} cthreads, {$endif}cmem, Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
+  {$ifdef unix} cthreads, {$endif}cmem, heaptrc, Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   LCLType, LCLProc, StdCtrls, ExtCtrls, ActnList, StdActns, Data, BCButton,
   PasLibVlcPlayerUnit, Projector, settings, slideeditor, MyDrawGrid, Grids,
   BGRABitmap, log;
@@ -324,6 +324,7 @@ end;
 
 procedure TForm1.TAOpenExecute(Sender: TObject);
 begin
+  LoadSupportedImages();
   if OpenDialog1.Execute then
       LoadImageList(TStringList(OpenDialog1.Files));
 end;
@@ -358,4 +359,4 @@ begin
 end;
 
 end.
-
+

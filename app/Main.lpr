@@ -3,9 +3,9 @@ program Main;
 {$mode objfpc}{$H+}
 
 uses
-  {$ifdef unix} cthreads, {$endif}cmem, Interfaces, // this includes the LCL widgetset
-  Forms, main_code, uabout, settings, Projector, slideeditor,
-  PasLibVlcPlayer, log, thread;
+  {$ifdef unix} cthreads, {$endif} heaptrc, Interfaces, // this includes the LCL widgetset
+  Forms, main_code, uabout, settings, Projector,
+  slideeditor, PasLibVlcPlayer, log, thread, magicklcl;
 
 {$R *.res}
 
@@ -20,4 +20,4 @@ begin
   Application.CreateForm(TfrmLog, frmLog);
   Application.Run;
 end.
-
+

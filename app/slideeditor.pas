@@ -5,7 +5,7 @@ unit slideeditor;
 interface
 
 uses
-  {$ifdef unix} cthreads, {$endif}Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
+  {$ifdef unix} cthreads, {$endif} heaptrc, Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   StdCtrls, resize, BGRABitmapTypes, BGRABitmap, BGRAGraphicControl, mygrids;
 
 type
@@ -163,4 +163,4 @@ initialization
   {$I slideeditor.lrs}
 
 end.
-
+
