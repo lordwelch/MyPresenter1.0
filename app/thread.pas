@@ -27,7 +27,7 @@ type
       procedure Execute; override;
       procedure DoTerminate; override;
     public
-      freeing:Boolean;
+      freeing: Boolean;
       constructor Create(CreateSuspended: Boolean; const StackSize: SizeUInt =
         DefaultStackSize);
   end;
@@ -47,6 +47,8 @@ procedure myThread.GetStrings;
 var i: Integer;
 begin
   //debugln('GetStrings');
+  xwidth := MonitorPro.Width;
+  yheight := MonitorPro.Height;
   for i := 0 to sttr.Count-1 do
     List.Append(sttr.Strings[i]);
 end;
@@ -58,8 +60,6 @@ begin
   SetLength(GridImageList, 3, 1+gridint);
   x := Form1.Grid.Columns[1].Width;
   y := Form1.Grid.RowHeights[1];
-  xwidth := MonitorPro.Width;
-  yheight := MonitorPro.Height;
 end;
 
 procedure myThread.SetImage;
@@ -86,14 +86,13 @@ procedure myThread.Execute;
 var
   i: Integer;
   bitmap: TBitmap;
-
   //List: TStringList;
 
 begin
-  ////debugln(freeing);
+  //debugln(freeing);
   if not freeing then
   begin
-  ////debugln(freeing);
+  //debugln(freeing);
   if List <> nil then List.Free;
   List:= TStringList.Create;
   Synchronize(@GetStrings);
@@ -108,8 +107,8 @@ begin
         Synchronize(@GetGridInt);
         //WriteLn('test');
         bitmap:=TBitmap.Create;
-        //LoadMagickBitmap(str1, bitmap);
-        LoadBGRA:=TBGRABitmap.Create(str1);
+        LoadMagickBitmap(str1, bitmap);
+        LoadBGRA:=TBGRABitmap.Create(bitmap);
         //frmlog.memo1.Append(str1);
         list1 := ResizeImage(LoadBGRA, xwidth, yheight);
         list2 := ResizeImage(LoadBGRA, x, y, false, false);

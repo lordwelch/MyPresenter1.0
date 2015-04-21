@@ -220,7 +220,7 @@ end;
 procedure SaveXMLSlide(Filename: string);
 var
   Doc: TXMLDocument;
-  RootNode, ItemNode,TextNode: TDOMNode;
+  RootNode, ItemNode,{%H-}TextNode: TDOMNode;
   x, i: integer;
   isVideo: Boolean;
 begin
@@ -318,7 +318,7 @@ procedure readXMLSlide(Filename: string);
 var
   PassNode: TDOMNode;
   Doc: TXMLDocument;
-  NodeText, NodeNote, NodeVideo, NodeImage: AnsiString;
+  NodeText, NodeNote, {%H-}NodeVideo, NodeImage: AnsiString;
   NodeIsVideo: Boolean;
   i, x: Integer;
 begin
@@ -425,14 +425,10 @@ var i: Integer;
   //test: TStringList;
 begin
   if sttr <> nil then sttr.Free;
+  sttr:=nil;
   sttr:=TStringList.Create;
   for i := 0 to (str.Count - 1) do
     sttr.Append(SortFiles(str.Strings[i]));
-  //test:= TStringList.Create;
-  //for i := 0 to (sttr.Count - 1) do
-    //test.Strings[i]:=sttr.Strings[i];
-
-    //LoadImage(str.Strings[i]);
   tMyThread.Start;
   frmlog.memo1.Append(IntToStr(sttr.Count)+' done');
 end;
@@ -464,4 +460,4 @@ begin
 end;
 
 end.
-
+
