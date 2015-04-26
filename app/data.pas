@@ -220,7 +220,7 @@ end;
 procedure SaveXMLSlide(Filename: string);
 var
   Doc: TXMLDocument;
-  RootNode, ItemNode,{%H-}TextNode: TDOMNode;
+  RootNode, ItemNode,TextNode: TDOMNode;
   x, i: integer;
   isVideo: Boolean;
 begin

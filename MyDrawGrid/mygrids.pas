@@ -7,39 +7,21 @@ interface
 uses
   Classes, SysUtils, PasLibVlcClassUnit, BGRABitmap, BGRABitmapTypes, LCLProc;
 type
-  Slide = record
-    Img: TBGRABitmap;
-    Text, Note, video, ImgPath: String;
-    IsVideo: Boolean;
-  end;
-  image1 = record
-    Img: TBGRABitmap;
-    ImgPath: String;
-  end;
-
  { TSlide }
 
- TSlide=class
+ TSlide=class(TObject)
    private
    protected
-   FSlide: Slide;
    public
-   constructor create(); //override;
-   constructor create(aImg: TBGRABitmap; Path: String); //override;
-   //constructor create(aText: string; aNote: string=''); //override
-   constructor create(aText: string; aNote: string=' '; aVideo: string=''); //override
-   constructor create(aText, aNote, Path: string; aImg: TBGRABitmap); //override;
-   constructor create(aText, aNote, aVideo, Path: string; aImg: TBGRABitmap);// override;
-   constructor create(aColor:TBGRAPixel); //override;
+   Img: TBGRABitmap;
+   Text, Note, Path: String;
+   IsVideo: Boolean;
+   constructor create();
+   constructor create(aColor:TBGRAPixel);
+   constructor create(aText: string; aNote: string=''; MediaPath: string='');
+   constructor create(aImg: TBGRABitmap; MediaPath: String);
+   constructor create(aText, aNote, MediaPath: string; aImg: TBGRABitmap);
    destructor  Destroy; override;
-
-   property Text: string read FSlide.Text write FSlide.Text;
-   property Note: String read FSlide.Note write FSlide.Note;
-   property IsVideo: Boolean read FSlide.IsVideo write FSlide.IsVideo;
-   property Video: String read FSlide.Video write FSlide.Video;
-   property Image: TBGRABitmap read FSlide.Img write FSlide.Img;
-   property ImgPath: String read FSlide.ImgPath write FSlide.ImgPath;
-
 end;
 implementation
 
@@ -47,114 +29,57 @@ implementation
 
 constructor TSlide.create;
 begin
-  inherited create;
-    with FSlide do
-    begin
-    Img:=TBGRABitmap.Create(1,1);
-    Note:=' ';
-    Text:=' ';
+    Img:=TBGRABitmap.Create(1,1, BGRABlack);
+    Note:='';
+    Text:='';
     isvideo:=False;
-    video:=' ';
-    ImgPath := 'black.png';
-    end;
+    Path := 'black.png';
 end;
 
-constructor TSlide.create(aImg: TBGRABitmap; Path: String);
+constructor TSlide.create(aImg: TBGRABitmap; MediaPath: String);
 begin
-  inherited create;
-    with FSlide do
-    begin
     Img:=aImg;
-    Note:=' ';
-    Text:=' ';
+    Note:='';
+    Text:='';
     isvideo:=False;
-    video:=' ';
-    ImgPath := Path;
-    end;
+    Path := MediaPath;
 end;
 
-{constructor TSlide.create(aText:string; aNote: string);
+constructor TSlide.create(aText, aNote, MediaPath: string);
 begin
-  inherited create;
-  with FSlide do
-  begin
   Img:=TBGRABitmap.Create(1, 1, BGRABlack);
-  Note:=aNote;
-  Text:=aText;
-  isvideo:=False;
-  video:=' ';
-  end;
-end; }
-
-constructor TSlide.create(aText, aNote, aVideo: string);
-begin
-  inherited create;
-  with FSlide do
-  begin
-  Img:=TBGRABitmap.Create(1, 1, BGRABlack);
-  Note:=aNote;
-  Text:=aText;
-  isvideo:=False;
-  video:=aVideo;
-  ImgPath := ' ';
-  end;
-end;
-
-constructor TSlide.create(aText, aNote, Path: string; aImg: TBGRABitmap);
-begin
-  inherited create;
-  with FSlide do
-  begin
-  Img:=aImg;
-  Note:=aNote;
-  Text:=aText;
-  isvideo:=False;
-  video:=' ';
-  ImgPath := Path;
-  end;
-end;
-
-constructor TSlide.create(aText, aNote, aVideo, Path: string; aImg: TBGRABitmap);
-begin
-  inherited create;
-  with FSlide do
-  begin
-  Img:=aImg;
   Note:=aNote;
   Text:=aText;
   isvideo:=True;
-  video:=aVideo;
-  ImgPath := Path;
-  end;
+  Path := MediaPath;
+end;
+
+constructor TSlide.create(aText, aNote, MediaPath: string; aImg: TBGRABitmap);
+begin
+  Img:=aImg;
+  Note:=aNote;
+  Text:=aText;
+  isvideo:=False;
+  Path := MediaPath;
 end;
 
 constructor TSlide.create(aColor: TBGRAPixel);
 begin
-  inherited create;
-    with FSlide do
-    begin
-    Img:=TBGRABitmap.Create(1,1, aColor);
-    Note:=' ';
-    Text:=' ';
-    isvideo:=False;
-    video:=' ';
-    ImgPath := 'black.png';
-    end;
+  Img:=TBGRABitmap.Create(1,1, aColor);
+  Note:='';
+  Text:='';
+  isvideo:=False;
+  Path := 'black.png';
 end;
 
 destructor TSlide.Destroy;
 begin
-  inherited Destroy;
-  with FSlide do
-  begin
   img.Free;
-  Note:=' ';
-  Text:=' ';
+  Note:='';
+  Text:='';
   isvideo:=False;
-  video:=' ';
-  ImgPath := ' ';
-  end;
-
+  Path := '';
+  Inherited Destroy;
 end;
 
 end.

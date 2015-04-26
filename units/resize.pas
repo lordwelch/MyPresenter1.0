@@ -62,7 +62,7 @@ begin
       resbgra:=centerbgra;
       //DebugLn('Height: '+IntToStr(resbgra.Height));
       //DebugLn('Width : '+IntToStr(resbgra.Width));
-      Result:=TBGRABitmap(resbgra.Duplicate(True))
+      Result:=resbgra
     end
   else
     begin
@@ -75,9 +75,8 @@ begin
       resbgra:=centerbgra;
       //DebugLn('Height: '+IntToStr(resbgra.Height));
       //DebugLn('Width : '+IntToStr(resbgra.Width));
-      Result:=TBGRABitmap(resbgra.Duplicate())
+      Result:=resbgra
     end;
-  centerbgra.Free;
 end;
 
 end.

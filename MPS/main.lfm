@@ -1,0 +1,157 @@
+object Form1: TForm1
+  Left = 581
+  Height = 384
+  Top = 204
+  Width = 486
+  Caption = 'Form1'
+  ClientHeight = 364
+  ClientWidth = 486
+  Menu = MainMenu1
+  LCLVersion = '1.2.6.0'
+  object Grid: TMyDrawGrid
+    Left = 0
+    Height = 364
+    Top = 0
+    Width = 232
+    Align = alLeft
+    AutoFillColumns = True
+    ColCount = 3
+    ExtendedSelect = False
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goSmoothScroll, goFixedRowNumbering]
+    TabOrder = 0
+    ColWidths = (
+      64
+      82
+      82
+    )
+  end
+  object MainMenu1: TMainMenu
+    left = 288
+    top = 336
+    object MenuItem1: TMenuItem
+      Caption = 'File'
+      object MenuItem2: TMenuItem
+        Caption = 'New'
+      end
+      object MenuItem3: TMenuItem
+        Caption = '-'
+      end
+      object MenuItem4: TMenuItem
+        Caption = 'Open'
+      end
+      object MenuItem5: TMenuItem
+        Caption = 'Open Recent'
+      end
+      object MenuItem6: TMenuItem
+        Caption = 'Save'
+      end
+      object MenuItem7: TMenuItem
+        Caption = 'Save As'
+      end
+      object MenuItem8: TMenuItem
+        Caption = 'Close'
+      end
+      object MenuItem9: TMenuItem
+        Caption = '-'
+      end
+      object MenuItem10: TMenuItem
+        Caption = 'Exit'
+      end
+    end
+    object MenuItem11: TMenuItem
+      Caption = 'Edit'
+      object MenuItem12: TMenuItem
+        Caption = 'Undo'
+      end
+      object MenuItem13: TMenuItem
+        Caption = 'Redo'
+      end
+      object MenuItem14: TMenuItem
+        Caption = '-'
+      end
+      object MenuItem15: TMenuItem
+        Caption = 'Cut'
+      end
+      object MenuItem16: TMenuItem
+        Caption = 'Copy'
+      end
+      object MenuItem17: TMenuItem
+        Caption = 'Paste'
+      end
+      object MenuItem18: TMenuItem
+        Caption = '-'
+      end
+      object MenuItem19: TMenuItem
+        Caption = 'Find'
+      end
+      object MenuItem20: TMenuItem
+        Caption = 'Find Next'
+      end
+    end
+    object MenuItem21: TMenuItem
+      Caption = 'Help'
+      object MenuItem22: TMenuItem
+        Caption = 'Contents'
+      end
+      object MenuItem23: TMenuItem
+        Caption = 'Tutorial'
+      end
+      object MenuItem24: TMenuItem
+        Caption = '-'
+      end
+      object MenuItem25: TMenuItem
+        Caption = 'About'
+      end
+    end
+  end
+  object ActionList1: TActionList
+    left = 248
+    top = 336
+    object TAOpen: TAction
+      Category = 'File'
+      Caption = 'Open...'
+      ShortCut = 24655
+    end
+    object TANext: TAction
+      Tag = 1
+      Category = 'Slide'
+      Caption = 'TANext'
+      ShortCut = 32
+    end
+    object TAPrevious: TAction
+      Category = 'Slide'
+      Caption = 'TAPrevious'
+      ShortCut = 8224
+    end
+    object Editable: TAction
+      Category = 'Settings'
+      Caption = 'Editable'
+      ShortCut = 24645
+    end
+    object TAClose: TAction
+      Category = 'File'
+      Caption = 'Close'
+    end
+    object TAExit: TAction
+      Category = 'File'
+      Caption = 'E&xit'
+      ShortCut = 32883
+    end
+    object TASave: TAction
+      Category = 'File'
+      Caption = 'Save Script'
+      ShortCut = 16467
+    end
+    object TAOpenScript: TAction
+      Tag = 4
+      Category = 'File'
+      Caption = '&Open Script'
+      ShortCut = 16463
+    end
+    object TASaveAs: TAction
+      Category = 'File'
+      Caption = 'Save as...'
+      ShortCut = 24659
+    end
+  end
+end
