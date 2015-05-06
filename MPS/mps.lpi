@@ -40,7 +40,6 @@
       <Unit0>
         <Filename Value="mps.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="mps"/>
       </Unit0>
       <Unit1>
         <Filename Value="main.pas"/>
@@ -72,12 +71,6 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CompilerMessages>
-        <MsgFileName Value=""/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">

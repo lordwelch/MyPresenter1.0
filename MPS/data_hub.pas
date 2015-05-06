@@ -7,11 +7,17 @@ interface
 uses
   Classes, SysUtils;
 
+procedure About();
 procedure readxmlcfg(Filename: string);
 procedure savexmlcfg(Filename: string);
 procedure saveXmlScript(Filename: String);
 
 implementation
+
+procedure About;
+begin
+  frmAbout.Show;
+end;
 
 procedure readxmlcfg(Filename: string);
 var

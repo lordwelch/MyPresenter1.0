@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  ActnList, MyDrawGrid;
+  ActnList, StdCtrls, data_hub, MyDrawGrid;
 
 type
 
@@ -42,6 +42,7 @@ type
     MenuItem8: TMenuItem;
     MenuItem9: TMenuItem;
     Grid: TMyDrawGrid;
+    TAAbout: TAction;
     TAClose: TAction;
     TAExit: TAction;
     TANext: TAction;
@@ -50,6 +51,8 @@ type
     TAPrevious: TAction;
     TASave: TAction;
     TASaveAs: TAction;
+    procedure TAAboutExecute(Sender: TObject);
+    procedure TAExitExecute(Sender: TObject);
   private
     { private declarations }
   public
@@ -62,6 +65,18 @@ var
 implementation
 
 {$R *.lfm}
+
+{ TForm1 }
+
+procedure TForm1.TAExitExecute(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TForm1.TAAboutExecute(Sender: TObject);
+begin
+  About();
+end;
 
 end.
 

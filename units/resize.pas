@@ -7,18 +7,20 @@ interface
 uses
   Classes, SysUtils, LCLProc, BGRABitmap, BGRABitmapTypes;
 
-  function ResizeImage(bitm: TBGRABitmap; width, height: Integer; bars: Boolean = True; Center: Boolean = True): TBGRABitmap;
+  function ResizeImage(bitm: TBGRABitmap; width, height: Integer; KeepBitmapSize: Boolean = True; Center: Boolean = True): TBGRABitmap;
 
 implementation
 
 function ResizeImage(bitm: TBGRABitmap; width, height: Integer;
-  bars: Boolean; Center: Boolean): TBGRABitmap;
+  KeepBitmapSize: Boolean; Center: Boolean): TBGRABitmap;
 var
   newwidth, newheight: integer;
   centerbgra, resbgra: TBGRABitmap;
 begin
   newwidth:=0;
   newheight:=0;
+  centerbgra:=Nil;
+  resbgra:=Nil;
   if (bitm.Height <> Height) or ( bitm.Width <> Width) then
     begin
       newwidth:=Width;
@@ -42,7 +44,7 @@ begin
       newwidth:=Width
       //DebugLn('resize: Height: '+IntToStr(newheight))
     end;
-  if bars = False then
+  if KeepBitmapSize = False then
     begin
       centerbgra:=TBGRABitmap.Create(newwidth, newheight, BGRABlack);
       center:=False;
@@ -60,8 +62,10 @@ begin
       //DebugLn('x : '+IntToStr(width-newwidth));
       centerbgra.PutImage((width-newwidth) div 2, (height-newheight) div 2, bitm.Resample(newwidth, newheight), dmSet);
       resbgra:=centerbgra;
+      centerbgra:=Nil;
       //DebugLn('Height: '+IntToStr(resbgra.Height));
       //DebugLn('Width : '+IntToStr(resbgra.Width));
+      //FreeThenNil(bitm);
       Result:=resbgra
     end
   else
@@ -73,8 +77,10 @@ begin
       //DebugLn('resize: Width : '+IntToStr(newwidth));
       centerbgra.PutImage(0, 0, bitm.Resample(newwidth, newheight), dmSet);
       resbgra:=centerbgra;
+      centerbgra:=Nil;
       //DebugLn('Height: '+IntToStr(resbgra.Height));
       //DebugLn('Width : '+IntToStr(resbgra.Width));
+      //FreeThenNil(bitm);
       Result:=resbgra
     end;
 end;

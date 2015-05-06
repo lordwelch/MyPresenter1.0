@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, StdCtrls, Graphics, Dialogs, Grids, LCLProc,
-  BGRABitmap, BGRABitmapTypes, resize, mygrids, PasLibVlcClassUnit;
+  BGRABitmap, BGRABitmapTypes, resize, mygrids;
 
 type
   { TMyDrawGrid }
@@ -42,6 +42,7 @@ private
 protected
   { Protected declarations }
   procedure DrawTextInCell(aCol, aRow: Integer; aRect: TRect; aState: TGridDrawState); override;
+  procedure DrawPictureInCell(aCol, aRow: Integer; aRect: TRect);
 public
   { Public declarations }
   FButtonDown: Boolean;
@@ -233,6 +234,8 @@ begin
     else
       DrawCellText(aCol,aRow,aRect,aState,GetSlideText(aCol, aRow));
   end;
+  if ((aCol=2) and (aRow>0)) then
+    DrawPictureInCell(aCol, aRow, aRect);
 end;
 
 function TMyDrawGrid.GetCell(ACol, ARow: Integer): TSlide;
@@ -377,6 +380,14 @@ begin
   bmp.Draw(Canvas, aRect);
   FreeThenNil(bmp);  }
   Canvas.TextRect(aRect,aRect.Left,aRect.Top,GetSlideText(aCol, aRow));
+end;
+
+procedure TMyDrawGrid.DrawPictureInCell(aCol, aRow: Integer; aRect: TRect);
+var bitmap: TBGRABitmap;
+begin
+  bitmap:=ResizeImage(GetSlideImage(aCol, aRow), (aRect.Right-aRect.Left), (aRect.Bottom-aRect.Top));
+  bitmap.Draw(Canvas, aRect);
+  FreeThenNil(bitmap);
 end;
 
 function TMyDrawGrid.CellNeedsCheckboxBitmaps(const aCol, aRow: Integer): boolean;
