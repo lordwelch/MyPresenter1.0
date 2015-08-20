@@ -1,0 +1,9 @@
+LazarusResources.Add('TfrmLog','FORMDATA',[
+  'TPF0'#7'TfrmLog'#6'frmLog'#4'Left'#3#200#5#6'Height'#3#240#0#3'Top'#3#22#1#5
+  +'Width'#3'@'#1#7'Caption'#6#3'Log'#12'ClientHeight'#3#240#0#11'ClientWidth'#3
+  +'@'#1#8'OnCreate'#7#8'FormShow'#10'LCLVersion'#6#7'1.4.0.1'#0#5'TMemo'#5'Mem'
+  +'o1'#4'Left'#2#0#6'Height'#3#190#0#3'Top'#2'2'#5'Width'#3'@'#1#5'Align'#7#8
+  +'alClient'#7'Enabled'#8#8'ReadOnly'#9#8'TabOrder'#2#0#0#0#6'TPanel'#6'Panel1'
+  +#4'Left'#2#0#6'Height'#2'2'#3'Top'#2#0#5'Width'#3'@'#1#5'Align'#7#5'alTop'#7
+  +'Caption'#6#10'Log Output'#8'TabOrder'#2#1#0#0#0
+]);
