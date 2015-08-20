@@ -8,7 +8,7 @@ uses
   {$ifdef unix} cthreads, {$endif}cmem, heaptrc, Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   LCLType, LCLProc, StdCtrls, ExtCtrls, ActnList, StdActns, Data, BCButton,
   PasLibVlcPlayerUnit, Projector, settings, slideeditor, MyDrawGrid, Grids,
-  BGRABitmap, log;
+  BGRABitmap;
 
 type
 
@@ -216,7 +216,7 @@ begin
     if CurrentSlide > 1 then
       CurrentSlide-=1;
 
-  frmlog.memo1.Append(IntToStr(CurrentSlide));
+  //frmlog.memo1.Append(IntToStr(CurrentSlide));
        //setslidetext(textSlidesgrid.Cells[x, y]);
   frmProjector.Invalidate;
 end;
@@ -293,7 +293,7 @@ begin
   //tMyThread.Terminate;
   //tMyThread.Start;
   FreeImage();
-  frmlog.memo1.Free;
+  //frmlog.memo1.Free;
   //if tMyThread <> nil then tMyThread.Free;
 end;
 
@@ -312,7 +312,7 @@ end;
 
 procedure TForm1.MenuItem28Click(Sender: TObject);
 begin
-  frmLog.Show;
+  //frmLog.Show;
 end;
 
 procedure TForm1.TAExitExecute(Sender: TObject);

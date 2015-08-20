@@ -25,7 +25,7 @@
       <Attributes pvaDebug="True"/>
       <StringTable ProductVersion=""/>
     </VersionInfo>
-    <BuildModes Count="4" Active="Release-win">
+    <BuildModes Count="4" Active="Debug">
       <Item1 Name="Debug" Default="True"/>
       <Item2 Name="Release">
         <CompilerOptions>
@@ -175,16 +175,17 @@
         <ComponentName Value="Form1"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="316"/>
-        <CursorPos X="16" Y="329"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="299"/>
+        <CursorPos X="5" Y="315"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="data.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="Data"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <TopLine Value="205"/>
         <CursorPos X="27" Y="223"/>
@@ -255,8 +256,7 @@
         <ComponentName Value="frmSlideEditor"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="slideeditor"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="5"/>
         <TopLine Value="12"/>
         <CursorPos X="24" Y="30"/>
         <UsageCount Value="200"/>
@@ -523,9 +523,9 @@
       </Unit54>
       <Unit55>
         <Filename Value="../MyDrawGrid/mygrids.pas"/>
-        <TopLine Value="15"/>
-        <CursorPos X="3" Y="15"/>
+        <EditorIndex Value="4"/>
         <UsageCount Value="39"/>
+        <Loaded Value="True"/>
       </Unit55>
       <Unit56>
         <Filename Value="../../Downloads/PasLibVlc/source/PasLibVlcClassUnit.pas"/>
@@ -913,9 +913,11 @@
       <Unit120>
         <Filename Value="thread.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="58" Y="9"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="123"/>
+        <CursorPos X="11" Y="121"/>
         <UsageCount Value="94"/>
+        <Loaded Value="True"/>
       </Unit120>
       <Unit121>
         <Filename Value="../../../freepascal/rtl/unix/tthread.inc"/>
@@ -1035,7 +1037,7 @@
         <UsageCount Value="10"/>
       </Unit139>
     </Units>
-    <JumpHistory Count="3" HistoryIndex="2">
+    <JumpHistory Count="8" HistoryIndex="7">
       <Position1>
         <Filename Value="Main.lpr"/>
         <Caret Line="22"/>
@@ -1048,6 +1050,26 @@
         <Filename Value="slideeditor.pas"/>
         <Caret Line="8" Column="45"/>
       </Position3>
+      <Position4>
+        <Filename Value="thread.pas"/>
+        <Caret Line="9" Column="29"/>
+      </Position4>
+      <Position5>
+        <Filename Value="main_code.pas"/>
+        <Caret Line="329" Column="16" TopLine="316"/>
+      </Position5>
+      <Position6>
+        <Filename Value="main_code.pas"/>
+        <Caret Line="11" Column="13"/>
+      </Position6>
+      <Position7>
+        <Filename Value="main_code.pas"/>
+        <Caret Line="219" Column="5" TopLine="203"/>
+      </Position7>
+      <Position8>
+        <Filename Value="main_code.pas"/>
+        <Caret Line="296" Column="5" TopLine="280"/>
+      </Position8>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -1115,4 +1137,4 @@
       </Item4>
     </Exceptions>
   </Debugging>
-</CONFIG>
+</CONFIG>

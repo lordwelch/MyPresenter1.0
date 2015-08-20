@@ -14,7 +14,7 @@ type
   myThread=class(TThread)
     private
       LoadBGRA, list1, list2{, list3}: TBGRABitmap;
-      img, img1: image1;
+      //img, img1: image1;
       List: TStringList;
       gridint, x, y, xwidth, yheight: Integer;
       str1: String;
@@ -114,11 +114,11 @@ begin
         list2 := ResizeImage(LoadBGRA, x, y, false, false);
 
 
-        img.Img:=TBGRABitmap(list1.Duplicate(True));
-        img.ImgPath := str1;
+        //img.Img:=TBGRABitmap(list1.Duplicate(True));
+        //img.ImgPath := str1;
 
-        img1.img:=TBGRABitmap(list2.Duplicate(True));
-        img1.ImgPath:=str1;
+        //img1.img:=TBGRABitmap(list2.Duplicate(True));
+        //img1.ImgPath:=str1;
 
 
       Synchronize(@SetImage);

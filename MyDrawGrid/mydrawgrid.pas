@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, StdCtrls, Graphics, Dialogs, Grids, LCLProc,
-  BGRABitmap, BGRABitmapTypes, resize, mygrids, PasLibVlcClassUnit;
+  BGRABitmap, BGRABitmapTypes, resize, mygrids;
 
 type
   { TMyDrawGrid }
@@ -25,23 +25,31 @@ private
   function  IsCellButtonColumn(ACell: TPoint): boolean;
 
 
-  procedure SetSlideImage(ACol, ARow: Integer; AValue: TBGRABitmap);
-  function GetSlideImage(ACol, ARow: Integer): TBGRABitmap;
+  procedure SetSlideImage(ARow: Integer; AValue: TBGRABitmap);
+  function  GetSlideImage(ARow: Integer): TBGRABitmap;
 
-  procedure SetCell(ACol, ARow: Integer; const AValue: TSlide);
-  function GetCell(ACol, ARow: Integer): TSlide;
+  procedure SetSlideFullImage(ARow: Integer; AValue: TBGRABitmap);
+  function  GetSlideFullImage(ARow: Integer): TBGRABitmap;
 
-  function GetSlideText(ACol, ARow: Integer): string;
-  procedure SetSlideText(ACol, ARow: Integer; aValue: string);
+  procedure SetSlideThumb(ARow: Integer; AValue: TBGRABitmap);
+  function  GetSlideThumb(ARow: Integer): TBGRABitmap;
 
-  function GetSlidePath(ACol, ARow: Integer): string;
-  procedure SetSlidePath(ACol, ARow: Integer; aValue: string);
+  procedure SetCell(ARow: Integer; const AValue: TSongPart);
+  function  GetCell(ARow: Integer): TSongPart;
 
-  procedure SetSlideNote(ACol, ARow: Integer; aValue: string);
-  function GetSlideNote(ACol, ARow: Integer): string;
+  procedure SetSlideText(ARow: Integer; aValue: string);
+  function  GetSlideText(ARow: Integer): string;
+
+  procedure SetSlidePath(ARow: Integer; aValue: string);
+  function  GetSlidePath(ARow: Integer): string;
+
+  procedure SetSlideNote(ARow: Integer; aValue: string);
+  function  GetSlideNote(ARow: Integer): string;
+
 protected
   { Protected declarations }
   procedure DrawTextInCell(aCol, aRow: Integer; aRect: TRect; aState: TGridDrawState); override;
+  procedure DrawPictureInCell(aCol, aRow: Integer; aRect: TRect);
 public
   { Public declarations }
   FButtonDown: Boolean;
@@ -50,13 +58,17 @@ public
   //destructor Destroy; override;
 
   procedure Clear;
+  procedure ResizeSlideList(AWidth, AHeight: Integer);
+  procedure ResizeSlide(AWidth, AHeight, aRow: Integer);
 
   procedure DefaultDrawCell(aCol, aRow: Integer; var aRect: TRect; aState: TGridDrawState); override;
-  property Cells[ACol, ARow: Integer]: TSlide read GetCell write SetCell;
-  property SlideText[ACol, ARow: Integer]: string read GetSlideText write SetSlideText;
-  property SlideImage[ACol, ARow: Integer]: TBGRABitmap read GetSlideImage write SetSlideImage;
-  property SlideNote[ACol, ARow: Integer]: string read GetSlideNote write SetSlideNote;
-  property SlidePath[ACol, ARow: Integer]: string read GetSlidePath write SetSlidePath;
+  property Cells[ARow: Integer]: TSongPart read GetCell write SetCell;
+  property SlideText[ARow: Integer]: string read GetSlideText write SetSlideText;
+  property SlideImage[ARow: Integer]: TBGRABitmap read GetSlideImage write SetSlideImage;
+  property SlideThumb[ARow: Integer]: TBGRABitmap read GetSlideThumb write SetSlideThumb;
+  property SlideFullImage[ARow: Integer]: TBGRABitmap read GetSlideFullImage write SetSlideFullImage;
+  property SlideNote[ARow: Integer]: string read GetSlideNote write SetSlideNote;
+  property SlidePath[ARow: Integer]: string read GetSlidePath write SetSlidePath;
 
 published
   { Published declarations }
@@ -194,9 +206,9 @@ procedure TMyDrawGrid.Clear;
   i,x: Integer;
   C: PCellProps;  }
 begin
-  {for i:=0 to RowCount-1 do
+  {for i := 0 to RowCount-1 do
     for x := 0 to ColCount-1 do  begin
-      C:=FGrid.Celda[x,i];
+      C := FGrid.Celda[x,i];
       if C<> nil then
         FreeThenNil(C^.Data);
     end;           }
@@ -207,7 +219,7 @@ procedure TMyDrawGrid.DefaultDrawCell(aCol, aRow: Integer; var aRect: TRect;
   aState: TGridDrawState);
 begin
   if goColSpanning in Options then CalcCellExtent(acol, arow, aRect);
-  FTitleStyle:=tsLazarus;
+  FTitleStyle := tsLazarus;
   if (FTitleStyle=tsNative) and (gdFixed in AState) then
     DrawThemedCell(aCol, aRow, aRect, aState)
   else
@@ -231,38 +243,45 @@ begin
     if GetIsCellTitle(aCol, aRow) then
       DrawColumnText(aCol, aRow, aRect, aState)
     else
-      DrawCellText(aCol,aRow,aRect,aState,GetSlideText(aCol, aRow));
+      if aCol = 1 then
+        DrawCellText(aCol,aRow,aRect,aState,GetSlideText(aRow){+inttostr(aRow)});
   end;
+  if ((aCol=2) and (aRow>0)) then
+    DrawPictureInCell(aCol, aRow, aRect);
 end;
 
-function TMyDrawGrid.GetCell(ACol, ARow: Integer): TSlide;
+function TMyDrawGrid.GetCell(ARow: Integer): TSongPart;
 var
-   C: PCellProps;
+  C: PCellProps;
+  aCol: Integer = 2;
 begin
-  C:=Nil;
-  C:=FGrid.Celda[ACol,ARow];
+  C := Nil;
+  C := FGrid.Celda[ACol,ARow];
   if C = nil then
-    SetCell(ARow, ACol, TSlide.create());
-  C:=FGrid.Celda[ACol,ARow];
-  Result:=(C^ .Data as TSlide);
-  C:=Nil;
+    SetCell(ARow, TSongPart.create());
+  C := FGrid.Celda[ACol,ARow];
+  Result := (C^ .Data as TSongPart);
+  C := Nil;
 end;
 
-function TMyDrawGrid.GetSlideImage(ACol, ARow: Integer): TBGRABitmap;
+function TMyDrawGrid.GetSlideImage(ARow: Integer): TBGRABitmap;
 var
-   C: PCellProps;
+  C: PCellProps;
+  aCol: Integer = 2;
 begin
-  C:=Nil;
-  C:=FGrid.Celda[ACol,ARow];
+  C := Nil;
+  C := FGrid.Celda[ACol,ARow];
   if C = nil then
-    SetSlideImage(ACol, ARow, TBGRABitmap.Create(1,1,BGRABlack));
-  C:=FGrid.Celda[ACol,ARow];
-  Result:=(C^.Data as TSlide).Img;
-  C:=Nil;
+    SetSlideImage(ARow, TBGRABitmap.Create(1,1,BGRABlack));
+  C := FGrid.Celda[ACol,ARow];
+  Result := (C^.Data as TSongPart).FResImg;
+  C := Nil;
 end;
 
-procedure TMyDrawGrid.SetSlideText(ACol, ARow: Integer; aValue: string);
+procedure TMyDrawGrid.SetSlideFullImage(ARow: Integer; AValue: TBGRABitmap);
   procedure UpdateCell;
+  var
+    aCol: Integer = 2;
   begin
     if EditorMode and (ACol=FCol)and(ARow=FRow) and
       not (gfEditorUpdateLock in GridFlags) then
@@ -273,110 +292,222 @@ procedure TMyDrawGrid.SetSlideText(ACol, ARow: Integer; aValue: string);
   end;
 var
   C: PCellProps;
+  aCol: Integer = 2;
 begin
-  C:=Nil;
-  C:= FGrid.Celda[aCol,aRow];
+  C := Nil;
+  C :=  FGrid.Celda[aCol,aRow];
+  if C<>nil then
+  begin
+    FreeThenNil((C^.Data as TSongPart).FImg);
+    (C^.Data as TSongPart).FImg := AValue;
+  end
+  else
+  begin
+    New(C);
+    C^.Attr := nil;
+    C^.Text := nil;
+    C^.Data := TSongPart.create(AValue, 'Pending');
+    FGrid.Celda[ACol,ARow] := C;
+    UpdateCell;
+    FModified := True;
+  end;
+  C := Nil;
+end;
+
+function TMyDrawGrid.GetSlideFullImage(ARow: Integer): TBGRABitmap;
+var
+   C: PCellProps;
+  aCol: Integer = 2;
+begin
+  C := Nil;
+  C := FGrid.Celda[ACol,ARow];
+  if C = nil then
+    SetSlideFullImage(ARow, TBGRABitmap.Create(1,1,BGRABlack));
+  C := FGrid.Celda[ACol,ARow];
+  Result := (C^.Data as TSongPart).FImg;
+  C := Nil;
+end;
+
+procedure TMyDrawGrid.SetSlideThumb(ARow: Integer; AValue: TBGRABitmap);
+var
+  C: PCellProps;
+  aCol: Integer = 2;
+begin
+  C := Nil;
+  C := FGrid.Celda[aCol,aRow];
+  if C<>nil then
+  begin
+    FreeThenNil((C^.Data as TSongPart).FThumb);
+    (C^.Data as TSongPart).FThumb := AValue;
+  end;
+  C := Nil;
+end;
+
+function TMyDrawGrid.GetSlideThumb(ARow: Integer): TBGRABitmap;
+var
+  C: PCellProps;
+  aCol: Integer = 2;
+   //aRect: TRect;
+begin
+  //aRect := CellRect(ACol, ARow);
+  C := Nil;
+  C := FGrid.Celda[ACol,ARow];
+  if C = nil then
+  begin
+  SlideText[ARow] := ' ';
+  end;
+  C := FGrid.Celda[ACol,ARow];
+  if (C^.Data as TSongPart).FThumb = Nil then
+    SetSlideThumb(ARow, ResizeImage(GetSlideFullImage(aRow), (Self.DefaultColWidth)*2, (Self.DefaultRowHeight)*2, False));
+  Result := (C^.Data as TSongPart).FThumb;
+  C := Nil;
+end;
+
+procedure TMyDrawGrid.SetSlideText(ARow: Integer; aValue: string);
+  procedure UpdateCell;
+  var
+    aCol: Integer = 2;
+  begin
+    if EditorMode and (ACol=FCol)and(ARow=FRow) and
+      not (gfEditorUpdateLock in GridFlags) then
+    begin
+      EditorDoSetValue;
+    end;
+    InvalidateCell(ACol, ARow);
+  end;
+var
+  C: PCellProps;
+  aCol: Integer = 2;
+begin
+  C := Nil;
+  C :=  FGrid.Celda[aCol,aRow];
   if C<>nil then
     begin
       if C^.Text<>nil then
         StrDispose(C^.Text);
-      (C^.Data as TSlide).Text:=aValue;
+      (C^.Data as TSongPart).FText := aValue;
     end
   else
     begin
       New(C);
-      C^.Attr:=nil;
-      C^.Text:=nil;
-      C^.Data:=TSlide.create(aValue);
-      FGrid.Celda[ACol,ARow]:=C;
+      C^.Attr := nil;
+      C^.Text := nil;
+      C^.Data := TSongPart.create(aValue);
+      FGrid.Celda[ACol,ARow] := C;
       UpdateCell;
       FModified := True;
     end;
 end;
 
-function TMyDrawGrid.GetSlidePath(ACol, ARow: Integer): string;
+function TMyDrawGrid.GetSlidePath(ARow: Integer): string;
 var
    C: PCellProps;
+  aCol: Integer = 2;
 begin
-  C:=Nil;
-  C:= FGrid.Celda[aCol,aRow];
+  C := Nil;
+  C :=  FGrid.Celda[aCol,aRow];
   if C = nil then
-    SetSlidePath(ACol, ARow, '');
-  C:=FGrid.Celda[ACol,ARow];
-  Result:=TSlide(C^.Data).Path;
-  C:=Nil;
+    SetSlidePath(ARow, '');
+  C := FGrid.Celda[ACol,ARow];
+  Result := TSongPart(C^.Data).FPath;
+  C := Nil;
 end;
 
-procedure TMyDrawGrid.SetSlidePath(ACol, ARow: Integer; aValue: string);
+procedure TMyDrawGrid.SetSlidePath(ARow: Integer; aValue: string);
 var
   C: PCellProps;
+  aCol: Integer = 2;
 begin
-  C:=Nil;
-  C:= FGrid.Celda[aCol,aRow];
+  C := Nil;
+  C :=  FGrid.Celda[aCol,aRow];
   if C<>nil then
     begin
       if C^.Text<>nil then
         StrDispose(C^.Text);
-      (C^.Data as TSlide).Path:=aValue
+      (C^.Data as TSongPart).FPath := aValue
     end
   else
     begin
       New(C);
-      C^.Attr:=nil;
-      C^.Text:=nil;
-      C^.Data:=TSlide.create('','',aValue);
-      FGrid.Celda[ACol,ARow]:=C;
+      C^.Attr := nil;
+      C^.Text := nil;
+      C^.Data := TSongPart.create('','',aValue);
+      FGrid.Celda[ACol,ARow] := C;
       FModified := True
     end;
-    C:=Nil;
+    C := Nil;
 end;
 
-procedure TMyDrawGrid.SetSlideNote(ACol, ARow: Integer; aValue: string);
+procedure TMyDrawGrid.SetSlideNote(ARow: Integer; aValue: string);
 var
   C: PCellProps;
+  aCol: Integer = 2;
 begin
-  C:=Nil;
+  C := Nil;
 
-  C:=FGrid.Celda[aCol,aRow];
+  C := FGrid.Celda[aCol,aRow];
 
   if C<>nil then
-   (C^.Data as TSlide).Note := aValue
+   (C^.Data as TSongPart).FNote := aValue
   else
     begin
       New(C);
-      C^.Attr:=nil;
-      C^.Text:=nil;
-      C^.Data:=TSlide.create('', aValue);
-      FGrid.Celda[ACol,ARow]:=C;
+      C^.Attr := nil;
+      C^.Text := nil;
+      C^.Data := TSongPart.create('', aValue);
+      FGrid.Celda[ACol,ARow] := C;
       FModified := True
     end;
-  C:=Nil;
+  C := Nil;
 end;
 
-function TMyDrawGrid.GetSlideNote(ACol, ARow: Integer): string;
+function TMyDrawGrid.GetSlideNote(ARow: Integer): string;
 var
    C: PCellProps;
+  aCol: Integer = 2;
 begin
-  C:=Nil;
-  C:= FGrid.Celda[aCol,aRow];
+  C := Nil;
+  C :=  FGrid.Celda[aCol,aRow];
   if C = nil then
-    SetSlideNote(ACol, ARow, '');
-  C:=FGrid.Celda[ACol,ARow];
-  Result:=TSlide(C^.Data).Note;
-  C:=Nil;
+    SetSlideNote(ARow, '');
+  C := FGrid.Celda[ACol,ARow];
+  Result := TSongPart(C^.Data).FNote;
+  C := Nil;
+end;
+
+procedure TMyDrawGrid.ResizeSlideList(AWidth, AHeight: Integer);
+var i: Integer;
+begin
+  for i := 1 to RowCount-1 do
+    SlideImage[i] := ResizeImage(SlideFullImage[i], AWidth, AHeight);
+end;
+
+procedure TMyDrawGrid.ResizeSlide(AWidth, AHeight, aRow: Integer);
+begin
+  SlideImage[arow] := ResizeImage(SlideFullImage[arow], AWidth, AHeight);
 end;
 
 procedure TMyDrawGrid.DrawTextInCell(aCol, aRow: Integer; aRect: TRect;
   aState: TGridDrawState);
-var bmp: TBGRABitmap;
+//var bmp: TBGRABitmap;
 begin
-  {bmp:=Nil;
-  bmp:=TBGRABitmap.Create(aRect.Right-aRect.Left-1, aRect.Bottom-aRect.Top-1);
+  {bmp := Nil;
+  bmp := TBGRABitmap.Create(aRect.Right-aRect.Left-1, aRect.Bottom-aRect.Top-1);
 
   bmp.CanvasBGRA.TextRect(Rect(1,1,bmp.Width,bmp.Height),0,0,GetSlideText(aCol, aRow));
   bmp.Draw(Canvas, aRect);
   FreeThenNil(bmp);  }
-  Canvas.TextRect(aRect,aRect.Left,aRect.Top,GetSlideText(aCol, aRow));
+  Canvas.TextRect(Rect(aRect.Left, aRect.Top, (aRect.Right-((aRect.Right-aRect.Left) div 2)),
+  aRect.Bottom-((aRect.Bottom-aRect.Top) div 2)),aRect.Left,aRect.Top,GetSlideText(aRow));
+end;
+
+procedure TMyDrawGrid.DrawPictureInCell(aCol, aRow: Integer; aRect: TRect);
+var bitmap: TBGRABitmap;
+begin
+  bitmap:=Nil;
+  bitmap := ResizeImage(GetSlideThumb(aRow), (aRect.Right-aRect.Left), (aRect.Bottom-aRect.Top));
+  bitmap.Draw(Canvas, aRect);
+  FreeThenNil(bitmap);
 end;
 
 function TMyDrawGrid.CellNeedsCheckboxBitmaps(const aCol, aRow: Integer): boolean;
@@ -409,44 +540,26 @@ begin
             (ACell.y>=FixedRows);
 end;
 
-procedure TMyDrawGrid.SetSlideImage(ACol, ARow: Integer; AValue: TBGRABitmap);
-  procedure UpdateCell;
-  begin
-    if EditorMode and (ACol=FCol)and(ARow=FRow) and
-      not (gfEditorUpdateLock in GridFlags) then
-    begin
-      EditorDoSetValue;
-    end;
-    InvalidateCell(ACol, ARow);
-  end;
+procedure TMyDrawGrid.SetSlideImage(ARow: Integer; AValue: TBGRABitmap);
 var
   C: PCellProps;
-  S: TSlide;
+  aCol: Integer = 2;
 begin
-  S:=Nil;
-  C:=Nil;
-  C:= FGrid.Celda[aCol,aRow];
+  C := Nil;
+  C :=  FGrid.Celda[aCol,aRow];
   if C<>nil then
   begin
-    FreeThenNil((C^.Data as TSlide).Img);
-    (C^.Data as TSlide).Img:=AValue;
-  end
-  else
-  begin
-    New(C);
-    C^.Attr:=nil;
-    C^.Text:=nil;
-    C^.Data:=TSlide.create(AValue, 'Pending');
-    FGrid.Celda[ACol,ARow]:=C;
-    UpdateCell;
-    FModified := True;
+    FreeThenNil((C^.Data as TSongPart).FResImg);
+    (C^.Data as TSongPart).FResImg := AValue;
   end;
-  C:=Nil;
-  S:=Nil;
+
+  C := Nil;
 end;
 
-function TMyDrawGrid.GetSlideText(ACol, ARow: Integer): string;
+function TMyDrawGrid.GetSlideText(ARow: Integer): string;
 procedure UpdateCell;
+var
+  aCol: Integer = 2;
 begin
   if EditorMode and (ACol=FCol)and(ARow=FRow) and
     not (gfEditorUpdateLock in GridFlags) then
@@ -455,19 +568,22 @@ begin
   end;
   InvalidateCell(ACol, ARow);
 end;
-  var
-   C: PCellProps;
+var
+  C: PCellProps;
+  aCol: Integer = 2;
 begin
-  C:=FGrid.Celda[ACol,ARow];
+  C := FGrid.Celda[ACol,ARow];
   if C = nil then
-    SetSlideText(ACol, ARow, '');
-  C:=FGrid.Celda[ACol,ARow];
-  Result:=TSlide(C^.Data).Text;
-  C:=Nil;
+    SetSlideText(ARow, '');
+  C := FGrid.Celda[ACol,ARow];
+  Result := TSongPart(C^.Data).FText;
+  C := Nil;
 end;
 
-procedure TMyDrawGrid.SetCell(ACol, ARow: Integer; const AValue: TSlide);
+procedure TMyDrawGrid.SetCell(ARow: Integer; const AValue: TSongPart);
   procedure UpdateCell;
+  var
+    aCol: Integer = 2;
   begin
     if EditorMode and (ACol=FCol)and(ARow=FRow) and
       not (gfEditorUpdateLock in GridFlags) then
@@ -478,15 +594,16 @@ procedure TMyDrawGrid.SetCell(ACol, ARow: Integer; const AValue: TSlide);
   end;
 var
   C: PCellProps;
+  aCol: Integer = 2;
 begin
-  C:= FGrid.Celda[ACol,ARow];
+  C :=  FGrid.Celda[ACol,ARow];
   if C<>nil then
     begin
       if C^.Text<>nil then
         StrDispose(C^.Text);
       if C^.Data<>nil then
         FreeThenNil(C^.Data);
-      C^.Data:=AValue;
+      C^.Data := AValue;
 
       UpdateCell;
       FModified := True;
@@ -494,14 +611,14 @@ begin
   else
     begin
       New(C);
-      C^.Data:=AValue;
-      C^.Text:=nil;
-      C^.Attr:=nil;
-      FGrid.Celda[ACol,ARow]:=C;
+      C^.Data := AValue;
+      C^.Text := nil;
+      C^.Attr := nil;
+      FGrid.Celda[ACol,ARow] := C;
       UpdateCell;
       FModified := True;
     end;
-    C:=Nil;
+    C := Nil;
 end;
 
 { TMyDrawGrid }

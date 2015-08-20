@@ -4,16 +4,18 @@ object Form1: TForm1
   Top = 204
   Width = 486
   Caption = 'Form1'
-  ClientHeight = 364
+  ClientHeight = 353
   ClientWidth = 486
   Menu = MainMenu1
-  LCLVersion = '1.2.6.0'
+  OnCreate = FormCreate
+  LCLVersion = '1.4.0.1'
   object Grid: TMyDrawGrid
     Left = 0
-    Height = 364
+    Height = 353
     Top = 0
-    Width = 232
+    Width = 264
     Align = alLeft
+    Anchors = [akTop, akLeft, akRight, akBottom]
     AutoFillColumns = True
     ColCount = 3
     ExtendedSelect = False
@@ -21,8 +23,8 @@ object Form1: TForm1
     TabOrder = 0
     ColWidths = (
       64
-      82
-      82
+      98
+      98
     )
   end
   object MainMenu1: TMainMenu
@@ -32,75 +34,93 @@ object Form1: TForm1
       Caption = 'File'
       object MenuItem2: TMenuItem
         Caption = 'New'
+        Enabled = False
       end
       object MenuItem3: TMenuItem
         Caption = '-'
+        Enabled = False
       end
       object MenuItem4: TMenuItem
-        Caption = 'Open'
+        Action = TAOpen
       end
       object MenuItem5: TMenuItem
-        Caption = 'Open Recent'
+        Action = TAOpenScript
       end
       object MenuItem6: TMenuItem
-        Caption = 'Save'
+        Action = TASave
       end
       object MenuItem7: TMenuItem
-        Caption = 'Save As'
+        Action = TASaveAs
       end
       object MenuItem8: TMenuItem
-        Caption = 'Close'
+        Action = TAClose
       end
       object MenuItem9: TMenuItem
         Caption = '-'
+        Enabled = False
       end
       object MenuItem10: TMenuItem
-        Caption = 'Exit'
+        Action = TAExit
       end
     end
     object MenuItem11: TMenuItem
       Caption = 'Edit'
       object MenuItem12: TMenuItem
         Caption = 'Undo'
+        Enabled = False
       end
       object MenuItem13: TMenuItem
         Caption = 'Redo'
+        Enabled = False
       end
       object MenuItem14: TMenuItem
         Caption = '-'
+        Enabled = False
       end
       object MenuItem15: TMenuItem
         Caption = 'Cut'
+        Enabled = False
       end
       object MenuItem16: TMenuItem
         Caption = 'Copy'
+        Enabled = False
       end
       object MenuItem17: TMenuItem
         Caption = 'Paste'
+        Enabled = False
       end
       object MenuItem18: TMenuItem
         Caption = '-'
+        Enabled = False
       end
       object MenuItem19: TMenuItem
         Caption = 'Find'
+        Enabled = False
       end
       object MenuItem20: TMenuItem
         Caption = 'Find Next'
+        Enabled = False
+      end
+      object MenuItem26: TMenuItem
+        Caption = 'New Item26'
       end
     end
     object MenuItem21: TMenuItem
       Caption = 'Help'
       object MenuItem22: TMenuItem
         Caption = 'Contents'
+        Enabled = False
       end
       object MenuItem23: TMenuItem
         Caption = 'Tutorial'
+        Enabled = False
       end
       object MenuItem24: TMenuItem
         Caption = '-'
+        Enabled = False
       end
       object MenuItem25: TMenuItem
-        Caption = 'About'
+        Action = TAAbout
       end
     end
   end
@@ -110,6 +130,7 @@ object Form1: TForm1
     object TAOpen: TAction
       Category = 'File'
       Caption = 'Open...'
+      OnExecute = TAOpenExecute
       ShortCut = 24655
     end
     object TANext: TAction
@@ -123,9 +144,9 @@ object Form1: TForm1
       Caption = 'TAPrevious'
       ShortCut = 8224
     end
-    object Editable: TAction
+    object TAEditable: TAction
       Category = 'Settings'
-      Caption = 'Editable'
+      Caption = 'TAEditable'
       ShortCut = 24645
     end
     object TAClose: TAction
@@ -135,6 +156,7 @@ object Form1: TForm1
     object TAExit: TAction
       Category = 'File'
       Caption = 'E&xit'
+      OnExecute = TAExitExecute
       ShortCut = 32883
     end
     object TASave: TAction
@@ -153,5 +175,17 @@ object Form1: TForm1
       Caption = 'Save as...'
       ShortCut = 24659
     end
+    object TAAbout: TAction
+      Caption = 'About'
+      OnExecute = TAAboutExecute
+    end
+    object TASettings: TAction
+      Category = 'Settings'
+      Caption = 'Settings'
+    end
+  end
+  object OpenDialog1: TOpenDialog
+    left = 328
+    top = 336
   end
 end

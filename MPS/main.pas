@@ -6,15 +6,17 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  ActnList, MyDrawGrid;
+  ActnList, data_hub, MyDrawGrid;
 
 type
 
   { TForm1 }
 
   TForm1 = class(TForm)
+    OpenDialog1: TOpenDialog;
+    TASettings: TAction;
     ActionList1: TActionList;
-    Editable: TAction;
+    TAEditable: TAction;
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
     MenuItem10: TMenuItem;
@@ -34,6 +36,7 @@ type
     MenuItem23: TMenuItem;
     MenuItem24: TMenuItem;
     MenuItem25: TMenuItem;
+    MenuItem26: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
@@ -42,6 +45,7 @@ type
     MenuItem8: TMenuItem;
     MenuItem9: TMenuItem;
     Grid: TMyDrawGrid;
+    TAAbout: TAction;
     TAClose: TAction;
     TAExit: TAction;
     TANext: TAction;
@@ -50,6 +54,10 @@ type
     TAPrevious: TAction;
     TASave: TAction;
     TASaveAs: TAction;
+    procedure FormCreate(Sender: TObject);
+    procedure TAAboutExecute(Sender: TObject);
+    procedure TAExitExecute(Sender: TObject);
+    procedure TAOpenExecute(Sender: TObject);
   private
     { private declarations }
   public
@@ -62,6 +70,28 @@ var
 implementation
 
 {$R *.lfm}
+
+{ TForm1 }
+
+procedure TForm1.TAExitExecute(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TForm1.TAOpenExecute(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.TAAboutExecute(Sender: TObject);
+begin
+  About();
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  //InitVars();
+end;
 
 end.
 

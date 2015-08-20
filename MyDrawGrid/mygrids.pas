@@ -5,18 +5,28 @@ unit mygrids;
 interface
 
 uses
-  Classes, SysUtils, PasLibVlcClassUnit, BGRABitmap, BGRABitmapTypes, LCLProc;
+  Classes, SysUtils, PasLibVlcClassUnit, BGRABitmap, BGRABitmapTypes, LCLProc, contnrs;
 type
- { TSlide }
-
- TSlide=class(TObject)
+ { TSongPart }
+ TSongType = (Slide, Intro, Verse, PreChorus, Chorus, Bridge, Conclusion, Solo);
+ PSong = ^TSong;
+ TSong = class(TObjectList)
    private
    protected
    public
-   Img: TBGRABitmap;
-   Text, Note, Path: String;
-   IsVideo: Boolean;
+ end;
+
+ TSongPart=class(TObject)
+   private
+   protected
+   public
+   ParentSong: PSong;
+   FImg, FResImg, FThumb: TBGRABitmap;
+   FText, FNote, FPath: String;
+   FIsVideo, First, Last: Boolean;
+   FSongType: TSongType;
    constructor create();
+   constructor create(ParSong: PSong);
    constructor create(aColor:TBGRAPixel);
    constructor create(aText: string; aNote: string=''; MediaPath: string='');
    constructor create(aImg: TBGRABitmap; MediaPath: String);
@@ -25,60 +35,93 @@ type
 end;
 implementation
 
-{ TSlide }
+{ TSongPart }
 
-constructor TSlide.create;
+constructor TSongPart.create;
 begin
-    Img:=TBGRABitmap.Create(1,1, BGRABlack);
-    Note:='';
-    Text:='';
-    isvideo:=False;
-    Path := 'black.png';
+  FImg := TBGRABitmap.Create(1,1, BGRABlack);
+  ParentSong := Nil;
+  FResImg := Nil;
+  FThumb := Nil;
+  FNote := '';
+  FText := '';
+  FIsVideo := False;
+  FPath := 'black.png';
 end;
 
-constructor TSlide.create(aImg: TBGRABitmap; MediaPath: String);
+constructor TSongPart.create(ParSong: PSong);
 begin
-    Img:=aImg;
-    Note:='';
-    Text:='';
-    isvideo:=False;
-    Path := MediaPath;
+  ParentSong := ParSong;
+  FImg := TBGRABitmap.Create(1,1, BGRABlack);
+  FResImg := Nil;
+  FThumb := Nil;
+  FNote := '';
+  FText := '';
+  FIsVideo := False;
+  FPath := 'black.png';
 end;
 
-constructor TSlide.create(aText, aNote, MediaPath: string);
+constructor TSongPart.create(aImg: TBGRABitmap; MediaPath: String);
 begin
-  Img:=TBGRABitmap.Create(1, 1, BGRABlack);
-  Note:=aNote;
-  Text:=aText;
-  isvideo:=True;
-  Path := MediaPath;
+  FImg := aImg;
+  ParentSong := Nil;
+  FThumb := Nil;
+  FResImg := Nil;
+  FNote := '';
+  FText := '';
+  FIsVideo := False;
+  FPath := MediaPath;
 end;
 
-constructor TSlide.create(aText, aNote, MediaPath: string; aImg: TBGRABitmap);
+constructor TSongPart.create(aText, aNote, MediaPath: string);
 begin
-  Img:=aImg;
-  Note:=aNote;
-  Text:=aText;
-  isvideo:=False;
-  Path := MediaPath;
+  FImg := TBGRABitmap.Create(1, 1, BGRABlack);
+  ParentSong := Nil;
+  FThumb := Nil;
+  FResImg := Nil;
+  FNote := aNote;
+  FText := aText;
+  FIsVideo := True;
+  FPath := MediaPath;
 end;
 
-constructor TSlide.create(aColor: TBGRAPixel);
+constructor TSongPart.create(aText, aNote, MediaPath: string; aImg: TBGRABitmap);
 begin
-  Img:=TBGRABitmap.Create(1,1, aColor);
-  Note:='';
-  Text:='';
-  isvideo:=False;
-  Path := 'black.png';
+  FImg := aImg;
+  ParentSong := Nil;
+  FThumb := Nil;
+  FResImg := Nil;
+  FNote := aNote;
+  FText := aText;
+  FIsVideo := False;
+  FPath := MediaPath;
 end;
 
-destructor TSlide.Destroy;
+constructor TSongPart.create(aColor: TBGRAPixel);
 begin
-  img.Free;
-  Note:='';
-  Text:='';
-  isvideo:=False;
-  Path := '';
+  FImg := TBGRABitmap.Create(1,1, aColor);
+  ParentSong := Nil;
+  FThumb := Nil;
+  FResImg := Nil;
+  FNote := '';
+  FText := '';
+  FIsVideo := False;
+  FPath := 'black.png';
+end;
+
+destructor TSongPart.Destroy;
+begin
+  if FImg<>Nil then
+    FImg.Free;
+  if FResImg<>Nil then
+    FResImg.Free;
+  if FThumb<>Nil then
+    FThumb.Free;
+  Dispose(PSong, Destroy);
+  FNote := '';
+  FText := '';
+  FIsVideo := False;
+  FPath := '';
   Inherited Destroy;
 end;
 
