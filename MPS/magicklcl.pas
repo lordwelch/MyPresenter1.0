@@ -97,4 +97,3 @@ finalization;
   MagickWandTerminus;
 
 end.
-
