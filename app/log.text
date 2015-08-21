@@ -1,0 +1,56 @@
+TRUE
+Terminate
+17
+Supported Images|*.jpg;*.jpeg;*.png;*.gif;*.pcx;*.bmp;*.ico;*.cur;*.pdn;*.lzp;*.ora;*.psd;*.tga;*.tif;*.tiff;*.xwd;*.xpm
+
+create thread
+frmLogTApplication.HandleException Access violation
+  Stack trace:
+  $000000000042E117
+  $000000000045032F line 980 of include/customform.inc
+  $000000000044DA93 line 180 of include/customform.inc
+  $000000000044DB07 line 194 of include/customform.inc
+  $000000000042E11A
+  $00000000004480CB line 1841 of forms.pp
+  $0exception at 000[FORMS.PP] ExceptionOccurred 
+  Sender=EAccessViolation
+  Exception=Access violation
+  Stack trace:
+  $000000000042E117
+  $000000000049B541
+  $00000000006AE339 line 4849 of include/control.inc
+  $00000000006913FE line 6487 of include/wincontrol.inc
+  $00000000006B1A3D line 54 of include/customcontrol.inc
+  $000000000044C315 line 290 of include/scrollingwincontrol.inc
+  $000000000044DBF5 line 207 of include/customform.inc
+  $000000000042E11A
+  $00000000004480CB line 1841 of forms.pp
+  $0000000000433427
+TApplication.HandleException Access violation
+  Stack trace:
+  $000000000042E117
+  $000000000049B541
+  $00000000006AE339 line 4849 of include/control.inc
+  $00000000006913FE line 6487 of include/wincontrol.inc
+  $00000000006B1A3D line 54 of include/customcontrol.inc
+  $000000000044C315 line 290 of include/scrollingwincontrol.inc
+  $000000000044DBF5 line 207 of include/customform.inc
+  $000000000042E11A
+  $00000000004480CB line 1841 of forms.pp
+  $0000000000433427
+$00000000006B1A3D line 54 of include/customcontrol.inc
+  $000000000044C315 line 29exception at 000000000042E117:
+Access violation.
+044DBF5 line 207 of include/customform.inc
+  $000000000042E11A
+  $00000000004480CB line 1841 of forms.pp
+  $0000000000433427
+TApplication.HandleException External suspending is not supported under *nix/posix, so trying to resume from from an external suspension should never happen
+  Stack trace:
+  $0000000000497D88
+  $000000000045032F line 980 of include/customform.inc
+  $000000000044DA93 line 180 of include/customform.inc
+  $000000000044DB07 line 194 of include/customform.inc
+  $000000000049B541
+  $0000000exception at 0000000000497D88:
+External suspending is not supported under *nix/posix, so trying to resume from from an external suspension should never happen.
