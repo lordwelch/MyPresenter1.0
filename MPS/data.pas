@@ -29,6 +29,7 @@ procedure AddSlide(sld: TSongPart);
 procedure setSlide(i: Integer);
 procedure showProjection();
 procedure showSong();
+procedure saveSong();
 
 implementation
 uses main, projection;
@@ -207,6 +208,11 @@ end;
 procedure showSong;
 begin
   frmSong.Show;
+end;
+
+procedure saveSong;
+begin
+
 end;
 
 end.

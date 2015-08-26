@@ -10,10 +10,17 @@ type
  { TSongPart }
  TSongType = (Slide, Intro, Verse, PreChorus, Chorus, Bridge, Conclusion, Solo);
  PSong = ^TSong;
- TSong = class(TObjectList)
+ TSong = class(TFPObjectList)
    private
    protected
+   commentI: IntegerArray;
    public
+   themes, comments: TStrings;
+   reseaseDate, modifyDate, copyDate: TDate;
+   version: Double;
+   ver, lang, copyrighht, key, vOrder: String;
+   keywords, lines, authors: TStrings;
+   ccliNo, transpo: Integer;
  end;
 
  TSongPart=class(TObject)
@@ -22,7 +29,7 @@ type
    public
    ParentSong: PSong;
    FImg, FResImg, FThumb: TBGRABitmap;
-   FText, FNote, FPath: String;
+   FText, FNote, FPath, FComments: String;
    FIsVideo, First, Last: Boolean;
    FSongType: TSongType;
    constructor create();
@@ -117,7 +124,7 @@ begin
     FResImg.Free;
   if FThumb<>Nil then
     FThumb.Free;
-  Dispose(PSong, Destroy);
+  //Dispose(PSong);
   FNote := '';
   FText := '';
   FIsVideo := False;

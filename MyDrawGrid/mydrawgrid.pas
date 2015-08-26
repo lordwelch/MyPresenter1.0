@@ -510,14 +510,6 @@ begin
   FreeThenNil(bitmap);
 end;
 
-procedure TMyDrawGrid.DrawPictureInCell(aCol, aRow: Integer; aRect: TRect);
-var bitmap: TBGRABitmap;
-begin
-  bitmap:=ResizeImage(GetSlideImage(aCol, aRow), (aRect.Right-aRect.Left), (aRect.Bottom-aRect.Top));
-  bitmap.Draw(Canvas, aRect);
-  FreeThenNil(bitmap);
-end;
-
 function TMyDrawGrid.CellNeedsCheckboxBitmaps(const aCol, aRow: Integer): boolean;
 var
   C: TGridColumn;

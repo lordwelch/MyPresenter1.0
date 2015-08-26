@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   ComCtrls, StdCtrls, EditBtn, Buttons, MyDrawGrid, BGRAResizeSpeedButton, data,
-  ActnList, Menus;
+  ActnList, Menus, treegrid;
 
 type
 
@@ -41,6 +41,7 @@ type
     OpenImgDialog: TOpenDialog;
     PageControl1: TPageControl;
     Panel1: TPanel;
+    TreeView1: TTreeGrid;
     procedure Action1Execute(Sender: TObject);
     procedure BGRAResizeSpeedButton1Click(Sender: TObject);
     procedure BGRAResizeSpeedButton2Click(Sender: TObject);
