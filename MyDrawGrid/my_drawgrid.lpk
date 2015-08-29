@@ -36,6 +36,7 @@
       </Item4>
       <Item5>
         <Filename Value="treegrid.pas"/>
+        <HasRegisterProc Value="True"/>
         <UnitName Value="treegrid"/>
       </Item5>
     </Files>
