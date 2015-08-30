@@ -1,12 +1,12 @@
 object Form1: TForm1
-  Left = 584
+  Left = 580
   Height = 649
-  Top = 68
+  Top = 117
   Width = 766
   ActiveControl = Notebook1
   AllowDropFiles = True
   Caption = 'Form1'
-  ClientHeight = 626
+  ClientHeight = 629
   ClientWidth = 766
   Menu = MainMenu1
   OnDropFiles = FormDropFiles
@@ -15,7 +15,7 @@ object Form1: TForm1
   LCLVersion = '1.5'
   object IGrid: TMyDrawGrid
     Left = 136
-    Height = 626
+    Height = 629
     Top = 0
     Width = 400
     Align = alClient
@@ -30,7 +30,7 @@ object Form1: TForm1
       end    
       item
         Title.Caption = ''
-        Width = 174
+        Width = 170
       end>
     DefaultRowHeight = 80
     ExtendedSelect = False
@@ -44,22 +44,22 @@ object Form1: TForm1
     ColWidths = (
       64
       160
-      174
+      170
     )
   end
   object Panel1: TPanel
     Left = 536
-    Height = 626
+    Height = 629
     Top = 0
     Width = 230
     Align = alRight
     Caption = 'Panel1'
-    ClientHeight = 626
+    ClientHeight = 629
     ClientWidth = 230
     TabOrder = 1
     object EditButton1: TEditButton
       Left = 40
-      Height = 25
+      Height = 22
       Top = 312
       Width = 103
       NumbersOnly = True
@@ -14835,13 +14835,12 @@ object Form1: TForm1
       }
       OnClick = BGRAResizeSpeedButton2Click
     end
-    object TreeView1: TTreeGrid
+    object TreeView1: TTreeView
       Left = 1
       Height = 295
       Top = 1
       Width = 228
-      Align = alTop
-      DefaultItemHeight = 18
+      DefaultItemHeight = 16
       TabOrder = 3
     end
   end
@@ -14855,7 +14854,7 @@ object Form1: TForm1
   end
   object PageControl1: TPageControl
     Left = 0
-    Height = 626
+    Height = 629
     Top = 0
     Width = 136
     Align = alLeft

@@ -17,7 +17,7 @@
         </Debugging>
       </Linking>
     </CompilerOptions>
-    <Files Count="5">
+    <Files Count="4">
       <Item1>
         <Filename Value="mydrawgrid.pas"/>
         <HasRegisterProc Value="True"/>
@@ -34,11 +34,6 @@
       <Item4>
         <AddToUsesPkgSection Value="False"/>
       </Item4>
-      <Item5>
-        <Filename Value="treegrid.pas"/>
-        <HasRegisterProc Value="True"/>
-        <UnitName Value="treegrid"/>
-      </Item5>
     </Files>
     <RequiredPkgs Count="4">
       <Item1>
