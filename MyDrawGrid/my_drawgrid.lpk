@@ -17,7 +17,7 @@
         </Debugging>
       </Linking>
     </CompilerOptions>
-    <Files Count="4">
+    <Files Count="5">
       <Item1>
         <Filename Value="mydrawgrid.pas"/>
         <HasRegisterProc Value="True"/>
@@ -34,20 +34,28 @@
       <Item4>
         <AddToUsesPkgSection Value="False"/>
       </Item4>
+      <Item5>
+        <Filename Value="mydrawtree.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="myDrawTree"/>
+      </Item5>
     </Files>
-    <RequiredPkgs Count="4">
+    <RequiredPkgs Count="5">
       <Item1>
-        <PackageName Value="PasLibVlcPlayer"/>
+        <PackageName Value="virtualtreeview_package"/>
       </Item1>
       <Item2>
-        <PackageName Value="BGRABitmapPack"/>
+        <PackageName Value="PasLibVlcPlayer"/>
       </Item2>
       <Item3>
-        <PackageName Value="LCL"/>
+        <PackageName Value="BGRABitmapPack"/>
       </Item3>
       <Item4>
-        <PackageName Value="FCL"/>
+        <PackageName Value="LCL"/>
       </Item4>
+      <Item5>
+        <PackageName Value="FCL"/>
+      </Item5>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>
